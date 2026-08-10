@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Foreclosure Navigator — Harris County (Concept Demo)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' rx='3' fill='%231C5D99'/%3E%3Crect x='10' y='9' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='14' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='19' width='8' height='2.5' rx='1' fill='white'/%3E%3C/svg%3E">
 </head>
 <body>
 
@@ -73,7 +74,16 @@
 
   <section aria-labelledby="calcH">
     <h2 id="calcH">Your deadline chain</h2>
-    <p class="sub">Enter the date on the notice you received. The chain below is computed from the Texas Property Code's minimum timelines — the same statutory clock the trustee runs, read back in plain language.</p>
+    <p class="sub">Tell it which notice you received and its dates — or click a sample scenario and watch the whole page recompute. The chain below is computed from the Texas Property Code's minimum timelines — the same statutory clock the trustee runs, read back in plain language.</p>
+    <div class="scenario-strip">
+      <p class="scenario-label">Try a sample scenario — one click, no typing</p>
+      <div class="btnrow">
+        <button type="button" class="abtn scenario-btn" data-scenario="frcl-2290">Real notice: instrument FRCL-2026-2290</button>
+        <button type="button" class="abtn scenario-btn" data-scenario="frcl-3493">Real notice: instrument FRCL-2026-3493</button>
+        <button type="button" class="abtn ghost scenario-btn" data-scenario="hypothetical">Hypothetical: notice of default received last week</button>
+      </div>
+      <p class="scenario-note">The first two are real recorded instruments from the Harris County Clerk's public foreclosure search — only their public file dates and printed sale date are used; homeowner details excluded by design. The third is HYPOTHETICAL: a made-up notice of default dated one week ago, so you can see the projected chain move.</p>
+    </div>
     <div class="calc">
       <div class="panel">
         <p style="margin:0 0 4px"><span class="ai-badge">AI runs here in production</span></p>
@@ -140,6 +150,7 @@
         <div class="code-note"><strong>How this works:</strong> attorney-reviewed template language with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.</div>
         <div class="polish-box">
           <div class="btnrow" style="align-items:center">
+            <button id="sampleWordsBtn" type="button" class="abtn ghost">Load sample words</button>
             <button id="polishBtn" type="button" class="abtn">Polish with AI (demo)</button>
             <span class="ai-badge">Live model call — optional</span>
           </div>

@@ -11,6 +11,7 @@ import { initAuctionCalendar } from "./sections/auction-calendar";
 import { initDeadlineChain } from "./sections/deadline-chain";
 import { initDocumentDesk } from "./sections/document-desk";
 import { initPolishDemo } from "./sections/polish-demo";
+import { initSampleScenarios } from "./sections/sample-scenarios";
 import { initStepper } from "./sections/stepper";
 import { initTrackSelector } from "./sections/track-selector";
 
@@ -20,4 +21,5 @@ initDeadlineChain();
 initActionKits();
 initDocumentDesk();
 initPolishDemo();
+initSampleScenarios();
 initAuctionCalendar();

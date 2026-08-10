@@ -97,7 +97,9 @@ export function initPolishDemo(): void {
     const left = document.createElement("div");
     left.append(h4("Your words (original)"), tpl(original));
     const right = document.createElement("div");
-    right.append(h4(data.flagged ? "Returned unchanged" : "AI-polished"), tpl(data.polished));
+    const polishedEl = tpl(data.polished);
+    if (!data.flagged) polishedEl.classList.add("polished-ok");
+    right.append(h4(data.flagged ? "Returned unchanged" : "AI-polished"), polishedEl);
     row.append(left, right);
 
     const nodes: HTMLElement[] = [row];
