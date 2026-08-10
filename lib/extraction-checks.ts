@@ -147,7 +147,11 @@ export function validateExtraction(
  * and Lakeview" as co-trustees) still fails. */
 export interface FieldExpectation {
   required: RegExp[];
+  /** Curated field-specific allowlist for words of 3+ letters. */
   allowedWords: string[];
+  /** Digit runs the field may contain ("11", "00", "3"); anything else is
+   * an invention. Empty means the field carries no digits. */
+  allowedDigits: string[];
 }
 
 /** Ground truth for a fixed sample, field by field. null means the
@@ -168,7 +172,11 @@ function fieldFaithful(value: unknown, exp: FieldExpectation): boolean {
   if (typeof value !== "string" || value.length === 0) return false;
   if (!exp.required.every((re) => re.test(value))) return false;
   const words = value.toLowerCase().match(/[a-z]{3,}/g) ?? [];
-  return words.every((w) => exp.allowedWords.includes(w));
+  if (!words.every((w) => exp.allowedWords.includes(w))) return false;
+  // Digit runs are guarded too: "999 hours after" fails even though every
+  // word passes.
+  const digits = value.match(/\d+/g) ?? [];
+  return digits.every((d) => exp.allowedDigits.includes(d));
 }
 
 /** Field-exact fidelity checks against a fixed sample's known ground

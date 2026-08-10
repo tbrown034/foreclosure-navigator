@@ -29,12 +29,12 @@ const MONTH_NAMES = [
   "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
 ];
 
-/** Number and amount words that state quantities without digits. The page
- * promises rejection of ANY number the reader did not type, so "one" and
- * "zero" are included even though they cost occasional false rejections
- * ("one lump sum") — a false rejection returns the reader's original
- * text, which is always safe. The prompt below tells the model not to
- * introduce number words, which keeps benign flags rare. */
+/** Number and amount words that state quantities without digits — the
+ * finite guarded set the page discloses. "one" and "zero" are included
+ * even though they cost occasional false rejections ("one lump sum") — a
+ * false rejection returns the reader's original text, which is always
+ * safe. The prompt below tells the model not to introduce number words,
+ * which keeps benign flags rare. */
 const NUMBER_WORDS = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
   "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
