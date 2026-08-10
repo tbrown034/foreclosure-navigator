@@ -1,0 +1,20 @@
+{
+  "name": "foreclosure-navigator",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Harris County foreclosure deadline navigator — newsroom reader-tool concept demo",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.3.6",
+    "typescript": "^5.8.3",
+    "vite": "^7.1.2",
+    "vitest": "^3.2.4"
+  }
+}
