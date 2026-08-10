@@ -39,7 +39,7 @@ const NUMBER_WORDS = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
   "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
   "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
-  "hundred", "thousand", "million", "percent", "dollar", "dollars", "cent", "cents",
+  "hundred", "thousand", "million", "billion", "trillion", "dozen", "percent", "dollar", "dollars", "cent", "cents",
 ];
 
 const wordInText = (word: string, text: string): boolean => new RegExp(`\\b${word}\\b`, "i").test(text);

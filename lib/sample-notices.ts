@@ -38,10 +38,29 @@ export const SAMPLE_NOTICES: readonly SampleNotice[] = [
     basedOn: "FRCL-2026-2290",
     clerk: { fileDate: "2026-04-02", saleDate: "2026-09-01" },
     expected: {
-      trustees: [/auction\.com/i],
-      lender: null, // the sample's mortgagee lines are [REMOVED]
-      servicer: /lakeview/i,
-      time: /11(:00)?\s*a\.?m\.?/i,
+      notice_type: {
+        required: [/notice/i, /trustee/i, /sale/i],
+        allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
+      },
+      sale_time_window: {
+        required: [/11(:00)?\s*a\.?m\.?/i],
+        allowedWords: ["begin", "beginning", "not", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
+      },
+      sale_location: {
+        required: [/bayou\s+city\s+event\s+center/i],
+        allowedWords: ["bayou", "city", "event", "center", "magnolia", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
+      },
+      county: { required: [/harris/i], allowedWords: ["harris", "county", "texas"] },
+      trustee_or_substitute: {
+        required: [/auction\.com/i],
+        allowedWords: ["auction", "com", "llc"],
+      },
+      deed_of_trust_date: null,
+      lender_or_mortgagee: null, // the sample's mortgagee lines are [REMOVED]
+      servicer_if_stated: {
+        required: [/lakeview/i],
+        allowedWords: ["lakeview", "loan", "servicing", "llc"],
+      },
     },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-2290, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
 
@@ -72,10 +91,32 @@ ASSERT AND PROTECT YOUR RIGHTS AS A MEMBER OF THE ARMED FORCES OF THE UNITED STA
     basedOn: "FRCL-2026-3493",
     clerk: { fileDate: "2026-05-14", saleDate: "2026-09-01" },
     expected: {
-      trustees: [/auction\.com/i, /barrett\s+daffin/i],
-      lender: /midfirst/i,
-      servicer: /midland/i,
-      time: /10(:00)?\s*a\.?m\.?/i,
+      notice_type: {
+        required: [/notice/i, /trustee/i, /sale/i],
+        allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
+      },
+      sale_time_window: {
+        required: [/10(:00)?\s*a\.?m\.?/i],
+        allowedWords: ["begin", "beginning", "not", "earlier", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
+      },
+      sale_location: {
+        required: [/bayou\s+city\s+event\s+center/i],
+        allowedWords: ["bayou", "city", "event", "center", "magnolia", "south", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
+      },
+      county: { required: [/harris/i], allowedWords: ["harris", "county", "texas"] },
+      trustee_or_substitute: {
+        required: [/auction\.com/i, /barrett\s+daffin/i],
+        allowedWords: ["auction", "com", "llc", "and", "barrett", "daffin", "frappier", "turner", "engel", "llp"],
+      },
+      deed_of_trust_date: null,
+      lender_or_mortgagee: {
+        required: [/midfirst/i],
+        allowedWords: ["midfirst", "bank"],
+      },
+      servicer_if_stated: {
+        required: [/midland/i],
+        allowedWords: ["midland", "mortgage", "division", "midfirst", "bank"],
+      },
     },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-3493, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
 

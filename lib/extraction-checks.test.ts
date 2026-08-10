@@ -18,7 +18,7 @@ const GOOD = {
 };
 
 describe("validateExtraction — deterministic checks after the model", () => {
-  it("passes all ten checks on faithful output (152-day gap for FRCL-2026-2290)", () => {
+  it("passes every core check on faithful output (152-day gap for FRCL-2026-2290)", () => {
     const checks = validateExtraction(GOOD, CLERK);
     expect(checks.every((c) => c.pass)).toBe(true);
     expect(checks[2]!.name).toContain("actual: 152 days");
@@ -107,81 +107,87 @@ describe("validateExtraction — deterministic checks after the model", () => {
   });
 });
 
-describe("validateFidelity — ground truth for the fixed samples", () => {
+describe("validateFidelity — field-exact ground truth for the fixed samples", () => {
   const A = SAMPLE_NOTICES[0]!;
   const B = SAMPLE_NOTICES[1]!;
 
   // What the live pilot actually extracted for sample A — the mortgagee
-  // lines are [REMOVED] in the document, so lender must be null.
+  // lines and deed date are [REMOVED] in the document, so both are null.
   const FAITHFUL_A = {
     notice_type: "Notice of Substitute Trustee's Sale",
     sale_time_window: "11:00 a.m. or not later than three (3) hours after that time",
     sale_location: "Bayou City Event Center, Magnolia Ballroom, 9401 Knight Road, Houston, Texas",
     county: "Harris",
     trustee_or_substitute: "AUCTION.COM, LLC",
+    deed_of_trust_date: null,
     lender_or_mortgagee: null,
     servicer_if_stated: "LAKEVIEW LOAN SERVICING, LLC",
   };
 
-  it("passes a faithful sample-A extraction (five checks)", () => {
-    const checks = validateFidelity(FAITHFUL_A, A.expected, A.text);
-    expect(checks).toHaveLength(5);
+  it("passes a faithful sample-A extraction (eight field checks)", () => {
+    const checks = validateFidelity(FAITHFUL_A, A.expected);
+    expect(checks).toHaveLength(8);
     expect(checks.every((c) => c.pass)).toBe(true);
   });
 
-  it("containment rejects an invented co-trustee even when the real one is present", () => {
+  it("rejects an invented co-trustee even when the real one is present", () => {
     const checks = validateFidelity(
       { ...FAITHFUL_A, trustee_or_substitute: "Auction.com, LLC and Invented Trustee Partners" },
       A.expected,
-      A.text,
     );
-    expect(checks.find((c) => c.name.includes("nothing composed"))!.pass).toBe(false);
+    expect(checks.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
   });
 
-  it("containment rejects an invented bank appended to the real servicer", () => {
+  it("rejects field-swapping: the servicer promoted into the trustee field fails", () => {
+    // Every word here exists in the document — but not in the trustee
+    // field's own vocabulary. This is the round-4 bypass, closed.
     const checks = validateFidelity(
-      { ...FAITHFUL_A, servicer_if_stated: "Lakeview and Invented Bank" },
+      { ...FAITHFUL_A, trustee_or_substitute: "AUCTION.COM, LLC and LAKEVIEW LOAN SERVICING, LLC" },
       A.expected,
-      A.text,
     );
-    expect(checks.find((c) => c.name.includes("nothing composed"))!.pass).toBe(false);
+    expect(checks.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
+  });
+
+  it("rejects an invented deed-of-trust date — the sample removes it, so it must be null", () => {
+    const checks = validateFidelity({ ...FAITHFUL_A, deed_of_trust_date: "1999-01-01" }, A.expected);
+    expect(checks.find((c) => c.name.includes("deed-of-trust"))!.pass).toBe(false);
+  });
+
+  it("rejects an invented bank appended to the real servicer", () => {
+    const checks = validateFidelity({ ...FAITHFUL_A, servicer_if_stated: "Lakeview and Invented Bank" }, A.expected);
+    expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
   });
 
   it("sample A requires lender to be null (the document's mortgagee is removed)", () => {
-    const checks = validateFidelity(
-      { ...FAITHFUL_A, lender_or_mortgagee: "Lakeview Loan Servicing" },
-      A.expected,
-      A.text,
-    );
+    const checks = validateFidelity({ ...FAITHFUL_A, lender_or_mortgagee: "Lakeview Loan Servicing" }, A.expected);
     expect(checks.find((c) => c.name.includes("lender"))!.pass).toBe(false);
   });
 
   it("a null servicer fails — the document names one", () => {
-    const checks = validateFidelity({ ...FAITHFUL_A, servicer_if_stated: null }, A.expected, A.text);
+    const checks = validateFidelity({ ...FAITHFUL_A, servicer_if_stated: null }, A.expected);
     expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
   });
 
   it("fails when the stated time drifts (sample A says 11:00 a.m., not 10)", () => {
-    const checks = validateFidelity({ ...FAITHFUL_A, sale_time_window: "10:00 AM" }, A.expected, A.text);
+    const checks = validateFidelity({ ...FAITHFUL_A, sale_time_window: "10:00 AM" }, A.expected);
     expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
   });
 
-  it("sample B requires BOTH trustees — Auction.com alone fails", () => {
-    const one = validateFidelity(
-      { trustee_or_substitute: "Auction.com, LLC" },
-      B.expected,
-      B.text,
-    );
+  it("sample B requires BOTH trustees — Auction.com alone fails; the full faithful set passes", () => {
+    const one = validateFidelity({ trustee_or_substitute: "Auction.com, LLC" }, B.expected);
     expect(one.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
     const both = validateFidelity(
       {
+        notice_type: "Notice of Substitute Trustee's Sale",
+        sale_time_window: "no earlier than 10:00 a.m. and no later than three (3) hours after that time",
+        sale_location: "Bayou City Event Center, Magnolia South Ballroom, 9401 Knight Road, Houston, Texas",
+        county: "Harris",
         trustee_or_substitute: "AUCTION.COM, LLC, and BARRETT DAFFIN FRAPPIER TURNER & ENGEL, LLP",
+        deed_of_trust_date: null,
         lender_or_mortgagee: "MIDFIRST BANK",
         servicer_if_stated: "MIDLAND MORTGAGE, A DIVISION OF MIDFIRST BANK",
-        sale_time_window: "no earlier than 10:00 a.m.",
       },
       B.expected,
-      B.text,
     );
     expect(both.every((c) => c.pass)).toBe(true);
   });

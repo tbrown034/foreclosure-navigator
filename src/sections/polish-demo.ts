@@ -1,5 +1,5 @@
 /**
- * The one live AI feature on the page: optional polish of the reader's own
+ * One of the page's two live AI features: optional polish of the reader's own
  * sentence (the "one fact in your own words" field). Everything else on the
  * page is deterministic and keeps working if this endpoint is absent, over
  * quota, or down — the button degrades to a plain status message.

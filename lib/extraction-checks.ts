@@ -18,7 +18,7 @@ export interface ExtractedNotice {
   deed_of_trust_date: string | null;
   lender_or_mortgagee: string | null;
   servicer_if_stated: string | null;
-  confidence?: Record<string, number>;
+  confidence: Record<string, number>;
 }
 
 export interface Check {
@@ -140,69 +140,79 @@ export function validateExtraction(
   return checks;
 }
 
-/** Ground truth for a fixed sample: what a faithful extraction MUST
- * contain, field by field. `lender` null means the document names no
- * mortgagee, so the field must be null (it was redacted). */
-export interface SampleExpectation {
-  /** Every named trustee must appear in the extracted trustee field. */
-  trustees: RegExp[];
-  lender: RegExp | null;
-  servicer: RegExp;
-  time: RegExp;
+/** What one extracted text field must look like for a fixed sample:
+ * every `required` pattern must match, and every word of the value (3+
+ * letters) must come from that FIELD'S own source vocabulary — so a value
+ * assembled from words that appear elsewhere in the document ("Auction.com
+ * and Lakeview" as co-trustees) still fails. */
+export interface FieldExpectation {
+  required: RegExp[];
+  allowedWords: string[];
 }
 
-/** Fields whose words must all come FROM the document — extraction copies,
- * it never composes. notice_type/county are covered too; confidence and
- * dates are numeric/ISO and checked elsewhere. */
-const CONTAINMENT_FIELDS = [
-  "notice_type",
-  "sale_time_window",
-  "sale_location",
-  "county",
-  "trustee_or_substitute",
-  "lender_or_mortgagee",
-  "servicer_if_stated",
-];
+/** Ground truth for a fixed sample, field by field. null means the
+ * document does not carry the value (it was removed in sanitization), so
+ * the extracted field must be null. */
+export interface SampleExpectation {
+  notice_type: FieldExpectation;
+  sale_time_window: FieldExpectation;
+  sale_location: FieldExpectation;
+  county: FieldExpectation;
+  trustee_or_substitute: FieldExpectation;
+  deed_of_trust_date: null;
+  lender_or_mortgagee: FieldExpectation | null;
+  servicer_if_stated: FieldExpectation;
+}
 
-/** Fidelity checks against a fixed sample's known ground truth. Only
- * possible because the demo's documents are fixed. Presence alone is not
- * enough — the containment check rejects invented additions ("Auction.com
- * and Invented Trustee") by requiring every word of every extracted text
- * field to appear in the source document. */
-export function validateFidelity(
-  data: Record<string, unknown>,
-  expected: SampleExpectation,
-  documentText: string,
-): Check[] {
-  const str = (k: string): string => (typeof data[k] === "string" ? (data[k] as string) : "");
-  const docLower = documentText.toLowerCase();
+function fieldFaithful(value: unknown, exp: FieldExpectation): boolean {
+  if (typeof value !== "string" || value.length === 0) return false;
+  if (!exp.required.every((re) => re.test(value))) return false;
+  const words = value.toLowerCase().match(/[a-z]{3,}/g) ?? [];
+  return words.every((w) => exp.allowedWords.includes(w));
+}
+
+/** Field-exact fidelity checks against a fixed sample's known ground
+ * truth. Only possible because the demo's documents are fixed: each field
+ * must carry its own source language — required names present, no word
+ * from anywhere else — and fields the sample redacts must come back null. */
+export function validateFidelity(data: Record<string, unknown>, expected: SampleExpectation): Check[] {
+  const nullOk = (k: string): boolean => data[k] === null || data[k] === undefined;
   return [
     {
-      name: "extracted trustee names every trustee the document appoints",
-      pass: expected.trustees.every((re) => re.test(str("trustee_or_substitute"))),
+      name: "notice type is the document's own title",
+      pass: fieldFaithful(data["notice_type"], expected.notice_type),
     },
     {
-      name: expected.lender
-        ? "extracted lender/mortgagee matches the document's named party"
+      name: "sale window states the document's start time, in the document's words",
+      pass: fieldFaithful(data["sale_time_window"], expected.sale_time_window),
+    },
+    {
+      name: "sale location is the document's stated venue, nothing else",
+      pass: fieldFaithful(data["sale_location"], expected.sale_location),
+    },
+    {
+      name: "county is the document's stated county",
+      pass: fieldFaithful(data["county"], expected.county),
+    },
+    {
+      name: "trustee field names every appointed trustee and only them",
+      pass: fieldFaithful(data["trustee_or_substitute"], expected.trustee_or_substitute),
+    },
+    {
+      name: "deed-of-trust date is null — the sample removes it",
+      pass: expected.deed_of_trust_date === null && nullOk("deed_of_trust_date"),
+    },
+    {
+      name: expected.lender_or_mortgagee
+        ? "lender/mortgagee is the document's named party and only them"
         : "lender/mortgagee is null — the document does not name one",
-      pass: expected.lender
-        ? expected.lender.test(str("lender_or_mortgagee"))
-        : data["lender_or_mortgagee"] === null || data["lender_or_mortgagee"] === undefined,
+      pass: expected.lender_or_mortgagee
+        ? fieldFaithful(data["lender_or_mortgagee"], expected.lender_or_mortgagee)
+        : nullOk("lender_or_mortgagee"),
     },
     {
-      name: "extracted servicer matches the document's named servicer",
-      pass: expected.servicer.test(str("servicer_if_stated")),
-    },
-    {
-      name: "extracted sale window states the document's start time",
-      pass: expected.time.test(str("sale_time_window")),
-    },
-    {
-      name: "every word of every extracted text field appears in the document (nothing composed)",
-      pass: CONTAINMENT_FIELDS.every((k) => {
-        const words = str(k).toLowerCase().match(/[a-z]{3,}/g) ?? [];
-        return words.every((w) => docLower.includes(w));
-      }),
+      name: "servicer is the document's named servicer and only them",
+      pass: fieldFaithful(data["servicer_if_stated"], expected.servicer_if_stated),
     },
   ];
 }
