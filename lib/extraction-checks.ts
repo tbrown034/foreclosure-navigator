@@ -141,11 +141,12 @@ export function validateExtraction(
 }
 
 /** What one extracted text field must look like for a fixed sample: the
- * normalized value (lowercased, whitespace collapsed, trailing period
- * stripped) must match one of a small set of APPROVED COMPLETE-VALUE
- * variants — whole-field comparison, no token allowlists. Possible only
- * because the samples are fixed and extraction runs at temperature 0;
- * anything the variants don't recognize fails closed to human review. */
+ * normalized value (lowercased, whitespace collapsed, curly quotes
+ * straightened — abbreviation periods kept) must match one of a small set
+ * of APPROVED COMPLETE-VALUE variants — whole-field comparison, no token
+ * allowlists. Possible only because the samples are fixed and extraction
+ * runs at temperature 0; anything the variants don't recognize fails
+ * closed to human review. */
 export interface FieldExpectation {
   variants: RegExp[];
 }
