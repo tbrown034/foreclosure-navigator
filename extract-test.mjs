@@ -11,10 +11,6 @@ import fs from "node:fs";
 import path from "node:path";
 
 const KEY = process.env.ANTHROPIC_API_KEY;
-if (!KEY) {
-  console.error("No ANTHROPIC_API_KEY in env");
-  process.exit(1);
-}
 
 const SCHEMA_PROMPT = `You are extracting structured data from a recorded Notice of Trustee Sale (Texas foreclosure document, Harris County).
 
@@ -93,6 +89,10 @@ for (const [file, known] of Object.entries(KNOWN)) {
   const full = path.join(import.meta.dirname, file);
   if (!fs.existsSync(full)) {
     results.push({ instrument: known.id, skipped: `${file} not present — see header comment` });
+    continue;
+  }
+  if (!KEY) {
+    results.push({ instrument: known.id, skipped: "ANTHROPIC_API_KEY not set" });
     continue;
   }
   try {

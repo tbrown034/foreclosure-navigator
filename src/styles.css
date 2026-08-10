@@ -244,6 +244,13 @@ input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); ou
 .rail li.past .rail-dot { background: var(--line); }
 .rail-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
 .rail-head .date { font-size: 14.5px; }
+.rail-rule {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
 .rail li p { margin: 4px 0 0; font-size: 14.5px; color: var(--ink); max-width: 60ch; }
 .rail-empty { margin: 0; font-size: 14px; color: var(--ink-2); }
 

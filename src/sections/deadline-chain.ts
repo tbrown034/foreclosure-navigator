@@ -15,7 +15,9 @@ import { renderUrgency, renderUrgencyEmpty } from "./urgency-card";
 type RowClass = "past" | "window" | "deadline";
 
 interface ChainRow {
-  date: Date;
+  /** null renders as an undated RULE entry — a protection that applies
+   * whenever the triggering event happens, not a calendar deadline. */
+  date: Date | null;
   what: string;
   cite: string;
   cls: RowClass;
@@ -50,13 +52,18 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       label: "Projected",
     },
     {
-      date: c.regX,
+      // A rule, not a date: no sale is scheduled in this projection, and
+      // under the federal rule an application completed before any sale is
+      // ever scheduled carries the strongest protections (they survive
+      // later scheduling). Rendering a minus-38-day marker against a
+      // hypothetical sale would be legally misleading — so we don't.
+      date: null,
       what:
         REGX_COPY +
-        " No sale is scheduled in this projection — an application completed before any sale is ever scheduled has the strongest protections.",
-      cite: "RESPA / Reg X, 12 CFR §1024.41 — last ordinary qualifying day if the sale happened at the projected minimum",
-      cls: c.regX < today ? "deadline" : "window",
-      label: c.regX < today ? "Tight" : "Open",
+        " No sale is scheduled in this projection — a complete application submitted before any sale is ever scheduled has the strongest protections, and they survive a later scheduling.",
+      cite: "RESPA / Reg X, 12 CFR §1024.41 and official interpretations",
+      cls: "window",
+      label: "Rule — applies now",
     },
     {
       date: c.projectedSale,
@@ -77,11 +84,11 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
     {
       date: c.notice,
       what:
-        "Notice of sale filed with the county clerk, posted and mailed. Statutory check, computed: " +
+        "Notice of sale filed with the county clerk. Statutory check, computed from this filing date: " +
         c.gapDays +
         " days before the stated sale — " +
         (pass ? "meets" : "SHORT OF") +
-        " the 21-day minimum." +
+        " the 21-day minimum. The statute requires filing, posting AND mailing, each at least 21 days out — this checks the one date you have; verify the other two against the recorded notice." +
         (allowedDay
           ? ""
           : " A second check: the printed sale date is NOT a first Tuesday (or the Jan 1 / Jul 4 Wednesday) — this tool never replaces a printed date, but that discrepancy is worth photographing and showing a lawyer."),
@@ -127,8 +134,8 @@ function renderRail(chainEl: HTMLOListElement, rows: ChainRow[]): void {
     const head = document.createElement("div");
     head.className = "rail-head";
     const date = document.createElement("span");
-    date.className = "date";
-    date.textContent = fmt(row.date);
+    date.className = row.date ? "date" : "rail-rule";
+    date.textContent = row.date ? fmt(row.date) : "Not a date — a standing rule";
     const chip = document.createElement("span");
     chip.className = "chip " + row.cls;
     chip.textContent = row.label;

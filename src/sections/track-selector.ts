@@ -13,13 +13,13 @@ function buildTax(): void {
   }
   // §34.21: homestead, agricultural-use land and mineral interests share the
   // two-year window; everything else gets 180 days.
-  const twoYearClass = byId<HTMLSelectElement>("taxHomestead").value === "yes";
-  const r = taxRedemption(raw, twoYearClass);
-  let html = `<p style="margin:0 0 6px"><strong style="color:var(--ink)">Redemption deadline: ${fmt(r.deadline)}</strong> — ${twoYearClass ? "two years (homestead, agricultural land or mineral interest)" : "180 days (other property)"} after the buyer's deed was recorded.</p>`;
-  html += twoYearClass
+  const twoYearWindow = byId<HTMLSelectElement>("taxHomestead").value === "yes";
+  const r = taxRedemption(raw, twoYearWindow);
+  let html = `<p style="margin:0 0 6px"><strong style="color:var(--ink)">Redemption deadline: ${fmt(r.deadline)}</strong> — ${twoYearWindow ? "two years (homestead, agricultural land or mineral interest)" : "180 days (other property)"} after the buyer's deed was recorded.</p>`;
+  html += twoYearWindow
     ? `<p style="margin:0 0 6px">Cost to redeem: what the buyer paid <em>plus</em> recording fees, taxes, penalties, interest and costs the buyer has since paid, <em>plus</em> a <strong>25% premium in year one</strong> (through ${fmt(r.yearOneEnd)}) rising to <strong>50% in year two</strong>.</p>`
     : `<p style="margin:0 0 6px">Cost to redeem: what the buyer paid <em>plus</em> recording fees, taxes, penalties, interest and costs, <em>plus</em> a <strong>25% premium</strong>.</p>`;
-  html += `<p style="margin:0;font-size:12.5px;color:var(--ink-3)">Computed from Tax Code §34.21; a lawyer or the tax office confirms your exact figure. If money was left over at the sale, it sits in the court registry for two years — you can petition to claim it.</p>`;
+  html += `<p style="margin:0;font-size:12.5px;color:var(--ink-3)">Computed from Tax Code §34.21; the premium shown assumes redemption from a private purchaser — buying back from a taxing unit follows different cost rules — and a lawyer or the tax office confirms your exact figure. If money was left over at the sale, it sits in the court registry for two years — you can petition to claim it.</p>`;
   byId<HTMLDivElement>("taxOut").innerHTML = html;
 }
 

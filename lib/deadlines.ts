@@ -71,7 +71,13 @@ export const regXMarker = (saleDate: Date): Date => addDays(saleDate, -38);
 
 /** Chain computed from a notice of default. Every downstream date here is a
  * statutory MINIMUM — projected, not scheduled. An actual sale requires its
- * own notice stating its own date. */
+ * own notice stating its own date.
+ *
+ * Deliberately NO Reg X marker here: the minus-38-day marker only means
+ * something relative to an actual scheduled sale. When no sale is
+ * scheduled, the federal rule treats a complete application as received
+ * with the strongest protections — that is a rule, not a date, and the UI
+ * presents it as one. */
 export interface DefaultNoticeChain {
   /** The notice date, at noon. */
   notice: Date;
@@ -84,8 +90,6 @@ export interface DefaultNoticeChain {
   /** EARLIEST POSSIBLE sale under statutory minimums: the first allowed sale
    * day on or after earliestSaleNotice + 21 (§51.002(a)-(b), (a-1)). */
   projectedSale: Date;
-  /** Reg X marker relative to the projected minimum sale. */
-  regX: Date;
 }
 
 export function defaultNoticeChain(noticeIso: string): DefaultNoticeChain {
@@ -93,7 +97,7 @@ export function defaultNoticeChain(noticeIso: string): DefaultNoticeChain {
   const cureEnd = addDays(notice, 19);
   const earliestSaleNotice = addDays(notice, 20);
   const projectedSale = firstAllowedSaleDayOnOrAfter(addDays(earliestSaleNotice, 21));
-  return { notice, cureEnd, earliestSaleNotice, projectedSale, regX: regXMarker(projectedSale) };
+  return { notice, cureEnd, earliestSaleNotice, projectedSale };
 }
 
 /** Chain computed from a notice of trustee sale. The printed sale date is
@@ -133,20 +137,22 @@ export function saleNoticeChain(noticeIso: string, printedSaleIso: string): Sale
 export interface TaxRedemption {
   /** Deed-recording date, at noon. */
   recorded: Date;
-  /** Redemption deadline: 2 years (homestead) or 180 days (other property)
-   * after recording. */
+  /** Redemption deadline: 2 years (homestead, agricultural-use land or
+   * mineral interest) or 180 days (other property) after recording. */
   deadline: Date;
   /** End of redemption year one (recording + 1 year). The premium on the
    * §34.21 cost basis is 25% through this date, 50% in year two.
-   * Only meaningful for homestead redemptions; non-homestead is a flat 25%. */
+   * Only meaningful for two-year redemptions; otherwise a flat 25%. */
   yearOneEnd: Date;
-  homestead: boolean;
+  /** True for the §34.21 two-year classes: homestead, agricultural-use
+   * land, mineral interest. */
+  twoYearWindow: boolean;
 }
 
-export function taxRedemption(deedRecordedIso: string, homestead: boolean): TaxRedemption {
+export function taxRedemption(deedRecordedIso: string, twoYearWindow: boolean): TaxRedemption {
   const recorded = atNoon(deedRecordedIso);
   let deadline: Date;
-  if (homestead) {
+  if (twoYearWindow) {
     deadline = new Date(recorded);
     deadline.setFullYear(deadline.getFullYear() + 2);
   } else {
@@ -154,7 +160,7 @@ export function taxRedemption(deedRecordedIso: string, homestead: boolean): TaxR
   }
   const yearOneEnd = new Date(recorded);
   yearOneEnd.setFullYear(yearOneEnd.getFullYear() + 1);
-  return { recorded, deadline, yearOneEnd, homestead };
+  return { recorded, deadline, yearOneEnd, twoYearWindow };
 }
 
 /** The next `count` allowed auction days starting from `from`'s month. */

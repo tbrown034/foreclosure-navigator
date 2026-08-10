@@ -47,11 +47,12 @@ const SCHEMA_KEYS = [
  * the schema has no address field, so this catches leakage through OTHER
  * fields (e.g. an address smuggled into sale_location). */
 const ADDRESS_LIKE =
-  /\b\d+\s+\w+(\s+\w+)?\s+(street|st|road|rd|lane|ln|drive|dr|avenue|ave|court|ct|circle|cir|boulevard|blvd|way|trail|trl|place|pl)\b/i;
+  /\b\d+\s+\w+(\s+\w+)?\s+(street|st|road|rd|lane|ln|drive|dr|avenue|ave|court|ct|circle|cir|boulevard|blvd|way|trail|trl|place|pl)\b/gi;
 
-/** The demo's sale locations legitimately contain the auction venue's street
- * address, which is public; everything else address-shaped is a flag. */
-const KNOWN_PUBLIC_ADDRESSES = [/9401\s+knight/i];
+/** The one address the output may legitimately contain: the public auction
+ * venue — and only in sale_location. Every address-shaped match must be
+ * the venue; a value carrying the venue PLUS another address still fails. */
+const PUBLIC_VENUE = /9401\s+knight/i;
 
 export function validateExtraction(
   data: Record<string, unknown>,
@@ -101,6 +102,11 @@ export function validateExtraction(
   });
 
   checks.push({
+    name: "every schema key is present in the output",
+    pass: SCHEMA_KEYS.every((k) => k in data),
+  });
+
+  checks.push({
     name: "every field is a string or null (no nested surprises)",
     pass: SCHEMA_KEYS.filter((k) => k !== "confidence").every((k) => {
       const v = data[k];
@@ -121,10 +127,37 @@ export function validateExtraction(
     name: "no address-shaped value outside the public auction venue",
     pass: Object.entries(data).every(([k, v]) => {
       if (k === "confidence" || typeof v !== "string") return true;
-      if (!ADDRESS_LIKE.test(v)) return true;
-      return KNOWN_PUBLIC_ADDRESSES.some((re) => re.test(v));
+      const matches = v.match(ADDRESS_LIKE) ?? [];
+      if (matches.length === 0) return true;
+      // Only sale_location may carry an address, and every address-shaped
+      // match in it must be the public venue.
+      return k === "sale_location" && matches.every((m) => PUBLIC_VENUE.test(m));
     }),
   });
 
   return checks;
+}
+
+/** Fidelity checks against a fixed sample's known ground truth. Only
+ * possible because the demo's documents are fixed — a faithful extraction
+ * must contain these values. */
+export function validateFidelity(
+  data: Record<string, unknown>,
+  expected: { trustee: RegExp; party: RegExp; time: RegExp },
+): Check[] {
+  const str = (k: string): string => (typeof data[k] === "string" ? (data[k] as string) : "");
+  return [
+    {
+      name: "extracted trustee matches the document's named trustee",
+      pass: expected.trustee.test(str("trustee_or_substitute")),
+    },
+    {
+      name: "extracted lender/servicer matches the document's named party",
+      pass: expected.party.test(str("lender_or_mortgagee") + " " + str("servicer_if_stated")),
+    },
+    {
+      name: "extracted sale window states the document's start time",
+      pass: expected.time.test(str("sale_time_window")),
+    },
+  ];
 }

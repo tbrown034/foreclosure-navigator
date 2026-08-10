@@ -42,4 +42,16 @@ describe("inventedTokens — the deterministic gate on model output", () => {
     const invented = inventedTokens("i missed three thousand dollars of pay", "I missed three thousand dollars of pay.");
     expect(invented).toEqual([]);
   });
+
+  it("compares digit runs as whole tokens: '30' in the input does not license '3'", () => {
+    expect(inventedTokens("I was 30 days late", "I was 3 days late")).toContain("3");
+  });
+
+  it("matches guard words on word boundaries: 'marching' does not license 'March'", () => {
+    expect(inventedTokens("we kept marching on", "It happened in March.")).toContain("march");
+  });
+
+  it("catches a written-number substitution: 'one hundred' does not license 'nine hundred'", () => {
+    expect(inventedTokens("i owe one hundred dollars", "I owe nine hundred dollars.")).toContain("nine");
+  });
 });

@@ -28,26 +28,36 @@ const MONTH_NAMES = [
   "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
 ];
 
-/** Magnitude and money words that state amounts without digits. Common
- * small number-words ("one", "may") are excluded — they appear in ordinary
- * prose and would reject almost everything. This gate is deliberately a
- * NARROW token guard, and the UI says so: the reader's approval step, not
- * this check, is the semantic safety net. */
-const AMOUNT_WORDS = ["hundred", "thousand", "million", "percent", "dollars"];
+/** Number and amount words that state quantities without digits. "one" is
+ * excluded — it appears in ordinary prose ("one of", "no one") and would
+ * reject almost everything; a substitution TO "one" understates rather
+ * than invents, and the reader's approval step is the semantic safety
+ * net for what this NARROW token guard cannot see. The UI says exactly
+ * that. */
+const NUMBER_WORDS = [
+  "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
+  "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
+  "hundred", "thousand", "million", "percent", "dollars",
+];
 
-/** Digit runs, month names and amount words in the output that do not
- * appear in the input. Deliberately conservative: "Aug" in the input does
- * not license "August" in the output — a false rejection returns the
- * reader's original text, which is always safe. */
+const wordInText = (word: string, text: string): boolean => new RegExp(`\\b${word}\\b`, "i").test(text);
+
+/** Guarded tokens in the output that do not appear in the input, compared
+ * as whole tokens on BOTH sides: digit runs must match a digit run in the
+ * input exactly ("30" in the input does not license "3"), and word checks
+ * use word boundaries ("marching" does not license "March"). Deliberately
+ * conservative — "Aug" in the input does not license "August" — because a
+ * false rejection just returns the reader's original text, which is
+ * always safe. */
 export function inventedTokens(input: string, output: string): string[] {
   const bad: string[] = [];
+  const inputRuns = new Set(input.match(/\d+/g) ?? []);
   for (const run of output.match(/\d+/g) ?? []) {
-    if (!input.includes(run)) bad.push(run);
+    if (!inputRuns.has(run)) bad.push(run);
   }
-  const inputLower = input.toLowerCase();
-  for (const word of [...MONTH_NAMES, ...AMOUNT_WORDS]) {
-    const inOutput = new RegExp(`\\b${word}\\b`, "i").test(output);
-    if (inOutput && !inputLower.includes(word)) bad.push(word);
+  for (const word of [...MONTH_NAMES, ...NUMBER_WORDS]) {
+    if (wordInText(word, output) && !wordInText(word, input)) bad.push(word);
   }
   return [...new Set(bad)];
 }

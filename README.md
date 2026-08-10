@@ -16,12 +16,12 @@ Built August 10, 2026 by [Trevor Brown](https://trevorthewebdeveloper.com), a jo
 
 ## Architecture
 
-Vite + TypeScript, static build output, one serverless function, no framework. That is a deliberate decision, and it is the same decision the product itself makes about AI: the smallest tool that does the job. A page of static HTML with a few typed behavior modules does not need a component framework, and a codebase meant to be read as a work sample benefits from having nothing in it that isn't earning its place.
+Vite + TypeScript, static build output, two small serverless functions, no framework. That is a deliberate decision, and it is the same decision the product itself makes about AI: the smallest tool that does the job. A page of static HTML with a few typed behavior modules does not need a component framework, and a codebase meant to be read as a work sample benefits from having nothing in it that isn't earning its place.
 
 ```
 index.html               All page content, as plain HTML — the copy is the product
 lib/deadlines.ts         The statutory date engine: pure typed functions, no DOM
-lib/deadlines.test.ts    19 tests pinning the statutory boundary cases
+lib/deadlines.test.ts    Tests pinning the statutory boundary cases
 lib/templates.ts         Letter and call-script templates: facts in, string out
 lib/sample-notices.ts    The two sanitized sample documents for the live
                          extraction demo — single source of truth for what the
@@ -44,8 +44,8 @@ The exhibits, AI seam map and trust receipt are static HTML in `index.html` on p
 
 Both are optional, clearly marked, disclose exactly what is transmitted (and that Anthropic's standard API retention applies — the demo itself stores nothing), and degrade gracefully — the entire page keeps working when either endpoint is absent or over quota. Rate limits (extraction: 6/IP/hour, 100/day; polish: 5/IP/hour, 200/day) fail closed; the counters are in-memory per serverless instance, so they are approximate deployment-wide but strict per instance — a production version would use a shared store. Upstream model calls carry a hard timeout. There are no other AI endpoints.
 
-- **`api/extract.ts` — the upload path, live.** Runs seam-map job #1 on one of two built-in sanitized sample documents (no arbitrary input is accepted). The samples are reconstructions from the public facts of the two recorded instruments in the exhibit — file dates, sale date, trustees, servicers — wrapped in standard §51.002 boilerplate with the homeowner's name, address and legal description removed, and labeled as such in the document text itself. The real PDFs are deliberately not in this repo. Claude Haiku fills the fixed schema; ten deterministic checks run in code after it — the six from the Aug 10 pilot plus strict schema validation (exact key set, types, confidence bounds, and an address-shape scan across all output values); and nothing enters the calculator until the reader confirms the dates. If any check flags, there is no confirm button — the result computes nothing, which is the contract.
-- **`api/polish.ts` — narrative polish.** Polishes the reader's own sentence in the document desk — grammar, spelling, structure and tone only. The model is not trusted to honor that contract: a deterministic check runs after it, and any output containing a digit or month name absent from the input is rejected and the reader's original text returned with a flag. 1,200-character input cap.
+- **`api/extract.ts` — the upload path, live.** Runs seam-map job #1 on one of two built-in sanitized sample documents (no arbitrary input is accepted). The samples are reconstructions from the public facts of the two recorded instruments in the exhibit — file dates, sale date, trustees, servicers — wrapped in standard §51.002 boilerplate with the homeowner's name, address and legal description removed, and labeled as such in the document text itself. The real PDFs are deliberately not in this repo. Claude Haiku fills the fixed schema; fourteen deterministic checks run in code after it — the six from the Aug 10 pilot, strict schema validation (exact key set, required keys, types, confidence bounds, an address-shape scan across all output values), and fidelity checks against the fixed sample's known trustee, parties and stated sale time; and nothing enters the calculator until the reader confirms the dates. If any check flags, there is no confirm button — the result computes nothing, which is the contract.
+- **`api/polish.ts` — narrative polish.** Polishes the reader's own sentence in the document desk — grammar, spelling, structure and tone only. The model is not trusted to honor that contract: a deterministic check runs after it, and any output containing a digit run, month name or number word absent from the input is rejected and the reader's original text returned with a flag. It is a narrow token guard, labeled as such on the page — the reader's approval step covers what tokens cannot. 1,200-character input cap.
 
 ## What was actually tested (Aug 10, 2026)
 
@@ -61,9 +61,9 @@ Two documents is a pilot, not a benchmark. Production needs a golden set, calibr
 ```
 pnpm install
 pnpm dev        # Vite dev server — the full page, minus the polish endpoint
-pnpm test       # Vitest: date engine + polish validation gate
+pnpm test       # Vitest: date engine, extraction checks, polish gate
 pnpm build      # typecheck + static build to dist/
-vercel dev      # the page plus api/polish.ts locally (needs ANTHROPIC_API_KEY)
+vercel dev      # the page plus both API functions locally (needs ANTHROPIC_API_KEY)
 ```
 
 The extraction test (`extract-test.mjs`) needs an `ANTHROPIC_API_KEY` and the notice PDFs (not included — they are public records, but they contain homeowner information; fetch your own from the [Harris County Clerk](https://cclerk.hctx.net/applications/websearch/FRCL_R.aspx)).

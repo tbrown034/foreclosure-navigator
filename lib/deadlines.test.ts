@@ -97,12 +97,18 @@ describe("notice of sale — printed date honored verbatim, 21-day check in code
 describe("Reg X marker — 38 days before the sale (12 CFR §1024.41)", () => {
   it("computes sale minus 38 for a printed sale date", () => {
     expect(iso(saleNoticeChain("2026-07-01", "2026-09-01").regX)).toBe("2026-07-25");
+    expect(iso(regXMarker(atNoon("2026-09-01")))).toBe("2026-07-25");
   });
 
-  it("computes against the projected minimum for a default notice", () => {
-    const chain = defaultNoticeChain("2026-06-24"); // projected sale Aug 4 2026
-    expect(iso(chain.regX)).toBe("2026-06-27");
-    expect(iso(regXMarker(chain.projectedSale))).toBe(iso(chain.regX));
+  it("the default-notice chain carries NO Reg X date — no sale is scheduled to anchor one", () => {
+    const chain = defaultNoticeChain("2026-06-24");
+    expect("regX" in chain).toBe(false);
+  });
+
+  it("default-chain dates are chronological (the rule row is undated by design)", () => {
+    const c = defaultNoticeChain("2026-06-24");
+    const times = [c.notice, c.cureEnd, c.earliestSaleNotice, c.projectedSale].map((d) => d.getTime());
+    expect([...times].sort((a, b) => a - b)).toEqual(times);
   });
 });
 

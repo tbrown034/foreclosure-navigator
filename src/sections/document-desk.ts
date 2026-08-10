@@ -1,5 +1,5 @@
 /** Document desk: deterministic template assembly, no AI. The reader's
- * facts are slotted into attorney-reviewed-style template language in
+ * facts are slotted into template language written for attorney review (not yet reviewed) in
  * lib/templates.ts, right in the browser. Rebuilds on every input change
  * and whenever the sale clock changes. */
 

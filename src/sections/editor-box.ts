@@ -29,7 +29,7 @@ export function initEditorBox(onChange: (state: EditorState) => void): void {
     // cure clock. They usually match; the envelope's postmark settles it.
     dateLabel.textContent =
       type === "sale"
-        ? "Date the notice was filed or mailed"
+        ? "Date the notice of sale was filed with the county clerk"
         : "Date the notice of default was mailed (usually the date on the letter — check the postmark)";
     onChange({ type, noticeIso: dateEl.value, printedSaleIso: printedEl.value });
   };

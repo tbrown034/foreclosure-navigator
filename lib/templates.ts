@@ -1,5 +1,5 @@
 /**
- * Letter and script templates — attorney-reviewed-style template language
+ * Letter and script templates — template language written for attorney review (not yet reviewed)
  * with the reader's facts slotted in, assembled deterministically. Facts in,
  * string out; no model call anywhere in this module.
  *

@@ -16,7 +16,7 @@
     <ul style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.6;color:var(--ink-2)">
       <li><strong style="color:var(--ink)">The idea:</strong> TX Tax, pointed at a scarier clock. Texas forecloses in as few as 41 days; Houston had 13,009 foreclosure starts last year. This walks a homeowner from "what is this letter" to "here's your deadline, here's who to call, here's the paperwork" — free where it matters, with a paid layer that doesn't touch survival.</li>
       <li><strong style="color:var(--ink)">What's real:</strong> everything you can click. The deadline math runs live, the letters generate, the phone numbers are verified — and the AI extraction was tested today on two actual notices recorded at the Harris County Clerk (results below, including one AI error our checks caught).</li>
-      <li><strong style="color:var(--ink)">Why it's built this way:</strong> code computes every date, attorneys own every legal sentence, AI works only at the edges — the same posture as Meeting Monitor's discrepancy checker and the quiz's human review. Built in one afternoon.</li>
+      <li><strong style="color:var(--ink)">Why it's built this way:</strong> code computes every date, attorneys own every legal sentence (the production contract — this demo's templates await that review), AI works only at the edges — the same posture as Meeting Monitor's discrepancy checker and the quiz's human review. Built in one afternoon.</li>
       <li><strong style="color:var(--ink)">What the newsroom would measure:</strong> completed answers, source-document clicks, legal-aid referrals, saved-notice reminder opt-ins, returning users, subscriber conversions and a public corrections count — all real events this page already structures, none fabricated here.</li>
     </ul>
   </div>
@@ -87,7 +87,7 @@
     <div class="panel upload-demo">
       <p style="margin:0 0 6px"><span class="ai-badge">Live model call — optional</span></p>
       <h3 style="margin:0 0 4px;font-size:16px">Or watch the extraction run, live — the heart of the upload path</h3>
-      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server, under Anthropic's standard API retention (this demo itself stores nothing). The model fills a fixed schema, ten deterministic checks then run in code, and nothing enters the calculator until you confirm the dates.</p>
+      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this demo itself stores nothing). The model fills a fixed schema, fourteen deterministic checks then run in code — including fidelity checks against the sample's known contents — and nothing enters the calculator until you confirm the dates.</p>
       <div class="btnrow">
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI (based on FRCL-2026-2290)</button>
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI (based on FRCL-2026-3493)</button>
@@ -168,7 +168,7 @@
             <button id="polishBtn" type="button" class="abtn">Polish with AI (demo)</button>
             <span class="ai-badge">Live model call — optional</span>
           </div>
-          <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server, under Anthropic's standard API retention — this demo stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects any output containing a number, month name or amount you didn't type — a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
+          <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server — Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions, and this demo itself stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects any output containing a number, month name or amount you didn't type — a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
           <div id="polishResult" hidden></div>
         </div>
       </div>
@@ -215,11 +215,11 @@
     <div class="ai-map" id="aiMap">
       <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates, parties and amounts into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN, the reader confirms every field before anything computes. <strong>Proven below on two real recorded instruments — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
       <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice below — and the test caught the AI in an error. Read that row.</strong></p></div>
-      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested below — automated check confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
+      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested below — an automated token check (dates, numbers) plus line-by-line review confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>4 · Spanish.</strong> Fixed legal language stays human-translated; AI translates only your personal narrative, shown beside the English for verification.</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>5 · Scam-offer check.</strong> Paste a rescue-company letter; the model flags known predatory patterns — "this deserves independent review," never "this is fraud."</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>6 · The county picture.</strong> Extraction at posting scale feeds the trends desk — aggregate only, minimum-count suppression, no property dots.</p></div>
-      <div class="ai-row"><span class="status never">Never</span><p><strong>Deadline arithmetic · legal language · remedy selection · advice.</strong> Code computes every date. Attorneys own every legal sentence. The reader (and their lawyer) own every decision. The demo you're using proves the spine works with no AI at all.</p></div>
+      <div class="ai-row"><span class="status never">Never</span><p><strong>Deadline arithmetic · legal language · remedy selection · advice.</strong> Code computes every date. Attorneys own every legal sentence — that is the production contract; this demo's templates await that review, and the trust receipt says so. The reader (and their lawyer) own every decision. The demo you're using proves the spine works with no AI at all.</p></div>
     </div>
 
     <div class="panel" style="margin-top:18px;border-left:4px solid var(--ok)">
@@ -241,6 +241,7 @@
       </table>
       </div>
       <p style="margin:10px 0 0;font-size:12.5px;color:var(--ink-3)">Total cost for both extractions: roughly half a cent. Checks run in code: sale date matches Clerk metadata · first-Tuesday rule · §51.002 21-day minimum · county · no privacy fields in output · confidence present. Watermarked public records, free to view; instruments referenced by file number only.</p>
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--ink-3)">One discrepancy worth naming: this table records the pilot's sale window for FRCL-2026-2290 as 10 a.m., while the document text quoted in the translation exhibit below reads 11:00 a.m. The pilot's six checks did not test the stated time — the live demo's checks now do. The record above is left as it was produced.</p>
     </div>
 
     <div class="panel" style="margin-top:14px;border-left:4px solid var(--stamp)">
@@ -272,7 +273,7 @@
           <p class="tpl" style="font-family:inherit">"My financial hardship began in June when my hours were reduced at the plant. In July, my wife underwent surgery, which resulted in additional medical expenses. I returned to full-time employment on August 3 and am able to resume regular monthly payments. However, I am unable to pay the entire missed amount in a lump sum at this time."</p>
         </div>
       </div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)">The model also returned a facts-used ledger (six claims, each traceable to the input), and an automated check confirmed <strong>no date, number or circumstance appears in the output that wasn't in the reader's words</strong>. Same dignity, better sentences, nothing invented — the reader approves every line before it goes anywhere.</p>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)">The model also returned a facts-used ledger (six claims, each traceable to the input), and an automated token check (dates, numbers) plus line-by-line review confirmed <strong>no date, number or circumstance appears in the output that wasn't in the reader's words</strong>. Same dignity, better sentences, nothing invented — the reader approves every line before it goes anywhere. The live demo's server gate checks the same token categories; the reader's approval covers the rest.</p>
     </div>
   </section>
 

@@ -23,6 +23,10 @@ export interface SampleNotice {
   /** Clerk metadata for the underlying instrument — used by the
    * deterministic checks, never shown to the model. */
   clerk: { fileDate: string; saleDate: string };
+  /** Ground truth for fidelity checks. Because the sample text is fixed,
+   * we know what a faithful extraction must contain — each pattern is
+   * matched against the model's output for that field. */
+  expected: { trustee: RegExp; party: RegExp; time: RegExp };
   /** The full text transmitted to the model and displayed to the reader. */
   text: string;
 }
@@ -33,6 +37,7 @@ export const SAMPLE_NOTICES: readonly SampleNotice[] = [
     label: "Sample A — based on FRCL-2026-2290",
     basedOn: "FRCL-2026-2290",
     clerk: { fileDate: "2026-04-02", saleDate: "2026-09-01" },
+    expected: { trustee: /auction\.com/i, party: /lakeview/i, time: /11(:00)?\s*a\.?m\.?/i },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-2290, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
 
 NOTICE OF SUBSTITUTE TRUSTEE'S SALE
@@ -61,6 +66,7 @@ ASSERT AND PROTECT YOUR RIGHTS AS A MEMBER OF THE ARMED FORCES OF THE UNITED STA
     label: "Sample B — based on FRCL-2026-3493",
     basedOn: "FRCL-2026-3493",
     clerk: { fileDate: "2026-05-14", saleDate: "2026-09-01" },
+    expected: { trustee: /auction\.com|barrett\s+daffin/i, party: /midfirst|midland/i, time: /10(:00)?\s*a\.?m\.?/i },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-3493, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
 
 NOTICE OF SUBSTITUTE TRUSTEE'S SALE

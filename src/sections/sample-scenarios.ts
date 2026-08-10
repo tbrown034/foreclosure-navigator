@@ -47,7 +47,10 @@ function applyScenario(s: Scenario): void {
 
   typeEl.value = s.type;
   dateEl.value = s.noticeIso();
-  if (s.printedSaleIso) printedEl.value = s.printedSaleIso;
+  // Always assign: a default-notice scenario must CLEAR any printed sale
+  // date a previous scenario set, or switching back to sale mode later
+  // would present a stale date as "from your notice".
+  printedEl.value = s.printedSaleIso ?? "";
   // One change event is enough: the editor box re-reads every field.
   typeEl.dispatchEvent(new Event("change"));
   focusUrgency();

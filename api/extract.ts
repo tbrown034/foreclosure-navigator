@@ -10,7 +10,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { validateExtraction, type ExtractedNotice } from "../lib/extraction-checks.js";
+import { validateExtraction, validateFidelity, type ExtractedNotice } from "../lib/extraction-checks.js";
 import { getSampleNotice } from "../lib/sample-notices.js";
 import { QUOTA_BODY, callAnthropic, clientIp, createRateLimiter } from "./_shared.js";
 
@@ -86,13 +86,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
   let extracted: ExtractedNotice;
   try {
-    extracted = JSON.parse(raw) as ExtractedNotice;
+    const parsed: unknown = JSON.parse(raw);
+    // JSON.parse can legally return null, arrays or primitives — none of
+    // which are a schema object. Reject before validation dereferences.
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+      res.status(502).json({ error: "model returned non-object output — nothing was computed from it" });
+      return;
+    }
+    extracted = parsed as ExtractedNotice;
   } catch {
     res.status(502).json({ error: "model returned unparseable output — nothing was computed from it" });
     return;
   }
 
-  const checks = validateExtraction(extracted as unknown as Record<string, unknown>, sample.clerk);
+  const checks = [
+    ...validateExtraction(extracted as unknown as Record<string, unknown>, sample.clerk),
+    ...validateFidelity(extracted as unknown as Record<string, unknown>, sample.expected),
+  ];
 
   res.status(200).json({
     sample: sample.id,

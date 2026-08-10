@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { validateExtraction } from "./extraction-checks";
+import { validateExtraction, validateFidelity } from "./extraction-checks";
+import { SAMPLE_NOTICES } from "./sample-notices";
 
 const CLERK = { fileDate: "2026-04-02", saleDate: "2026-09-01" };
 
@@ -54,8 +55,14 @@ describe("validateExtraction — deterministic checks after the model", () => {
     expect(checks[2]!.pass).toBe(false);
   });
 
-  it("runs ten checks total", () => {
-    expect(validateExtraction(GOOD, CLERK)).toHaveLength(10);
+  it("runs eleven core checks total", () => {
+    expect(validateExtraction(GOOD, CLERK)).toHaveLength(11);
+  });
+
+  it("fails the presence check when a schema key is missing entirely", () => {
+    const { sale_time_window: _omitted, ...missing } = GOOD;
+    const checks = validateExtraction(missing, CLERK);
+    expect(checks.find((c) => c.name.includes("key is present"))!.pass).toBe(false);
   });
 
   it("fails the schema-keys check when the model returns an extra field", () => {
@@ -84,5 +91,51 @@ describe("validateExtraction — deterministic checks after the model", () => {
       CLERK,
     );
     expect(checks.find((c) => c.name.includes("address-shaped"))!.pass).toBe(true);
+  });
+
+  it("rejects the venue address when it appears OUTSIDE sale_location", () => {
+    const checks = validateExtraction({ ...GOOD, trustee_or_substitute: "9401 Knight Road" }, CLERK);
+    expect(checks.find((c) => c.name.includes("address-shaped"))!.pass).toBe(false);
+  });
+
+  it("rejects sale_location carrying a second, non-venue address alongside the venue", () => {
+    const checks = validateExtraction(
+      { ...GOOD, sale_location: "9401 Knight Road, near 123 Maple Street" },
+      CLERK,
+    );
+    expect(checks.find((c) => c.name.includes("address-shaped"))!.pass).toBe(false);
+  });
+});
+
+describe("validateFidelity — ground truth for the fixed samples", () => {
+  const A = SAMPLE_NOTICES[0]!;
+  const B = SAMPLE_NOTICES[1]!;
+
+  it("passes when the extraction matches sample A's known contents", () => {
+    const checks = validateFidelity(GOOD, A.expected);
+    expect(checks.every((c) => c.pass)).toBe(true);
+  });
+
+  it("fails when the trustee is wrong", () => {
+    const checks = validateFidelity({ ...GOOD, trustee_or_substitute: "Some Other Firm" }, A.expected);
+    expect(checks.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
+  });
+
+  it("fails when the stated time drifts (sample A says 11:00 a.m., not 10)", () => {
+    const checks = validateFidelity({ ...GOOD, sale_time_window: "10:00 AM" }, A.expected);
+    expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
+  });
+
+  it("sample B expects MidFirst/Midland and a 10 a.m. start", () => {
+    const checks = validateFidelity(
+      {
+        trustee_or_substitute: "Auction.com, LLC and Barrett Daffin Frappier Turner & Engel, LLP",
+        lender_or_mortgagee: "MidFirst Bank",
+        servicer_if_stated: "Midland Mortgage",
+        sale_time_window: "no earlier than 10:00 a.m.",
+      },
+      B.expected,
+    );
+    expect(checks.every((c) => c.pass)).toBe(true);
   });
 });
