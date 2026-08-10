@@ -39,30 +39,31 @@ export const SAMPLE_NOTICES: readonly SampleNotice[] = [
     clerk: { fileDate: "2026-04-02", saleDate: "2026-09-01" },
     expected: {
       notice_type: {
-        required: [/notice/i, /trustee/i, /sale/i],
+        required: [/^notice of substitute trustee'?s sale$/i],
         allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
         allowedDigits: [],
       },
       sale_time_window: {
         required: [/11(:00)?\s*a\.?m\.?/i],
+        forbidden: [/\b(?!3\b)\d+\s*\)?\s*hours?\b/i, /\b(one|two|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+hours?\b/i],
         allowedWords: ["begin", "beginning", "not", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
         allowedDigits: ["11", "00", "3", "2", "14"],
       },
       sale_location: {
-        required: [/bayou\s+city\s+event\s+center/i],
+        required: [/bayou\s+city\s+event\s+center/i, /magnolia\s+ballroom/i],
         allowedWords: ["bayou", "city", "event", "center", "magnolia", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
         allowedDigits: ["9401"],
       },
-      county: { required: [/harris/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
+      county: { required: [/^harris(\s+county)?(,\s*texas)?$/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
       trustee_or_substitute: {
-        required: [/auction\.com/i],
+        required: [/^auction\.com,?\s*(llc|l\.l\.c\.?)$/i],
         allowedWords: ["auction", "com", "llc"],
         allowedDigits: [],
       },
       deed_of_trust_date: null,
       lender_or_mortgagee: null, // the sample's mortgagee lines are [REMOVED]
       servicer_if_stated: {
-        required: [/lakeview/i],
+        required: [/^lakeview loan servicing,?\s*(llc|l\.l\.c\.?)$/i],
         allowedWords: ["lakeview", "loan", "servicing", "llc"],
         allowedDigits: [],
       },
@@ -97,34 +98,35 @@ ASSERT AND PROTECT YOUR RIGHTS AS A MEMBER OF THE ARMED FORCES OF THE UNITED STA
     clerk: { fileDate: "2026-05-14", saleDate: "2026-09-01" },
     expected: {
       notice_type: {
-        required: [/notice/i, /trustee/i, /sale/i],
+        required: [/^notice of substitute trustee'?s sale$/i],
         allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
         allowedDigits: [],
       },
       sale_time_window: {
         required: [/10(:00)?\s*a\.?m\.?/i],
+        forbidden: [/\b(?!3\b)\d+\s*\)?\s*hours?\b/i, /\b(one|two|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+hours?\b/i],
         allowedWords: ["begin", "beginning", "not", "earlier", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
         allowedDigits: ["10", "00", "1", "3", "13"],
       },
       sale_location: {
-        required: [/bayou\s+city\s+event\s+center/i],
+        required: [/bayou\s+city\s+event\s+center/i, /magnolia\s+south\s+ballroom/i],
         allowedWords: ["bayou", "city", "event", "center", "magnolia", "south", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
         allowedDigits: ["9401"],
       },
-      county: { required: [/harris/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
+      county: { required: [/^harris(\s+county)?(,\s*texas)?$/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
       trustee_or_substitute: {
-        required: [/auction\.com/i, /barrett\s+daffin/i],
+        required: [/auction\.com,?\s*(llc|l\.l\.c\.?)/i, /barrett\s+daffin\s+frappier\s+turner\s*(&|and)\s*engel,?\s*l\.?l\.?p\.?/i],
         allowedWords: ["auction", "com", "llc", "and", "barrett", "daffin", "frappier", "turner", "engel", "llp"],
         allowedDigits: [],
       },
       deed_of_trust_date: null,
       lender_or_mortgagee: {
-        required: [/midfirst/i],
+        required: [/^midfirst bank$/i],
         allowedWords: ["midfirst", "bank"],
         allowedDigits: [],
       },
       servicer_if_stated: {
-        required: [/midland/i],
+        required: [/midland\s+mortgage/i],
         allowedWords: ["midland", "mortgage", "division", "midfirst", "bank"],
         allowedDigits: [],
       },

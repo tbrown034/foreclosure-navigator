@@ -181,6 +181,43 @@ describe("validateFidelity — field-exact ground truth for the fixed samples", 
     expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
   });
 
+  it("rejects a wrong hours-count built from allowed digits ('2 hours', the round-6 bypass)", () => {
+    const checks = validateFidelity(
+      { ...FAITHFUL_A, sale_time_window: "11:00 a.m. or not later than 2 hours after that time" },
+      A.expected,
+    );
+    expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
+  });
+
+  it("rejects a wrong written hours-count ('two hours')", () => {
+    const checks = validateFidelity(
+      { ...FAITHFUL_A, sale_time_window: "11:00 a.m. or not later than two hours after that time" },
+      A.expected,
+    );
+    expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
+  });
+
+  it("sample B rejects a location omitting 'South' from Magnolia South Ballroom", () => {
+    const checks = validateFidelity(
+      { sale_location: "Bayou City Event Center, Magnolia Ballroom, 9401 Knight Road, Houston, Texas" },
+      B.expected,
+    );
+    expect(checks.find((c) => c.name.includes("venue"))!.pass).toBe(false);
+  });
+
+  it("sample B rejects a truncated trustee firm name", () => {
+    const checks = validateFidelity(
+      { trustee_or_substitute: "AUCTION.COM, LLC and BARRETT DAFFIN" },
+      B.expected,
+    );
+    expect(checks.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
+  });
+
+  it("sample B rejects 'MIDLAND BANK' as servicer — the document says Midland Mortgage", () => {
+    const checks = validateFidelity({ servicer_if_stated: "MIDLAND BANK" }, B.expected);
+    expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
+  });
+
   it("sample B requires BOTH trustees — Auction.com alone fails; the full faithful set passes", () => {
     const one = validateFidelity({ trustee_or_substitute: "Auction.com, LLC" }, B.expected);
     expect(one.find((c) => c.name.includes("trustee"))!.pass).toBe(false);

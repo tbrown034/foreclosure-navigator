@@ -140,13 +140,17 @@ export function validateExtraction(
   return checks;
 }
 
-/** What one extracted text field must look like for a fixed sample:
- * every `required` pattern must match, and every word of the value (3+
- * letters) must come from that FIELD'S own source vocabulary — so a value
- * assembled from words that appear elsewhere in the document ("Auction.com
- * and Lakeview" as co-trustees) still fails. */
+/** What one extracted text field must look like for a fixed sample. Four
+ * gates, all deterministic: required patterns (anchored full-value for
+ * stable fields like names/title/county — whole-field comparison there),
+ * forbidden patterns (targeted rejections the allowlists cannot see, like
+ * a wrong hours-count), a curated word allowlist, and per-field digit
+ * runs. A value assembled from words found elsewhere in the document
+ * ("Auction.com and Lakeview" as co-trustees) fails the allowlist; a
+ * truncated firm name fails its required pattern. */
 export interface FieldExpectation {
   required: RegExp[];
+  forbidden?: RegExp[];
   /** Curated field-specific allowlist for words of 3+ letters. */
   allowedWords: string[];
   /** Digit runs the field may contain ("11", "00", "3"); anything else is
@@ -171,6 +175,7 @@ export interface SampleExpectation {
 function fieldFaithful(value: unknown, exp: FieldExpectation): boolean {
   if (typeof value !== "string" || value.length === 0) return false;
   if (!exp.required.every((re) => re.test(value))) return false;
+  if (exp.forbidden?.some((re) => re.test(value))) return false;
   const words = value.toLowerCase().match(/[a-z]{3,}/g) ?? [];
   if (!words.every((w) => exp.allowedWords.includes(w))) return false;
   // Digit runs are guarded too: "999 hours after" fails even though every
