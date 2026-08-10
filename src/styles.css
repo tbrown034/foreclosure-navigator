@@ -413,6 +413,26 @@ details.action > summary p { margin: 0; font-size: 13.5px; color: var(--ink-2); 
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 
+/* Upload demo: live extraction on the sanitized sample documents. */
+.upload-demo { margin: 0 0 18px; border-left: 4px solid var(--ai); }
+.sample-text summary {
+  cursor: pointer;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  padding: 4px 0;
+}
+.sample-text summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sample-text .tpl { margin-top: 8px; max-width: 78ch; }
+.sample-text[open] { flex-basis: 100%; }
+#extractResult { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+#extractResult h4 { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.extract-meta { margin: 0; font-size: 13px; color: var(--ink-2); }
+.extract-table-wrap { overflow-x: auto; }
+.extract-table-wrap td:first-child { font-size: 12.5px; color: var(--ink-3); white-space: nowrap; }
+.extract-unknown { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; color: var(--ink-3); }
+.extract-checks { list-style: none; margin: 0; padding: 0; font-size: 13.5px; color: var(--ink-2); }
+.extract-checks li { margin: 5px 0; }
+
 /* The one live AI feature: optional polish of the reader's own sentence. */
 .polish-box { margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 12px; }
 .polish-disclosure { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-3); }
@@ -430,7 +450,7 @@ details.action > summary p { margin: 0; font-size: 13.5px; color: var(--ink-2); 
 
 @media print {
   body { background: #fff; color: #000; font-size: 12px; }
-  .demo-banner, .stepper, .stage-note, .ai-badge, button, a.abtn.ghost, .polish-box, .scenario-strip,
+  .demo-banner, .stepper, .stage-note, .ai-badge, button, a.abtn.ghost, .polish-box, .scenario-strip, .upload-demo,
   [aria-labelledby="dataH"], [aria-labelledby="aiH"], header.masthead a { display: none !important; }
   a[href^="tel:"] { display: inline !important; border: none; background: none; padding: 0; color: #000; font-weight: 700; }
   .panel, details.action, .card { border: 1px solid #999; break-inside: avoid; }

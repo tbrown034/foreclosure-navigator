@@ -14,6 +14,7 @@ import { initPolishDemo } from "./sections/polish-demo";
 import { initSampleScenarios } from "./sections/sample-scenarios";
 import { initStepper } from "./sections/stepper";
 import { initTrackSelector } from "./sections/track-selector";
+import { initUploadDemo } from "./sections/upload-demo";
 
 initTrackSelector();
 initStepper();
@@ -22,4 +23,5 @@ initActionKits();
 initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
+initUploadDemo();
 initAuctionCalendar();

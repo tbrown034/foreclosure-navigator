@@ -1,7 +1,7 @@
 /**
- * The one serverless function: narrative polish for the reader's own
- * sentence. Contract — fix grammar, spelling, structure and tone ONLY;
- * never add a fact, date or circumstance absent from the input.
+ * Narrative polish for the reader's own sentence. Contract — fix grammar,
+ * spelling, structure and tone ONLY; never add a fact, date or circumstance
+ * absent from the input.
  *
  * The model is not trusted to honor that contract. A deterministic check
  * runs AFTER the model: if the output contains any digit run or month name
@@ -10,46 +10,17 @@
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { QUOTA_BODY, callAnthropic, clientIp, createRateLimiter } from "./_shared.js";
 
 const MODEL = "claude-haiku-4-5";
 const MAX_TOKENS = 600;
 const MAX_INPUT_CHARS = 1200;
 
-const PER_IP_LIMIT = 5; // requests per rolling hour
-const PER_IP_WINDOW_MS = 60 * 60 * 1000;
-const GLOBAL_DAILY_LIMIT = 200;
-
-const QUOTA_BODY = {
-  error: "demo quota reached — the deterministic demo still works",
-};
-
-// In-memory counters, per serverless instance. Good enough for a demo with
-// hard server-side caps; a production version would use a shared store.
-// Anything unexpected in the counting path fails CLOSED (treated as over
-// quota) rather than letting requests through uncounted.
-const ipHits = new Map<string, number[]>();
-let globalDay = "";
-let globalCount = 0;
-
-function overQuota(ip: string): boolean {
-  const now = Date.now();
-  const day = new Date().toISOString().slice(0, 10);
-  if (day !== globalDay) {
-    globalDay = day;
-    globalCount = 0;
-  }
-  if (globalCount >= GLOBAL_DAILY_LIMIT) return true;
-
-  const hits = (ipHits.get(ip) ?? []).filter((t) => now - t < PER_IP_WINDOW_MS);
-  if (hits.length >= PER_IP_LIMIT) {
-    ipHits.set(ip, hits);
-    return true;
-  }
-  hits.push(now);
-  ipHits.set(ip, hits);
-  globalCount++;
-  return false;
-}
+const limiter = createRateLimiter({
+  perIpLimit: 5,
+  perIpWindowMs: 60 * 60 * 1000,
+  globalDailyLimit: 200,
+});
 
 const MONTH_NAMES = [
   "january", "february", "march", "april", "may", "june", "july",
@@ -90,29 +61,7 @@ interface ModelResult {
   facts_used: string[];
 }
 
-async function callModel(apiKey: string, text: string): Promise<ModelResult | null> {
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      messages: [{ role: "user", content: PROMPT_HEADER + text }],
-    }),
-  });
-  if (!resp.ok) return null;
-  const data = (await resp.json()) as {
-    content?: Array<{ type: string; text?: string }>;
-  };
-  const raw = (data.content ?? [])
-    .map((b) => b.text ?? "")
-    .join("")
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/\s*```\s*$/, "");
+function parseModelResult(raw: string): ModelResult | null {
   try {
     const parsed = JSON.parse(raw) as Partial<ModelResult>;
     if (typeof parsed.polished !== "string") return null;
@@ -144,9 +93,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   try {
-    const forwarded = req.headers["x-forwarded-for"];
-    const ip = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(",")[0]?.trim() ?? "unknown";
-    if (overQuota(ip)) {
+    if (limiter.overQuota(clientIp(req))) {
       res.status(429).json(QUOTA_BODY);
       return;
     }
@@ -162,9 +109,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return;
   }
 
-  const result = await callModel(apiKey, text);
-  if (!result) {
+  const raw = await callAnthropic({ apiKey, model: MODEL, maxTokens: MAX_TOKENS, prompt: PROMPT_HEADER + text });
+  if (raw === null) {
     res.status(502).json({ error: "model call failed" });
+    return;
+  }
+  const result = parseModelResult(raw);
+  if (!result) {
+    res.status(502).json({ error: "model returned unparseable output" });
     return;
   }
 

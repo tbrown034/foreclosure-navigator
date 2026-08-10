@@ -49,7 +49,7 @@
       </div>
     </div>
     <p class="free-note">Deadlines, stage guidance and legal-aid referrals are always free. No account required for the answer.</p>
-    <p style="margin:14px 0 0"><a href="#aiH" style="display:inline-flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--ai);background:var(--ai-soft);border-radius:8px;padding:9px 14px;color:var(--ai);font-size:13.5px;font-weight:650">This entire demo runs with ZERO AI calls — by design. See the six jobs AI does in production, and the four things it never touches &darr;</a></p>
+    <p style="margin:14px 0 0"><a href="#aiH" style="display:inline-flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--ai);background:var(--ai-soft);border-radius:8px;padding:9px 14px;color:var(--ai);font-size:13.5px;font-weight:650">This demo runs with ZERO AI calls until you click one of its two clearly marked live-AI buttons — by design. See the six jobs AI does in production, and the four things it never touches &darr;</a></p>
   </header>
 
   <div class="stepper" role="tablist" aria-label="Where are you in the process?">
@@ -84,10 +84,24 @@
       </div>
       <p class="scenario-note">The first two are real recorded instruments from the Harris County Clerk's public foreclosure search — only their public file dates and printed sale date are used; homeowner details excluded by design. The third is HYPOTHETICAL: a made-up notice of default dated one week ago, so you can see the projected chain move.</p>
     </div>
+    <div class="panel upload-demo">
+      <p style="margin:0 0 6px"><span class="ai-badge">Live model call — optional</span></p>
+      <h3 style="margin:0 0 4px;font-size:16px">Or watch the upload path run, live</h3>
+      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. Run that exact path here on a sample document: a sanitized stand-in built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server. The model fills a fixed schema, six deterministic checks then run in code, and nothing enters the calculator until you confirm the dates.</p>
+      <div class="btnrow">
+        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI (based on FRCL-2026-2290)</button>
+        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI (based on FRCL-2026-3493)</button>
+      </div>
+      <div class="btnrow" style="margin-top:8px">
+        <details class="sample-text" data-sample-text="frcl-2026-2290"><summary>Read exactly what sample A sends</summary></details>
+        <details class="sample-text" data-sample-text="frcl-2026-3493"><summary>Read exactly what sample B sends</summary></details>
+      </div>
+      <div id="extractResult" hidden></div>
+    </div>
     <div class="calc">
       <div class="panel">
         <p style="margin:0 0 4px"><span class="ai-badge">AI runs here in production</span></p>
-        <p style="margin:0 0 10px;font-size:12.5px;color:var(--ink-3)">You'd upload the notice itself; extraction reads the type, dates and parties — confidence-scored, and you confirm every field. The demo uses manual entry.</p>
+        <p style="margin:0 0 10px;font-size:12.5px;color:var(--ink-3)">You'd upload the notice itself; extraction reads the type, dates and parties — confidence-scored, and you confirm every field. Enter manually here, or run the upload demo above on a sample document.</p>
         <label for="noticeType">Which notice did you receive?</label>
         <select id="noticeType">
           <option value="default">Notice of default (right to cure)</option>
@@ -197,11 +211,11 @@
 
   <section aria-labelledby="aiH">
     <h2 id="aiH">Where AI runs — and where it never does</h2>
-    <p class="sub">The seam map. Everything on this page so far runs with zero model calls — that's deliberate. AI earns exactly six jobs, each at the edges, each under a contract.</p>
+    <p class="sub">The seam map. Everything on this page runs with zero model calls until you explicitly click one of the two live demos — that's deliberate. AI earns exactly six jobs, each at the edges, each under a contract.</p>
     <div class="ai-map" id="aiMap">
-      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates, parties and amounts into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN, the reader confirms every field before anything computes. <strong>Proven below on two real recorded instruments.</strong></p></div>
+      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates, parties and amounts into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN, the reader confirms every field before anything computes. <strong>Proven below on two real recorded instruments — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
       <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice below — and the test caught the AI in an error. Read that row.</strong></p></div>
-      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested below — automated check confirmed zero added facts.</strong></p></div>
+      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested below — automated check confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>4 · Spanish.</strong> Fixed legal language stays human-translated; AI translates only your personal narrative, shown beside the English for verification.</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>5 · Scam-offer check.</strong> Paste a rescue-company letter; the model flags known predatory patterns — "this deserves independent review," never "this is fraud."</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>6 · The county picture.</strong> Extraction at posting scale feeds the trends desk — aggregate only, minimum-count suppression, no property dots.</p></div>

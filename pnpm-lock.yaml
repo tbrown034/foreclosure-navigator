@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@types/node':
+        specifier: ^26.2.0
+        version: 26.2.0
       '@vercel/node':
         specifier: ^5.3.6
         version: 5.9.8(rollup@4.62.4)
@@ -16,10 +19,10 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^7.1.2
-        version: 7.3.6(tsx@4.21.0)
+        version: 7.3.6(@types/node@26.2.0)(tsx@4.21.0)
       vitest:
         specifier: ^3.2.4
-        version: 3.2.7(@edge-runtime/vm@3.2.0)(tsx@4.21.0)
+        version: 3.2.7(@edge-runtime/vm@3.2.0)(@types/node@26.2.0)(tsx@4.21.0)
 
 packages:
 
@@ -556,6 +559,9 @@ packages:
   '@types/node@20.11.0':
     resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
 
+  '@types/node@26.2.0':
+    resolution: {integrity: sha512-5IviulTZeRNp2vAJ514cc/HUlY5nZ9fCbq9DMyC52BrhFZACo3nI0R7qBxhQmo/d27NFe96ur/b7Wwxklda+kg==}
+
   '@vercel/build-utils@14.0.4':
     resolution: {integrity: sha512-zpet7UYKXQcNVABvkvNv2MVgyug1zBMAyq/HnSiQE/UgTbQQMpNXw9R5tANuMafLlip4AzHZ8tBgvcjFIxyTNQ==}
 
@@ -1075,6 +1081,9 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
+  undici-types@8.3.0:
+    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
+
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
     engines: {node: '>=14.0'}
@@ -1498,6 +1507,10 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@26.2.0':
+    dependencies:
+      undici-types: 8.3.0
+
   '@vercel/build-utils@14.0.4':
     dependencies:
       '@vercel/python-analysis': 0.13.1
@@ -1578,13 +1591,13 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.7(vite@7.3.6(tsx@4.21.0))':
+  '@vitest/mocker@3.2.7(vite@7.3.6(@types/node@26.2.0)(tsx@4.21.0))':
     dependencies:
       '@vitest/spy': 3.2.7
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.6(tsx@4.21.0)
+      vite: 7.3.6(@types/node@26.2.0)(tsx@4.21.0)
 
   '@vitest/pretty-format@3.2.7':
     dependencies:
@@ -2070,6 +2083,8 @@ snapshots:
 
   undici-types@5.26.5: {}
 
+  undici-types@8.3.0: {}
+
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
@@ -2080,13 +2095,13 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-node@3.2.4(tsx@4.21.0):
+  vite-node@3.2.4(@types/node@26.2.0)(tsx@4.21.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.3.6(tsx@4.21.0)
+      vite: 7.3.6(@types/node@26.2.0)(tsx@4.21.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -2101,7 +2116,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite@7.3.6(tsx@4.21.0):
+  vite@7.3.6(@types/node@26.2.0)(tsx@4.21.0):
     dependencies:
       esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.5)
@@ -2110,14 +2125,15 @@ snapshots:
       rollup: 4.62.4
       tinyglobby: 0.2.17
     optionalDependencies:
+      '@types/node': 26.2.0
       fsevents: 2.3.3
       tsx: 4.21.0
 
-  vitest@3.2.7(@edge-runtime/vm@3.2.0)(tsx@4.21.0):
+  vitest@3.2.7(@edge-runtime/vm@3.2.0)(@types/node@26.2.0)(tsx@4.21.0):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/expect': 3.2.7
-      '@vitest/mocker': 3.2.7(vite@7.3.6(tsx@4.21.0))
+      '@vitest/mocker': 3.2.7(vite@7.3.6(@types/node@26.2.0)(tsx@4.21.0))
       '@vitest/pretty-format': 3.2.7
       '@vitest/runner': 3.2.7
       '@vitest/snapshot': 3.2.7
@@ -2135,11 +2151,12 @@ snapshots:
       tinyglobby: 0.2.17
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 7.3.6(tsx@4.21.0)
-      vite-node: 3.2.4(tsx@4.21.0)
+      vite: 7.3.6(@types/node@26.2.0)(tsx@4.21.0)
+      vite-node: 3.2.4(@types/node@26.2.0)(tsx@4.21.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@edge-runtime/vm': 3.2.0
+      '@types/node': 26.2.0
     transitivePeerDependencies:
       - jiti
       - less

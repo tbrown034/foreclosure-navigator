@@ -8,6 +8,7 @@
 
 import type { NoticeType } from "./editor-box";
 import { byId } from "../format";
+import { focusUrgency } from "./focus-urgency";
 
 interface Scenario {
   type: NoticeType;
@@ -49,20 +50,7 @@ function applyScenario(s: Scenario): void {
   if (s.printedSaleIso) printedEl.value = s.printedSaleIso;
   // One change event is enough: the editor box re-reads every field.
   typeEl.dispatchEvent(new Event("change"));
-
-  // Draw the eye to the result. With reduced motion: no smooth scroll, no
-  // flash — just move focus to the urgency card.
-  const urgency = byId<HTMLDivElement>("urgency");
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  urgency.setAttribute("tabindex", "-1");
-  urgency.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
-  urgency.focus({ preventScroll: true });
-  if (!reduced) {
-    urgency.classList.remove("urgency-flash");
-    // Restart the animation if a scenario is clicked twice.
-    void urgency.offsetWidth;
-    urgency.classList.add("urgency-flash");
-  }
+  focusUrgency();
 }
 
 export function initSampleScenarios(): void {
