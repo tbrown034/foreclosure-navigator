@@ -54,4 +54,14 @@ describe("inventedTokens — the deterministic gate on model output", () => {
   it("catches a written-number substitution: 'one hundred' does not license 'nine hundred'", () => {
     expect(inventedTokens("i owe one hundred dollars", "I owe nine hundred dollars.")).toContain("nine");
   });
+
+  it("catches 'no missed payment' becoming 'one missed payment'", () => {
+    expect(inventedTokens("I have no missed payment.", "I have one missed payment.")).toContain("one");
+  });
+
+  it("catches an introduced 'zero' and singular 'dollar'", () => {
+    expect(inventedTokens("i am behind on payments", "I have zero savings and not a dollar spare.")).toEqual(
+      expect.arrayContaining(["zero", "dollar"]),
+    );
+  });
 });

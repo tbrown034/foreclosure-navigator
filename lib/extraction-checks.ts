@@ -4,7 +4,7 @@
  * (extract-test.mjs) so the live demo runs the same checks the pilot ran.
  */
 
-import { atNoon, daysBetween } from "./deadlines.js";
+import { atNoon, daysBetween, isAllowedSaleDay } from "./deadlines.js";
 
 /** The fixed extraction schema. Privacy fields (borrower name, property
  * address, legal description) are deliberately absent. */
@@ -68,8 +68,8 @@ export function validateExtraction(
 
   const sale = saleDate ? atNoon(saleDate) : null;
   checks.push({
-    name: "sale date is a Tuesday (first-Tuesday rule)",
-    pass: sale !== null && sale.getDay() === 2,
+    name: "sale date is an allowed sale day (first Tuesday, or Wednesday when that Tuesday is Jan 1 / Jul 4)",
+    pass: sale !== null && isAllowedSaleDay(sale),
   });
 
   const gap = sale ? daysBetween(atNoon(clerk.fileDate), sale) : null;
@@ -114,12 +114,14 @@ export function validateExtraction(
     }),
   });
 
+  const CONFIDENCE_KEYS = ["sale_date", "trustee_or_substitute", "lender_or_mortgagee"];
   checks.push({
-    name: "confidence values are numbers within 0–1",
+    name: "confidence has exactly the three required keys, each a number within 0–1",
     pass:
       conf !== undefined &&
       conf !== null &&
       typeof conf === "object" &&
+      Object.keys(conf).sort().join(",") === [...CONFIDENCE_KEYS].sort().join(",") &&
       Object.values(conf).every((v) => typeof v === "number" && v >= 0 && v <= 1),
   });
 
@@ -138,26 +140,69 @@ export function validateExtraction(
   return checks;
 }
 
+/** Ground truth for a fixed sample: what a faithful extraction MUST
+ * contain, field by field. `lender` null means the document names no
+ * mortgagee, so the field must be null (it was redacted). */
+export interface SampleExpectation {
+  /** Every named trustee must appear in the extracted trustee field. */
+  trustees: RegExp[];
+  lender: RegExp | null;
+  servicer: RegExp;
+  time: RegExp;
+}
+
+/** Fields whose words must all come FROM the document — extraction copies,
+ * it never composes. notice_type/county are covered too; confidence and
+ * dates are numeric/ISO and checked elsewhere. */
+const CONTAINMENT_FIELDS = [
+  "notice_type",
+  "sale_time_window",
+  "sale_location",
+  "county",
+  "trustee_or_substitute",
+  "lender_or_mortgagee",
+  "servicer_if_stated",
+];
+
 /** Fidelity checks against a fixed sample's known ground truth. Only
- * possible because the demo's documents are fixed — a faithful extraction
- * must contain these values. */
+ * possible because the demo's documents are fixed. Presence alone is not
+ * enough — the containment check rejects invented additions ("Auction.com
+ * and Invented Trustee") by requiring every word of every extracted text
+ * field to appear in the source document. */
 export function validateFidelity(
   data: Record<string, unknown>,
-  expected: { trustee: RegExp; party: RegExp; time: RegExp },
+  expected: SampleExpectation,
+  documentText: string,
 ): Check[] {
   const str = (k: string): string => (typeof data[k] === "string" ? (data[k] as string) : "");
+  const docLower = documentText.toLowerCase();
   return [
     {
-      name: "extracted trustee matches the document's named trustee",
-      pass: expected.trustee.test(str("trustee_or_substitute")),
+      name: "extracted trustee names every trustee the document appoints",
+      pass: expected.trustees.every((re) => re.test(str("trustee_or_substitute"))),
     },
     {
-      name: "extracted lender/servicer matches the document's named party",
-      pass: expected.party.test(str("lender_or_mortgagee") + " " + str("servicer_if_stated")),
+      name: expected.lender
+        ? "extracted lender/mortgagee matches the document's named party"
+        : "lender/mortgagee is null — the document does not name one",
+      pass: expected.lender
+        ? expected.lender.test(str("lender_or_mortgagee"))
+        : data["lender_or_mortgagee"] === null || data["lender_or_mortgagee"] === undefined,
+    },
+    {
+      name: "extracted servicer matches the document's named servicer",
+      pass: expected.servicer.test(str("servicer_if_stated")),
     },
     {
       name: "extracted sale window states the document's start time",
       pass: expected.time.test(str("sale_time_window")),
+    },
+    {
+      name: "every word of every extracted text field appears in the document (nothing composed)",
+      pass: CONTAINMENT_FIELDS.every((k) => {
+        const words = str(k).toLowerCase().match(/[a-z]{3,}/g) ?? [];
+        return words.every((w) => docLower.includes(w));
+      }),
     },
   ];
 }

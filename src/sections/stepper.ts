@@ -6,7 +6,7 @@ import { byId } from "../format";
 const STAGE_NOTES = [
   "Behind on payments but no formal letter yet? This is the widest window you will ever have. Contact your servicer about loss-mitigation now — federal rules generally require a foreclosure hold while a complete application is under review.",
   "The notice of default starts a 20-day clock to catch up (“cure”). Curing means paying the missed amount — not the whole loan. The exact figure must be in writing from your servicer.",
-  "The notice of trustee sale must be filed with the county clerk, posted and mailed at least 21 days before the sale. The sale can only happen on the first Tuesday of the month. Until then you can still reinstate, sell, or seek a court order.",
+  "The notice of trustee sale must be filed with the county clerk, posted and mailed at least 21 days before the sale. The sale can only happen on the first Tuesday of the month (or the first Wednesday, when that Tuesday is Jan 1 or July 4). Until then you can still reinstate, sell, or seek a court order.",
   "Sales run 10 a.m. to 4 p.m. at the county's designated site. Texas has no post-sale redemption for mortgage foreclosure — this is the last day to act. Tax and HOA foreclosures have different rules.",
 ];
 

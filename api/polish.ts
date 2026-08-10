@@ -4,9 +4,10 @@
  * absent from the input.
  *
  * The model is not trusted to honor that contract. A deterministic check
- * runs AFTER the model: if the output contains any digit run or month name
- * that does not appear in the input, the original text is returned with a
- * flag and an explanation. The page works fully without this endpoint.
+ * runs AFTER the model: if the output contains any digit run, month name
+ * or number/amount word that does not appear in the input, the original
+ * text is returned with a flag and an explanation. The page works fully
+ * without this endpoint.
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
@@ -28,17 +29,17 @@ const MONTH_NAMES = [
   "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
 ];
 
-/** Number and amount words that state quantities without digits. "one" is
- * excluded — it appears in ordinary prose ("one of", "no one") and would
- * reject almost everything; a substitution TO "one" understates rather
- * than invents, and the reader's approval step is the semantic safety
- * net for what this NARROW token guard cannot see. The UI says exactly
- * that. */
+/** Number and amount words that state quantities without digits. The page
+ * promises rejection of ANY number the reader did not type, so "one" and
+ * "zero" are included even though they cost occasional false rejections
+ * ("one lump sum") — a false rejection returns the reader's original
+ * text, which is always safe. The prompt below tells the model not to
+ * introduce number words, which keeps benign flags rare. */
 const NUMBER_WORDS = [
-  "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+  "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
   "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
   "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
-  "hundred", "thousand", "million", "percent", "dollars",
+  "hundred", "thousand", "million", "percent", "dollar", "dollars", "cent", "cents",
 ];
 
 const wordInText = (word: string, text: string): boolean => new RegExp(`\\b${word}\\b`, "i").test(text);
@@ -64,6 +65,7 @@ export function inventedTokens(input: string, output: string): string[] {
 
 const PROMPT_HEADER = `You are a copy editor for a homeowner's hardship statement. Rewrite the text below for grammar, spelling, structure and tone only. HARD RULES:
 - Do not add any fact, date, number, amount, name or circumstance that is not in the input.
+- Do not introduce number words (one, two, hundred...) or month names that are not in the input.
 - Do not remove or soften any fact.
 - Do not give advice or add legal language.
 - Keep first person and the writer's meaning exactly.

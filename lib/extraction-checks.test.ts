@@ -111,31 +111,95 @@ describe("validateFidelity — ground truth for the fixed samples", () => {
   const A = SAMPLE_NOTICES[0]!;
   const B = SAMPLE_NOTICES[1]!;
 
-  it("passes when the extraction matches sample A's known contents", () => {
-    const checks = validateFidelity(GOOD, A.expected);
+  // What the live pilot actually extracted for sample A — the mortgagee
+  // lines are [REMOVED] in the document, so lender must be null.
+  const FAITHFUL_A = {
+    notice_type: "Notice of Substitute Trustee's Sale",
+    sale_time_window: "11:00 a.m. or not later than three (3) hours after that time",
+    sale_location: "Bayou City Event Center, Magnolia Ballroom, 9401 Knight Road, Houston, Texas",
+    county: "Harris",
+    trustee_or_substitute: "AUCTION.COM, LLC",
+    lender_or_mortgagee: null,
+    servicer_if_stated: "LAKEVIEW LOAN SERVICING, LLC",
+  };
+
+  it("passes a faithful sample-A extraction (five checks)", () => {
+    const checks = validateFidelity(FAITHFUL_A, A.expected, A.text);
+    expect(checks).toHaveLength(5);
     expect(checks.every((c) => c.pass)).toBe(true);
   });
 
-  it("fails when the trustee is wrong", () => {
-    const checks = validateFidelity({ ...GOOD, trustee_or_substitute: "Some Other Firm" }, A.expected);
-    expect(checks.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
+  it("containment rejects an invented co-trustee even when the real one is present", () => {
+    const checks = validateFidelity(
+      { ...FAITHFUL_A, trustee_or_substitute: "Auction.com, LLC and Invented Trustee Partners" },
+      A.expected,
+      A.text,
+    );
+    expect(checks.find((c) => c.name.includes("nothing composed"))!.pass).toBe(false);
+  });
+
+  it("containment rejects an invented bank appended to the real servicer", () => {
+    const checks = validateFidelity(
+      { ...FAITHFUL_A, servicer_if_stated: "Lakeview and Invented Bank" },
+      A.expected,
+      A.text,
+    );
+    expect(checks.find((c) => c.name.includes("nothing composed"))!.pass).toBe(false);
+  });
+
+  it("sample A requires lender to be null (the document's mortgagee is removed)", () => {
+    const checks = validateFidelity(
+      { ...FAITHFUL_A, lender_or_mortgagee: "Lakeview Loan Servicing" },
+      A.expected,
+      A.text,
+    );
+    expect(checks.find((c) => c.name.includes("lender"))!.pass).toBe(false);
+  });
+
+  it("a null servicer fails — the document names one", () => {
+    const checks = validateFidelity({ ...FAITHFUL_A, servicer_if_stated: null }, A.expected, A.text);
+    expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
   });
 
   it("fails when the stated time drifts (sample A says 11:00 a.m., not 10)", () => {
-    const checks = validateFidelity({ ...GOOD, sale_time_window: "10:00 AM" }, A.expected);
+    const checks = validateFidelity({ ...FAITHFUL_A, sale_time_window: "10:00 AM" }, A.expected, A.text);
     expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
   });
 
-  it("sample B expects MidFirst/Midland and a 10 a.m. start", () => {
-    const checks = validateFidelity(
+  it("sample B requires BOTH trustees — Auction.com alone fails", () => {
+    const one = validateFidelity(
+      { trustee_or_substitute: "Auction.com, LLC" },
+      B.expected,
+      B.text,
+    );
+    expect(one.find((c) => c.name.includes("trustee"))!.pass).toBe(false);
+    const both = validateFidelity(
       {
-        trustee_or_substitute: "Auction.com, LLC and Barrett Daffin Frappier Turner & Engel, LLP",
-        lender_or_mortgagee: "MidFirst Bank",
-        servicer_if_stated: "Midland Mortgage",
+        trustee_or_substitute: "AUCTION.COM, LLC, and BARRETT DAFFIN FRAPPIER TURNER & ENGEL, LLP",
+        lender_or_mortgagee: "MIDFIRST BANK",
+        servicer_if_stated: "MIDLAND MORTGAGE, A DIVISION OF MIDFIRST BANK",
         sale_time_window: "no earlier than 10:00 a.m.",
       },
       B.expected,
+      B.text,
     );
-    expect(checks.every((c) => c.pass)).toBe(true);
+    expect(both.every((c) => c.pass)).toBe(true);
+  });
+});
+
+describe("allowed-sale-day check accepts the statutory Wednesday exception", () => {
+  it("passes Wed Jul 5 2028 (first Tuesday is July 4) and fails Jul 4 itself", () => {
+    const clerk = { fileDate: "2028-05-01", saleDate: "2028-07-05" };
+    const wed = validateExtraction({ ...GOOD, sale_date: "2028-07-05" }, clerk);
+    expect(wed.find((c) => c.name.includes("allowed sale day"))!.pass).toBe(true);
+    const tue4 = validateExtraction({ ...GOOD, sale_date: "2028-07-04" }, { ...clerk, saleDate: "2028-07-04" });
+    expect(tue4.find((c) => c.name.includes("allowed sale day"))!.pass).toBe(false);
+  });
+});
+
+describe("confidence must be the exact three-key object", () => {
+  it("fails when only sale_date confidence is present", () => {
+    const checks = validateExtraction({ ...GOOD, confidence: { sale_date: 0.95 } }, CLERK);
+    expect(checks.find((c) => c.name.includes("three required keys"))!.pass).toBe(false);
   });
 });

@@ -6,7 +6,8 @@
  *
  * The server (api/polish.ts) enforces the contract: grammar, spelling,
  * structure and tone only; a deterministic check rejects model output that
- * contains a digit or month name absent from the input. The reader approves
+ * contains a digit run, month name or number/amount word absent from the
+ * input. The reader approves
  * or discards the result — nothing is applied without a click.
  */
 

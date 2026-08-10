@@ -101,7 +101,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
 
   const checks = [
     ...validateExtraction(extracted as unknown as Record<string, unknown>, sample.clerk),
-    ...validateFidelity(extracted as unknown as Record<string, unknown>, sample.expected),
+    ...validateFidelity(extracted as unknown as Record<string, unknown>, sample.expected, sample.text),
   ];
 
   res.status(200).json({
