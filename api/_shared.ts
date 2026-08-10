@@ -64,6 +64,8 @@ export async function callAnthropic(opts: {
   maxTokens: number;
   prompt: string;
   timeoutMs?: number;
+  /** 0 for extraction (reproducibility matters more than variety). */
+  temperature?: number;
 }): Promise<string | null> {
   try {
     const resp = await fetch("https://api.anthropic.com/v1/messages", {
@@ -76,6 +78,7 @@ export async function callAnthropic(opts: {
       body: JSON.stringify({
         model: opts.model,
         max_tokens: opts.maxTokens,
+        ...(opts.temperature !== undefined ? { temperature: opts.temperature } : {}),
         messages: [{ role: "user", content: opts.prompt }],
       }),
       signal: AbortSignal.timeout(opts.timeoutMs ?? 25_000),

@@ -32,7 +32,7 @@ Return ONLY a JSON object with exactly these keys:
   "sale_time_window": "...",
   "sale_location": "...",
   "county": "...",
-  "trustee_or_substitute": "...",
+  "trustee_or_substitute": "...",  // if multiple substitute trustees are appointed, list ALL of them, exactly as named
   "deed_of_trust_date": "YYYY-MM-DD or null",
   "lender_or_mortgagee": "...",
   "servicer_if_stated": "... or null",
@@ -77,7 +77,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   const t0 = Date.now();
-  const raw = await callAnthropic({ apiKey, model: MODEL, maxTokens: MAX_TOKENS, prompt: SCHEMA_PROMPT + sample.text });
+  // temperature 0: extraction wants reproducibility, not variety — the
+  // deterministic checks are calibrated against faithful copying.
+  const raw = await callAnthropic({
+    apiKey,
+    model: MODEL,
+    maxTokens: MAX_TOKENS,
+    temperature: 0,
+    prompt: SCHEMA_PROMPT + sample.text,
+  });
   const ms = Date.now() - t0;
   if (raw === null) {
     res.status(502).json({ error: "model call failed" });
