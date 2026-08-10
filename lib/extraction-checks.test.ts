@@ -233,6 +233,11 @@ describe("validateFidelity — field-exact ground truth for the fixed samples", 
     expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
   });
 
+  it("accepts sample B's observed temperature-0 time window ('10:00 a.m. to 1:00 p.m.')", () => {
+    const checks = validateFidelity({ sale_time_window: "10:00 a.m. to 1:00 p.m." }, B.expected);
+    expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(true);
+  });
+
   it("sample B requires BOTH trustees — Auction.com alone fails; the full faithful set passes", () => {
     const one = validateFidelity({ trustee_or_substitute: "Auction.com, LLC" }, B.expected);
     expect(one.find((c) => c.name.includes("trustee"))!.pass).toBe(false);

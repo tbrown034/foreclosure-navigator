@@ -164,14 +164,15 @@ export interface SampleExpectation {
   servicer_if_stated: FieldExpectation;
 }
 
+// No trailing-period stripping here: "p.m." would become "p.m" and miss
+// its variant. Variants tolerate an optional final period instead.
 function normalize(value: string): string {
   return value
     .toLowerCase()
     .replace(/[\u201c\u201d]/g, '"')
     .replace(/[\u2018\u2019]/g, "'")
     .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\.$/, "");
+    .trim();
 }
 
 function fieldFaithful(value: unknown, exp: FieldExpectation): boolean {

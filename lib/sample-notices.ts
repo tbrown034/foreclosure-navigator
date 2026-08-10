@@ -46,7 +46,7 @@ export const SAMPLE_NOTICES: readonly SampleNotice[] = [
         variants: [
           /^11:00 a\.m\.,? or not later than three \(3\) hours after that time$/,
           /^(the sale will )?begins? at 11:00 a\.m\.,? (or )?not later than three \(3\) hours after that time$/,
-          /^11:00 a\.m$/,
+          /^11:00 a\.m\.?$/,
         ],
       },
       sale_location: {
@@ -97,7 +97,7 @@ ASSERT AND PROTECT YOUR RIGHTS AS A MEMBER OF THE ARMED FORCES OF THE UNITED STA
           /^10:00 a\.m\. to 1:00 p\.m\.( \(no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time\))?$/,
           /^(the sale will )?begins? no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time$/,
           /^no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time$/,
-          /^10:00 a\.m$/,
+          /^10:00 a\.m\.?$/,
         ],
       },
       sale_location: {
