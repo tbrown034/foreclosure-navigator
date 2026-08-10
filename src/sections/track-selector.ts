@@ -6,11 +6,17 @@ import { byId, fmt } from "../format";
 
 function buildTax(): void {
   const raw = byId<HTMLInputElement>("taxSaleDate").value;
-  if (!raw) return;
-  const homestead = byId<HTMLSelectElement>("taxHomestead").value === "yes";
-  const r = taxRedemption(raw, homestead);
-  let html = `<p style="margin:0 0 6px"><strong style="color:var(--ink)">Redemption deadline: ${fmt(r.deadline)}</strong> — ${homestead ? "two years (homestead)" : "180 days (non-homestead)"} after the buyer's deed was recorded.</p>`;
-  html += homestead
+  if (!raw) {
+    byId<HTMLDivElement>("taxOut").innerHTML =
+      '<p style="margin:0;font-size:13.5px;color:var(--ink-3)">Enter the deed-recording date to compute the redemption window.</p>';
+    return;
+  }
+  // §34.21: homestead, agricultural-use land and mineral interests share the
+  // two-year window; everything else gets 180 days.
+  const twoYearClass = byId<HTMLSelectElement>("taxHomestead").value === "yes";
+  const r = taxRedemption(raw, twoYearClass);
+  let html = `<p style="margin:0 0 6px"><strong style="color:var(--ink)">Redemption deadline: ${fmt(r.deadline)}</strong> — ${twoYearClass ? "two years (homestead, agricultural land or mineral interest)" : "180 days (other property)"} after the buyer's deed was recorded.</p>`;
+  html += twoYearClass
     ? `<p style="margin:0 0 6px">Cost to redeem: what the buyer paid <em>plus</em> recording fees, taxes, penalties, interest and costs the buyer has since paid, <em>plus</em> a <strong>25% premium in year one</strong> (through ${fmt(r.yearOneEnd)}) rising to <strong>50% in year two</strong>.</p>`
     : `<p style="margin:0 0 6px">Cost to redeem: what the buyer paid <em>plus</em> recording fees, taxes, penalties, interest and costs, <em>plus</em> a <strong>25% premium</strong>.</p>`;
   html += `<p style="margin:0;font-size:12.5px;color:var(--ink-3)">Computed from Tax Code §34.21; a lawyer or the tax office confirms your exact figure. If money was left over at the sale, it sits in the court registry for two years — you can petition to claim it.</p>`;
@@ -26,10 +32,10 @@ export function initTrackSelector(): void {
     btn.addEventListener("click", () => {
       buttons.forEach((b) => {
         b.classList.add("ghost");
-        b.setAttribute("aria-selected", "false");
+        b.setAttribute("aria-pressed", "false");
       });
       btn.classList.remove("ghost");
-      btn.setAttribute("aria-selected", "true");
+      btn.setAttribute("aria-pressed", "true");
       const t = btn.dataset.track;
       trackTax.hidden = t !== "tax";
       trackHoa.hidden = t !== "hoa";

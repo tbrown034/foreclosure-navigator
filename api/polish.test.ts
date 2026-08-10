@@ -30,4 +30,16 @@ describe("inventedTokens — the deterministic gate on model output", () => {
     const invented = inventedTokens("back at work since Aug 3", "I returned to work on August 3.");
     expect(invented).toContain("august");
   });
+
+  it("rejects written-out amounts the reader never typed", () => {
+    const out = "I owe several thousand dollars from that period.";
+    const invented = inventedTokens(INPUT, out);
+    expect(invented).toContain("thousand");
+    expect(invented).toContain("dollars");
+  });
+
+  it("allows amount words the reader did type", () => {
+    const invented = inventedTokens("i missed three thousand dollars of pay", "I missed three thousand dollars of pay.");
+    expect(invented).toEqual([]);
+  });
 });

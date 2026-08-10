@@ -5,6 +5,7 @@ import {
   daysBetween,
   defaultNoticeChain,
   firstAllowedSaleDayOnOrAfter,
+  isAllowedSaleDay,
   regXMarker,
   saleNoticeChain,
   taxRedemption,
@@ -118,6 +119,22 @@ describe("tax redemption — Tax Code §34.21, clock runs from DEED RECORDING", 
 
   it("year-one boundary for the 25%-then-50% premium is recording + 1 year", () => {
     expect(iso(taxRedemption("2026-07-10", true).yearOneEnd)).toBe("2027-07-10");
+  });
+});
+
+describe("isAllowedSaleDay — checking a printed date, never replacing it", () => {
+  it("accepts a first Tuesday", () => {
+    expect(isAllowedSaleDay(atNoon("2026-09-01"))).toBe(true);
+  });
+
+  it("rejects the day after a first Tuesday and a second Tuesday", () => {
+    expect(isAllowedSaleDay(atNoon("2026-09-02"))).toBe(false);
+    expect(isAllowedSaleDay(atNoon("2026-09-08"))).toBe(false);
+  });
+
+  it("accepts the Jul 4 exception Wednesday and rejects Jul 4 itself", () => {
+    expect(isAllowedSaleDay(atNoon("2028-07-05"))).toBe(true);
+    expect(isAllowedSaleDay(atNoon("2028-07-04"))).toBe(false);
   });
 });
 

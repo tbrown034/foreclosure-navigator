@@ -19,10 +19,10 @@ export function initStepper(): void {
     btn.addEventListener("click", () => {
       steps.forEach((b) => {
         b.classList.remove("active");
-        b.setAttribute("aria-selected", "false");
+        b.setAttribute("aria-pressed", "false");
       });
       btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
+      btn.setAttribute("aria-pressed", "true");
       const stage = Number(btn.dataset.stage);
       stageNote.textContent = STAGE_NOTES[stage] ?? "";
       // Stage drives the calculator, not just the prose.

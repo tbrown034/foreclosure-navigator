@@ -57,31 +57,37 @@ export function clientIp(req: VercelRequest): string {
 }
 
 /** Call the Anthropic Messages API and return the concatenated text output
- * (with any markdown fence stripped), or null on failure. */
+ * (with any markdown fence stripped), or null on failure or timeout. */
 export async function callAnthropic(opts: {
   apiKey: string;
   model: string;
   maxTokens: number;
   prompt: string;
+  timeoutMs?: number;
 }): Promise<string | null> {
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": opts.apiKey,
-      "anthropic-version": "2023-06-01",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model: opts.model,
-      max_tokens: opts.maxTokens,
-      messages: [{ role: "user", content: opts.prompt }],
-    }),
-  });
-  if (!resp.ok) return null;
-  const data = (await resp.json()) as { content?: Array<{ type: string; text?: string }> };
-  return (data.content ?? [])
-    .map((b) => b.text ?? "")
-    .join("")
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/\s*```\s*$/, "");
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": opts.apiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: opts.model,
+        max_tokens: opts.maxTokens,
+        messages: [{ role: "user", content: opts.prompt }],
+      }),
+      signal: AbortSignal.timeout(opts.timeoutMs ?? 25_000),
+    });
+    if (!resp.ok) return null;
+    const data = (await resp.json()) as { content?: Array<{ type: string; text?: string }> };
+    return (data.content ?? [])
+      .map((b) => b.text ?? "")
+      .join("")
+      .replace(/^```(?:json)?\s*/i, "")
+      .replace(/\s*```\s*$/, "");
+  } catch {
+    return null;
+  }
 }

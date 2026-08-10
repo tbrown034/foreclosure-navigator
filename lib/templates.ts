@@ -20,13 +20,11 @@ export interface DocumentFacts {
   saleLine: string;
 }
 
-/** Strip angle brackets and ampersands from user-typed values. */
-const sanitize = (s: string): string => s.replace(/[<>&]/g, "");
+// The reader's text goes into these plain-text drafts verbatim — never
+// altered (an "AT&T" must survive). Rendering always uses textContent.
+const servicerName = (f: DocumentFacts): string => f.servicer.trim() || "[SERVICER NAME — UNKNOWN]";
 
-const servicerName = (f: DocumentFacts): string =>
-  sanitize(f.servicer) || "[SERVICER NAME — UNKNOWN]";
-
-const readerFact = (f: DocumentFacts): string => sanitize(f.change) || "[YOUR FACTS HERE]";
+const readerFact = (f: DocumentFacts): string => f.change.trim() || "[YOUR FACTS HERE]";
 
 export function callScript(f: DocumentFacts): string {
   const goal =
@@ -61,7 +59,7 @@ WHAT THIS NOTICE IS: a formal step in the Texas non-judicial foreclosure process
 QUESTIONS TO RESOLVE
 - Does the amount claimed match your own records? [YOUR RECORDS — UNKNOWN]
 - Have you received BOTH notices (default AND sale), or only one?
-- Is your loan under review for loss mitigation? If an application is complete more than 37 days before the sale, Reg X restricts moving forward with it.
+- Is your loan under review for loss mitigation? If an application is complete more than 37 days before the sale, Reg X may restrict the servicer from proceeding to the sale while it is reviewed — exceptions apply.
 
 DOCUMENTS TO GATHER: the notice and its envelope (postmark matters), your last 3 mortgage statements, proof of income, and any letters from ${servicerName(f)}.
 

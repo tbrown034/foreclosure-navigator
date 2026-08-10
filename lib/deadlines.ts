@@ -51,6 +51,19 @@ export function firstAllowedSaleDayOnOrAfter(d: Date): Date {
   return d;
 }
 
+/** Whether d is a day Texas allows a non-judicial foreclosure sale: the
+ * first Tuesday of its month, or — when that Tuesday is Jan 1 or Jul 4 —
+ * the first Wednesday (§51.002(a), (a-1)). Used to CHECK a printed sale
+ * date, never to replace it. */
+export function isAllowedSaleDay(d: Date): boolean {
+  const allowed = firstAllowedSaleDayOnOrAfter(new Date(d.getFullYear(), d.getMonth(), 1, 12));
+  return (
+    allowed.getFullYear() === d.getFullYear() &&
+    allowed.getMonth() === d.getMonth() &&
+    allowed.getDate() === d.getDate()
+  );
+}
+
 /** Reg X planning marker: 38 days before a sale date (12 CFR §1024.41 —
  * a complete loss-mitigation application received more than 37 days before
  * a scheduled sale may trigger federal review protections). */

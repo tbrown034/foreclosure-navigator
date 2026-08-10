@@ -27,19 +27,19 @@
     <p class="dek">Texas runs one of the fastest foreclosure processes in the country — as few as 41 days from first notice to the auction steps. Houston metro logged <a href="https://www.attomdata.com/news/market-trends/foreclosures/2025-year-end-foreclosure-market-report/" style="color:var(--accent)">13,009 foreclosure starts in 2025</a>, among the highest of any U.S. metro. This tool reads the statutory clock for your situation and shows what you can still do at every stage.</p>
     <div style="margin:10px 0 0">
       <p style="margin:0 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink-3)">Which kind of foreclosure? The clocks are completely different.</p>
-      <div class="btnrow" role="tablist" aria-label="Foreclosure track">
-        <button type="button" class="abtn track-btn" data-track="mortgage" aria-selected="true">Mortgage / trustee sale</button>
-        <button type="button" class="abtn ghost track-btn" data-track="tax" aria-selected="false">Property tax</button>
-        <button type="button" class="abtn ghost track-btn" data-track="hoa" aria-selected="false">HOA / association</button>
+      <div class="btnrow" role="group" aria-label="Foreclosure track">
+        <button type="button" class="abtn track-btn" data-track="mortgage" aria-pressed="true">Mortgage / trustee sale</button>
+        <button type="button" class="abtn ghost track-btn" data-track="tax" aria-pressed="false">Property tax</button>
+        <button type="button" class="abtn ghost track-btn" data-track="hoa" aria-pressed="false">HOA / association</button>
       </div>
       <div id="trackTax" class="panel" hidden style="margin-top:12px;border-left:4px solid var(--stamp)">
         <p style="margin:0 0 8px;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">The tax track is a different legal process</strong> — the taxing authority must sue and win a court judgment before any sale, and unlike the mortgage track, you CAN buy the home back afterward. If you are 65+ or disabled with a homestead, a tax-deferral affidavit (Tax Code §33.06) can postpone collection — the tax still accrues with interest, but the foreclosure stops while the deferral holds.</p>
         <div class="calc tax-calc">
           <div>
             <label for="taxSaleDate">Date the buyer's deed was RECORDED (the redemption clock runs from recording, not the sale)</label>
-            <input type="date" id="taxSaleDate" value="2026-07-10" />
-            <label for="taxHomestead">Was it your homestead?</label>
-            <select id="taxHomestead"><option value="yes">Yes — homestead</option><option value="no">No — other property</option></select>
+            <input type="date" id="taxSaleDate" />
+            <label for="taxHomestead">What kind of property was it?</label>
+            <select id="taxHomestead"><option value="yes">Homestead, agricultural land or mineral interest — 2-year window</option><option value="no">Other property — 180 days</option></select>
           </div>
           <div id="taxOut" style="font-size:14px;color:var(--ink-2)"></div>
         </div>
@@ -49,23 +49,23 @@
       </div>
     </div>
     <p class="free-note">Deadlines, stage guidance and legal-aid referrals are always free. No account required for the answer.</p>
-    <p style="margin:14px 0 0"><a href="#aiH" style="display:inline-flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--ai);background:var(--ai-soft);border-radius:8px;padding:9px 14px;color:var(--ai);font-size:13.5px;font-weight:650">This demo runs with ZERO AI calls until you click one of its two clearly marked live-AI buttons — by design. See the six jobs AI does in production, and the four things it never touches &darr;</a></p>
+    <p style="margin:14px 0 0"><a href="#aiH" style="display:inline-flex;gap:10px;align-items:center;text-decoration:none;border:1px solid var(--ai);background:var(--ai-soft);border-radius:8px;padding:9px 14px;color:var(--ai);font-size:13.5px;font-weight:650">This demo runs with ZERO AI calls until you click one of its clearly marked live-AI demos (document extraction, sentence polish) — by design. See the six jobs AI does in production, and the four things it never touches &darr;</a></p>
   </header>
 
-  <div class="stepper" role="tablist" aria-label="Where are you in the process?">
-    <button class="step active" role="tab" aria-selected="true" data-stage="0">
+  <div class="stepper" role="group" aria-label="Where are you in the process?">
+    <button class="step active" aria-pressed="true" data-stage="0">
       <span class="n">STAGE 1</span>
       <div class="t">Missed payments</div>
     </button>
-    <button class="step" role="tab" aria-selected="false" data-stage="1">
+    <button class="step" aria-pressed="false" data-stage="1">
       <span class="n">STAGE 2</span>
       <div class="t">Notice of default</div>
     </button>
-    <button class="step" role="tab" aria-selected="false" data-stage="2">
+    <button class="step" aria-pressed="false" data-stage="2">
       <span class="n">STAGE 3</span>
       <div class="t">Notice of sale</div>
     </button>
-    <button class="step" role="tab" aria-selected="false" data-stage="3">
+    <button class="step" aria-pressed="false" data-stage="3">
       <span class="n">STAGE 4</span>
       <div class="t">Auction day</div>
     </button>
@@ -86,8 +86,8 @@
     </div>
     <div class="panel upload-demo">
       <p style="margin:0 0 6px"><span class="ai-badge">Live model call — optional</span></p>
-      <h3 style="margin:0 0 4px;font-size:16px">Or watch the upload path run, live</h3>
-      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. Run that exact path here on a sample document: a sanitized stand-in built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server. The model fills a fixed schema, six deterministic checks then run in code, and nothing enters the calculator until you confirm the dates.</p>
+      <h3 style="margin:0 0 4px;font-size:16px">Or watch the extraction run, live — the heart of the upload path</h3>
+      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server, under Anthropic's standard API retention (this demo itself stores nothing). The model fills a fixed schema, ten deterministic checks then run in code, and nothing enters the calculator until you confirm the dates.</p>
       <div class="btnrow">
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI (based on FRCL-2026-2290)</button>
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI (based on FRCL-2026-3493)</button>
@@ -108,10 +108,10 @@
           <option value="sale">Notice of trustee sale</option>
         </select>
         <label for="noticeDate" id="noticeDateLabel">Date on the notice</label>
-        <input type="date" id="noticeDate" value="2026-08-03" />
+        <input type="date" id="noticeDate" />
         <div id="saleDateWrap" hidden>
           <label for="printedSaleDate">Sale date printed on the notice</label>
-          <input type="date" id="printedSaleDate" value="2026-09-01" />
+          <input type="date" id="printedSaleDate" />
         </div>
         <div class="code-note">
           <strong>How this works:</strong> every date on the right is computed in code from Tex. Prop. Code §51.002 — never estimated, never generated by AI. A notice of sale states its own sale date; this tool never invents one. Projected dates are labeled projected.
@@ -132,7 +132,7 @@
 
   <section aria-labelledby="docH">
     <h2 id="docH">The document desk <span class="ai-badge" style="vertical-align:4px">AI-assisted in production</span></h2>
-    <p class="sub">The Script Builder analogue: AI drafts the paperwork of survival — from your facts only, with every sentence traceable to your notice or your answers. It organizes and expresses; it never selects remedies, declares anything legally complete, or promises an outcome. Attorney-reviewed templates; drafts only, nothing auto-sent.</p>
+    <p class="sub">The Script Builder analogue: AI drafts the paperwork of survival — from your facts only, with every sentence traceable to your notice or your answers. It organizes and expresses; it never selects remedies, declares anything legally complete, or promises an outcome. Attorney-reviewed templates in production; drafts only, nothing auto-sent.</p>
     <div class="cards">
       <div class="card"><span class="tag free">Always free</span><h3>Notice-to-Action Brief</h3><p>One page: what your notice says, its printed dates and amounts, the questions to resolve and the documents to gather. Unknown fields stay marked UNKNOWN.</p></div>
       <div class="card"><span class="tag free">Always free</span><h3>Servicer call script</h3><p>A three-minute script of questions: is a sale scheduled, what does loss mitigation require, where does it go, how do I get written confirmation. Questions only — no promised outcomes.</p></div>
@@ -161,14 +161,14 @@
         </select>
         <label for="gChange">One fact in your own words (what happened / what changed)</label>
         <input type="text" id="gChange" class="text-input" value="Lost overtime hours in June; back on full schedule since August 3" />
-        <div class="code-note"><strong>How this works:</strong> attorney-reviewed template language with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.</div>
+        <div class="code-note"><strong>How this works:</strong> template language written for attorney review (not yet reviewed — the trust receipt says so) with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page unless you click the optional AI polish below. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.</div>
         <div class="polish-box">
           <div class="btnrow" style="align-items:center">
             <button id="sampleWordsBtn" type="button" class="abtn ghost">Load sample words</button>
             <button id="polishBtn" type="button" class="abtn">Polish with AI (demo)</button>
             <span class="ai-badge">Live model call — optional</span>
           </div>
-          <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server. The model may fix grammar, spelling and structure only; a deterministic server-side check rejects any output containing a number or month name you didn't type. You approve or discard the result — the drafts above work with no AI at all.</p>
+          <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server, under Anthropic's standard API retention — this demo stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects any output containing a number, month name or amount you didn't type — a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
           <div id="polishResult" hidden></div>
         </div>
       </div>
@@ -281,11 +281,11 @@
     <div class="receipt">
       <ul>
         <li><strong>What the software does:</strong> computes statutory deadlines from recorded notice dates, in code. Dates are never produced by a language model.</li>
-        <li><strong>What AI does:</strong> translates legal boilerplate into plain language, from a fixed glossary, with the statute cited beside every sentence.</li>
+        <li><strong>What AI does (production design):</strong> translates legal boilerplate into plain language, from a fixed glossary, with the statute cited beside every sentence. In this demo, its two live jobs are the sample-document extraction and the sentence polish — both optional, both gated by code.</li>
         <li><strong>What AI does not do:</strong> give legal advice, predict outcomes, or select remedies. Straight talk on data: extraction means your uploaded notice IS transmitted to the model provider — production redacts names and addresses before transmission, discloses the provider, and sets a retention policy, the same way TX Tax discloses its OpenAI use.</li>
-        <li><strong>Sources:</strong> Harris County Clerk foreclosure postings, Texas Property Code §51.002, county auction records. Every row links to the underlying filing.</li>
+        <li><strong>Sources:</strong> Harris County Clerk foreclosure postings, Texas Property Code §51.002, county auction records. In production, every row links to the underlying filing.</li>
         <li><strong>Human owner (production requirement):</strong> a named editor owns the guidance copy and a corrections log; templates ship only after documented review by Texas housing counsel. Neither exists for this concept demo — and saying so is the point of a trust receipt.</li>
-        <li><strong>Privacy:</strong> individual owners are never surfaced by name in the county picture — addresses appear only to the person who searched their own.</li>
+        <li><strong>Privacy (production design):</strong> individual owners are never surfaced by name in the county picture — addresses appear only to the person who searched their own. In this demo, the rule shows up as absence: the extraction schema has no fields for the homeowner's name or address, and the sample documents mark them [REMOVED].</li>
       </ul>
     </div>
   </section>

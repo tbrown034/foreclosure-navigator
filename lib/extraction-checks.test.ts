@@ -17,9 +17,8 @@ const GOOD = {
 };
 
 describe("validateExtraction — deterministic checks after the model", () => {
-  it("passes all six checks on faithful output (152-day gap for FRCL-2026-2290)", () => {
+  it("passes all ten checks on faithful output (152-day gap for FRCL-2026-2290)", () => {
     const checks = validateExtraction(GOOD, CLERK);
-    expect(checks).toHaveLength(6);
     expect(checks.every((c) => c.pass)).toBe(true);
     expect(checks[2]!.name).toContain("actual: 152 days");
   });
@@ -53,5 +52,37 @@ describe("validateExtraction — deterministic checks after the model", () => {
     expect(checks[0]!.pass).toBe(false);
     expect(checks[1]!.pass).toBe(false);
     expect(checks[2]!.pass).toBe(false);
+  });
+
+  it("runs ten checks total", () => {
+    expect(validateExtraction(GOOD, CLERK)).toHaveLength(10);
+  });
+
+  it("fails the schema-keys check when the model returns an extra field", () => {
+    const checks = validateExtraction({ ...GOOD, extra_notes: "surprise" }, CLERK);
+    expect(checks.find((c) => c.name.includes("only the schema's keys"))!.pass).toBe(false);
+  });
+
+  it("fails the type check when a field is a nested object", () => {
+    const checks = validateExtraction({ ...GOOD, sale_location: { venue: "x" } }, CLERK);
+    expect(checks.find((c) => c.name.includes("string or null"))!.pass).toBe(false);
+  });
+
+  it("fails when confidence values fall outside 0-1", () => {
+    const checks = validateExtraction({ ...GOOD, confidence: { sale_date: 1.7 } }, CLERK);
+    expect(checks.find((c) => c.name.includes("0–1"))!.pass).toBe(false);
+  });
+
+  it("flags an address-shaped value smuggled into a non-address field", () => {
+    const checks = validateExtraction({ ...GOOD, sale_location: "123 Maple Street, Houston" }, CLERK);
+    expect(checks.find((c) => c.name.includes("address-shaped"))!.pass).toBe(false);
+  });
+
+  it("allows the public auction venue's address in sale_location", () => {
+    const checks = validateExtraction(
+      { ...GOOD, sale_location: "Bayou City Event Center, 9401 Knight Road, Houston" },
+      CLERK,
+    );
+    expect(checks.find((c) => c.name.includes("address-shaped"))!.pass).toBe(true);
   });
 });

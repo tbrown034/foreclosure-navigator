@@ -28,6 +28,31 @@ export interface Check {
 
 const PRIVACY_FIELDS = ["borrower", "homeowner_name", "property_address", "legal_description"];
 
+/** The schema's exact key set. Anything extra is rejected — privacy by
+ * structure, not just by prompt. */
+const SCHEMA_KEYS = [
+  "notice_type",
+  "sale_date",
+  "sale_time_window",
+  "sale_location",
+  "county",
+  "trustee_or_substitute",
+  "deed_of_trust_date",
+  "lender_or_mortgagee",
+  "servicer_if_stated",
+  "confidence",
+] as const;
+
+/** Street-address shapes that should never appear in any output value —
+ * the schema has no address field, so this catches leakage through OTHER
+ * fields (e.g. an address smuggled into sale_location). */
+const ADDRESS_LIKE =
+  /\b\d+\s+\w+(\s+\w+)?\s+(street|st|road|rd|lane|ln|drive|dr|avenue|ave|court|ct|circle|cir|boulevard|blvd|way|trail|trl|place|pl)\b/i;
+
+/** The demo's sale locations legitimately contain the auction venue's street
+ * address, which is public; everything else address-shaped is a flag. */
+const KNOWN_PUBLIC_ADDRESSES = [/9401\s+knight/i];
+
 export function validateExtraction(
   data: Record<string, unknown>,
   clerk: { fileDate: string; saleDate: string },
@@ -66,6 +91,39 @@ export function validateExtraction(
   checks.push({
     name: "confidence present for key fields",
     pass: conf !== undefined && conf !== null && typeof conf["sale_date"] === "number",
+  });
+
+  // Strict schema validation — structure, not just content.
+  const keys = Object.keys(data);
+  checks.push({
+    name: "output contains only the schema's keys (no extra fields)",
+    pass: keys.every((k) => (SCHEMA_KEYS as readonly string[]).includes(k)),
+  });
+
+  checks.push({
+    name: "every field is a string or null (no nested surprises)",
+    pass: SCHEMA_KEYS.filter((k) => k !== "confidence").every((k) => {
+      const v = data[k];
+      return v === null || v === undefined || typeof v === "string";
+    }),
+  });
+
+  checks.push({
+    name: "confidence values are numbers within 0–1",
+    pass:
+      conf !== undefined &&
+      conf !== null &&
+      typeof conf === "object" &&
+      Object.values(conf).every((v) => typeof v === "number" && v >= 0 && v <= 1),
+  });
+
+  checks.push({
+    name: "no address-shaped value outside the public auction venue",
+    pass: Object.entries(data).every(([k, v]) => {
+      if (k === "confidence" || typeof v !== "string") return true;
+      if (!ADDRESS_LIKE.test(v)) return true;
+      return KNOWN_PUBLIC_ADDRESSES.some((re) => re.test(v));
+    }),
   });
 
   return checks;

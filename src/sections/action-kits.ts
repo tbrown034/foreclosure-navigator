@@ -87,7 +87,7 @@ const KITS: Kit[] = [
   {
     cls: "free",
     title: "Loss mitigation — apply in writing",
-    lede: "Ask your servicer in writing for loss-mitigation options: modification, forbearance, repayment plan. Received complete more than 37 days before the sale, an application restricts the servicer from moving forward with it while under review.",
+    lede: "Ask your servicer in writing for loss-mitigation options: modification, forbearance, repayment plan. Received complete more than 37 days before the sale, an application may restrict the servicer from moving forward with the sale while it is under review — exceptions apply.",
     build(kit) {
       kit.appendChild(el("h4", null, "The request letter — copy, fill the brackets, send certified mail"));
       kit.appendChild(el("pre", "tpl", LOSS_MITIGATION_LETTER.replace(/</g, "&lt;")));
@@ -127,7 +127,7 @@ const KITS: Kit[] = [
           `
         <li>The filing date: was it at least 21 days before the sale date? The chain above computes it.</li>
         <li>The property's legal description — does it actually match your property?</li>
-        <li>The trustee's name and address, and the sale time window (10 a.m.–4 p.m.).</li>
+        <li>The trustee's name and address, and the stated sale start time — the sale must begin within three hours after it (10 a.m.–4 p.m. is the statutory outer window).</li>
         <li>Discrepancies don't void anything by themselves — but they're exactly what a lawyer wants to see. Photograph everything.</li>`,
         ),
       );

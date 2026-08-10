@@ -1,13 +1,23 @@
 /** Display formatting shared across sections. */
 
+import { daysBetween } from "../lib/deadlines";
+
 export const fmt = (d: Date): string =>
   d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" });
 
 export const fmtShort = (d: Date): string =>
   d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
-/** Days from now until d, rounded up — matches the urgency card's counting. */
-export const daysFromNow = (d: Date): number => Math.ceil((d.getTime() - Date.now()) / 864e5);
+/** Today as a local-noon Date, for calendar-day comparisons. Deadlines are
+ * calendar days: an inclusive deadline stays open through its whole day,
+ * so past/open checks compare noon-normalized dates, never clock time. */
+export function todayAtNoon(): Date {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12);
+}
+
+/** Whole calendar days from today until d (0 = today). */
+export const daysFromNow = (d: Date): number => daysBetween(todayAtNoon(), d);
 
 /** Typed getElementById that fails loudly if the markup drifts. */
 export function byId<T extends HTMLElement>(id: string): T {

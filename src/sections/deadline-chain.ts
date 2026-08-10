@@ -5,8 +5,8 @@
  * action kits and document desk subscribe to.
  */
 
-import { defaultNoticeChain, saleNoticeChain } from "../../lib/deadlines";
-import { byId, fmt } from "../format";
+import { defaultNoticeChain, isAllowedSaleDay, saleNoticeChain } from "../../lib/deadlines";
+import { byId, fmt, todayAtNoon } from "../format";
 import { setSaleInfo } from "../state";
 import type { EditorState } from "./editor-box";
 import { initEditorBox } from "./editor-box";
@@ -51,7 +51,9 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
     },
     {
       date: c.regX,
-      what: REGX_COPY,
+      what:
+        REGX_COPY +
+        " No sale is scheduled in this projection — an application completed before any sale is ever scheduled has the strongest protections.",
       cite: "RESPA / Reg X, 12 CFR §1024.41 — last ordinary qualifying day if the sale happened at the projected minimum",
       cls: c.regX < today ? "deadline" : "window",
       label: c.regX < today ? "Tight" : "Open",
@@ -70,6 +72,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
 function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { rows: ChainRow[]; sale: Date } {
   const c = saleNoticeChain(noticeIso, printedSaleIso);
   const pass = c.meetsTwentyOneDayMinimum;
+  const allowedDay = isAllowedSaleDay(c.sale);
   const rows: ChainRow[] = [
     {
       date: c.notice,
@@ -78,10 +81,13 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
         c.gapDays +
         " days before the stated sale — " +
         (pass ? "meets" : "SHORT OF") +
-        " the 21-day minimum.",
-      cite: "Tex. Prop. Code §51.002(b)",
-      cls: pass ? "window" : "deadline",
-      label: pass ? "Check: pass" : "Check: FLAG",
+        " the 21-day minimum." +
+        (allowedDay
+          ? ""
+          : " A second check: the printed sale date is NOT a first Tuesday (or the Jan 1 / Jul 4 Wednesday) — this tool never replaces a printed date, but that discrepancy is worth photographing and showing a lawyer."),
+      cite: "Tex. Prop. Code §51.002(b)" + (allowedDay ? "" : " · §51.002(a), (a-1)"),
+      cls: pass && allowedDay ? "window" : "deadline",
+      label: pass && allowedDay ? "Check: pass" : "Check: FLAG",
     },
     {
       date: c.regX,
@@ -99,8 +105,8 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
     },
     {
       date: c.sale,
-      what: "Sale date — printed on your notice. First Tuesday (or first Wednesday if Jan 1 / Jul 4), 10 a.m.–4 p.m.; in Harris County, the Bayou City Event Center.",
-      cite: "Tex. Prop. Code §51.002(a)",
+      what: "Sale date — printed on your notice. First Tuesday (or first Wednesday if Jan 1 / Jul 4); 10 a.m.–4 p.m. is the statutory outer window, and your notice states the exact start time — the sale must begin within three hours after it. In Harris County, the Bayou City Event Center.",
+      cite: "Tex. Prop. Code §51.002(a), (c)",
       cls: "deadline",
       label: "Sale day",
     },
@@ -151,7 +157,7 @@ export function initDeadlineChain(): void {
       setSaleInfo({ text: null, verified: false });
       return;
     }
-    const today = new Date();
+    const today = todayAtNoon();
     const verified = state.type === "sale";
     const { rows, sale } = verified
       ? saleRows(state.noticeIso, state.printedSaleIso, today)

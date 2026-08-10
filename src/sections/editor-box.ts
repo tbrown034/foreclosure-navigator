@@ -24,8 +24,13 @@ export function initEditorBox(onChange: (state: EditorState) => void): void {
   const emit = (): void => {
     const type = typeEl.value as NoticeType;
     saleDateWrap.hidden = type !== "sale";
+    // §51.002(e): service by certified mail is complete when deposited in
+    // the mail — so the mailing date, not the letterhead date, starts the
+    // cure clock. They usually match; the envelope's postmark settles it.
     dateLabel.textContent =
-      type === "sale" ? "Date the notice was filed or mailed" : "Date on the notice of default";
+      type === "sale"
+        ? "Date the notice was filed or mailed"
+        : "Date the notice of default was mailed (usually the date on the letter — check the postmark)";
     onChange({ type, noticeIso: dateEl.value, printedSaleIso: printedEl.value });
   };
 

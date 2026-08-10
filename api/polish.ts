@@ -28,19 +28,26 @@ const MONTH_NAMES = [
   "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept", "oct", "nov", "dec",
 ];
 
-/** Digit runs and month names in the output that do not appear in the input.
- * Deliberately conservative: "Aug" in the input does not license "August"
- * in the output — a false rejection returns the reader's original text,
- * which is always safe. */
+/** Magnitude and money words that state amounts without digits. Common
+ * small number-words ("one", "may") are excluded — they appear in ordinary
+ * prose and would reject almost everything. This gate is deliberately a
+ * NARROW token guard, and the UI says so: the reader's approval step, not
+ * this check, is the semantic safety net. */
+const AMOUNT_WORDS = ["hundred", "thousand", "million", "percent", "dollars"];
+
+/** Digit runs, month names and amount words in the output that do not
+ * appear in the input. Deliberately conservative: "Aug" in the input does
+ * not license "August" in the output — a false rejection returns the
+ * reader's original text, which is always safe. */
 export function inventedTokens(input: string, output: string): string[] {
   const bad: string[] = [];
   for (const run of output.match(/\d+/g) ?? []) {
     if (!input.includes(run)) bad.push(run);
   }
   const inputLower = input.toLowerCase();
-  for (const month of MONTH_NAMES) {
-    const inOutput = new RegExp(`\\b${month}\\b`, "i").test(output);
-    if (inOutput && !inputLower.includes(month)) bad.push(month);
+  for (const word of [...MONTH_NAMES, ...AMOUNT_WORDS]) {
+    const inOutput = new RegExp(`\\b${word}\\b`, "i").test(output);
+    if (inOutput && !inputLower.includes(word)) bad.push(word);
   }
   return [...new Set(bad)];
 }
@@ -77,6 +84,7 @@ function parseModelResult(raw: string): ModelResult | null {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+  res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") {
     res.status(405).json({ error: "POST only" });
     return;
