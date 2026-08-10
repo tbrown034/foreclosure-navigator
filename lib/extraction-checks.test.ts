@@ -189,6 +189,21 @@ describe("validateFidelity — field-exact ground truth for the fixed samples", 
     expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
   });
 
+  it("rejects composed durations built from allowed digits ('2-3 hours', '2.3 hours')", () => {
+    for (const window of [
+      "11:00 a.m. or not later than 2-3 hours after that time",
+      "11:00 a.m. or not later than 2.3 hours after that time",
+    ]) {
+      const checks = validateFidelity({ ...FAITHFUL_A, sale_time_window: window }, A.expected);
+      expect(checks.find((c) => c.name.includes("start time"))!.pass).toBe(false);
+    }
+  });
+
+  it("rejects 'MIDLAND MORTGAGE BANK' — not an approved complete value for sample B's servicer", () => {
+    const checks = validateFidelity({ servicer_if_stated: "MIDLAND MORTGAGE BANK" }, B.expected);
+    expect(checks.find((c) => c.name.includes("servicer"))!.pass).toBe(false);
+  });
+
   it("rejects a wrong written hours-count ('two hours')", () => {
     const checks = validateFidelity(
       { ...FAITHFUL_A, sale_time_window: "11:00 a.m. or not later than two hours after that time" },

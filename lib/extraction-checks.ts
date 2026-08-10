@@ -140,22 +140,14 @@ export function validateExtraction(
   return checks;
 }
 
-/** What one extracted text field must look like for a fixed sample. Four
- * gates, all deterministic: required patterns (anchored full-value for
- * stable fields like names/title/county — whole-field comparison there),
- * forbidden patterns (targeted rejections the allowlists cannot see, like
- * a wrong hours-count), a curated word allowlist, and per-field digit
- * runs. A value assembled from words found elsewhere in the document
- * ("Auction.com and Lakeview" as co-trustees) fails the allowlist; a
- * truncated firm name fails its required pattern. */
+/** What one extracted text field must look like for a fixed sample: the
+ * normalized value (lowercased, whitespace collapsed, trailing period
+ * stripped) must match one of a small set of APPROVED COMPLETE-VALUE
+ * variants — whole-field comparison, no token allowlists. Possible only
+ * because the samples are fixed and extraction runs at temperature 0;
+ * anything the variants don't recognize fails closed to human review. */
 export interface FieldExpectation {
-  required: RegExp[];
-  forbidden?: RegExp[];
-  /** Curated field-specific allowlist for words of 3+ letters. */
-  allowedWords: string[];
-  /** Digit runs the field may contain ("11", "00", "3"); anything else is
-   * an invention. Empty means the field carries no digits. */
-  allowedDigits: string[];
+  variants: RegExp[];
 }
 
 /** Ground truth for a fixed sample, field by field. null means the
@@ -172,22 +164,25 @@ export interface SampleExpectation {
   servicer_if_stated: FieldExpectation;
 }
 
+function normalize(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\.$/, "");
+}
+
 function fieldFaithful(value: unknown, exp: FieldExpectation): boolean {
   if (typeof value !== "string" || value.length === 0) return false;
-  if (!exp.required.every((re) => re.test(value))) return false;
-  if (exp.forbidden?.some((re) => re.test(value))) return false;
-  const words = value.toLowerCase().match(/[a-z]{3,}/g) ?? [];
-  if (!words.every((w) => exp.allowedWords.includes(w))) return false;
-  // Digit runs are guarded too: "999 hours after" fails even though every
-  // word passes.
-  const digits = value.match(/\d+/g) ?? [];
-  return digits.every((d) => exp.allowedDigits.includes(d));
+  const norm = normalize(value);
+  return exp.variants.some((re) => re.test(norm));
 }
 
 /** Field-exact fidelity checks against a fixed sample's known ground
- * truth. Only possible because the demo's documents are fixed: each field
- * must carry its own source language — required names present, no word
- * from anywhere else — and fields the sample redacts must come back null. */
+ * truth: every text field must match an approved complete value, and
+ * fields the sample redacts must come back null. */
 export function validateFidelity(data: Record<string, unknown>, expected: SampleExpectation): Check[] {
   const nullOk = (k: string): boolean => data[k] === null || data[k] === undefined;
   return [

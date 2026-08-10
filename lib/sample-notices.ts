@@ -38,35 +38,28 @@ export const SAMPLE_NOTICES: readonly SampleNotice[] = [
     basedOn: "FRCL-2026-2290",
     clerk: { fileDate: "2026-04-02", saleDate: "2026-09-01" },
     expected: {
-      notice_type: {
-        required: [/^notice of substitute trustee'?s sale$/i],
-        allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
-        allowedDigits: [],
-      },
+      // Approved complete values (normalized whole-field comparison; see
+      // FieldExpectation). Variants cover the document's own phrasing and
+      // the model's observed temperature-0 output; anything else flags.
+      notice_type: { variants: [/^notice of substitute trustee's? sale$/] },
       sale_time_window: {
-        required: [/11(:00)?\s*a\.?m\.?/i],
-        forbidden: [/\b(?!3\b)\d+\s*\)?\s*hours?\b/i, /\b(one|two|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+hours?\b/i],
-        allowedWords: ["begin", "beginning", "not", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
-        allowedDigits: ["11", "00", "3", "2", "14"],
+        variants: [
+          /^11:00 a\.m\.,? or not later than three \(3\) hours after that time$/,
+          /^(the sale will )?begins? at 11:00 a\.m\.,? (or )?not later than three \(3\) hours after that time$/,
+          /^11:00 a\.m$/,
+        ],
       },
       sale_location: {
-        required: [/bayou\s+city\s+event\s+center/i, /magnolia\s+ballroom/i],
-        allowedWords: ["bayou", "city", "event", "center", "magnolia", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
-        allowedDigits: ["9401"],
+        variants: [
+          /^(the )?bayou city event center, magnolia ballroom(, 9401 knight road)?, houston, texas$/,
+          /^(the )?bayou city event center, magnolia ballroom$/,
+        ],
       },
-      county: { required: [/^harris(\s+county)?(,\s*texas)?$/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
-      trustee_or_substitute: {
-        required: [/^auction\.com,?\s*(llc|l\.l\.c\.?)$/i],
-        allowedWords: ["auction", "com", "llc"],
-        allowedDigits: [],
-      },
+      county: { variants: [/^harris( county)?(, texas)?$/] },
+      trustee_or_substitute: { variants: [/^auction\.com, llc$/] },
       deed_of_trust_date: null,
       lender_or_mortgagee: null, // the sample's mortgagee lines are [REMOVED]
-      servicer_if_stated: {
-        required: [/^lakeview loan servicing,?\s*(llc|l\.l\.c\.?)$/i],
-        allowedWords: ["lakeview", "loan", "servicing", "llc"],
-        allowedDigits: [],
-      },
+      servicer_if_stated: { variants: [/^lakeview loan servicing, llc$/] },
     },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-2290, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
 
@@ -97,38 +90,32 @@ ASSERT AND PROTECT YOUR RIGHTS AS A MEMBER OF THE ARMED FORCES OF THE UNITED STA
     basedOn: "FRCL-2026-3493",
     clerk: { fileDate: "2026-05-14", saleDate: "2026-09-01" },
     expected: {
-      notice_type: {
-        required: [/^notice of substitute trustee'?s sale$/i],
-        allowedWords: ["notice", "substitute", "trustee", "trustees", "sale"],
-        allowedDigits: [],
-      },
+      // Approved complete values — see sample A's note.
+      notice_type: { variants: [/^notice of substitute trustee's? sale$/] },
       sale_time_window: {
-        required: [/10(:00)?\s*a\.?m\.?/i],
-        forbidden: [/\b(?!3\b)\d+\s*\)?\s*hours?\b/i, /\b(one|two|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+hours?\b/i],
-        allowedWords: ["begin", "beginning", "not", "earlier", "later", "than", "three", "hours", "after", "that", "time", "the", "sale", "will", "and", "between", "starting", "start"],
-        allowedDigits: ["10", "00", "1", "3", "13"],
+        variants: [
+          /^10:00 a\.m\. to 1:00 p\.m\.( \(no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time\))?$/,
+          /^(the sale will )?begins? no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time$/,
+          /^no earlier than 10:00 a\.m\. and no later than three \(3\) hours after that time$/,
+          /^10:00 a\.m$/,
+        ],
       },
       sale_location: {
-        required: [/bayou\s+city\s+event\s+center/i, /magnolia\s+south\s+ballroom/i],
-        allowedWords: ["bayou", "city", "event", "center", "magnolia", "south", "ballroom", "knight", "road", "houston", "texas", "harris", "county"],
-        allowedDigits: ["9401"],
+        variants: [
+          /^(the )?bayou city event center, magnolia south ballroom(, 9401 knight road)?, houston, texas$/,
+          /^(the )?bayou city event center, magnolia south ballroom$/,
+        ],
       },
-      county: { required: [/^harris(\s+county)?(,\s*texas)?$/i], allowedWords: ["harris", "county", "texas"], allowedDigits: [] },
+      county: { variants: [/^harris( county)?(, texas)?$/] },
       trustee_or_substitute: {
-        required: [/auction\.com,?\s*(llc|l\.l\.c\.?)/i, /barrett\s+daffin\s+frappier\s+turner\s*(&|and)\s*engel,?\s*l\.?l\.?p\.?/i],
-        allowedWords: ["auction", "com", "llc", "and", "barrett", "daffin", "frappier", "turner", "engel", "llp"],
-        allowedDigits: [],
+        variants: [
+          /^auction\.com, llc,? and barrett daffin frappier turner (&|and) engel, llp$/,
+        ],
       },
       deed_of_trust_date: null,
-      lender_or_mortgagee: {
-        required: [/^midfirst bank$/i],
-        allowedWords: ["midfirst", "bank"],
-        allowedDigits: [],
-      },
+      lender_or_mortgagee: { variants: [/^midfirst bank$/] },
       servicer_if_stated: {
-        required: [/midland\s+mortgage/i],
-        allowedWords: ["midland", "mortgage", "division", "midfirst", "bank"],
-        allowedDigits: [],
+        variants: [/^midland mortgage(, a division of midfirst bank)?$/],
       },
     },
     text: `SANITIZED SAMPLE FOR DEMONSTRATION — based on the public record of instrument FRCL-2026-3493, Harris County Clerk foreclosure search. The homeowner's name, property address and legal description have been [REMOVED]. This is not the recorded instrument.
