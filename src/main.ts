@@ -22,6 +22,16 @@ initSampleScenarios();
 initUploadDemo();
 initTourSteps();
 
+// Beat four is never gated on the AI: the calls are always one click away.
+document.getElementById("toCallsBtn")?.addEventListener("click", () => {
+  const firstKit = document.querySelector<HTMLDetailsElement>("#actionCards details");
+  if (firstKit) firstKit.open = true;
+  document.getElementById("actH")?.scrollIntoView({
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+  });
+  document.dispatchEvent(new CustomEvent("fn:paperwork"));
+});
+
 // "Read the notice" opens the example document.
 document.getElementById("viewExample")?.addEventListener("click", () => {
   const doc = document.getElementById("exampleDoc") as HTMLDetailsElement | null;

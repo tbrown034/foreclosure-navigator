@@ -176,7 +176,7 @@ const KITS: Kit[] = [
   {
     cls: "deadline",
     title: "Court and bankruptcy options",
-    lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary, and both take days, not hours. This is why the deadline chain matters.",
+    lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary — and none of it is fast. This is why the deadline chain matters.",
     build(kit) {
       kit.appendChild(
         el(

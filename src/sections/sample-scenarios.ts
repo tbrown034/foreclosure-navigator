@@ -14,6 +14,9 @@ interface Scenario {
   type: NoticeType;
   noticeIso: () => string;
   printedSaleIso?: string;
+  /** Servicer named in the underlying public record — keeps the document
+   * desk telling the same story as the selected notice. */
+  servicer?: string;
 }
 
 const localIso = (d: Date): string =>
@@ -22,9 +25,9 @@ const localIso = (d: Date): string =>
 const SCENARIOS: Record<string, Scenario> = {
   // Notice of Substitute Trustee's Sale, filed 2026-04-02 for the Sept 1
   // auction — the instrument in the extraction exhibit (152-day gap).
-  "frcl-2290": { type: "sale", noticeIso: () => "2026-04-02", printedSaleIso: "2026-09-01" },
+  "frcl-2290": { type: "sale", noticeIso: () => "2026-04-02", printedSaleIso: "2026-09-01", servicer: "Lakeview Loan Servicing" },
   // Same auction, filed 2026-05-14 (110-day gap).
-  "frcl-3493": { type: "sale", noticeIso: () => "2026-05-14", printedSaleIso: "2026-09-01" },
+  "frcl-3493": { type: "sale", noticeIso: () => "2026-05-14", printedSaleIso: "2026-09-01", servicer: "Midland Mortgage (MidFirst Bank)" },
   // HYPOTHETICAL: a notice of default dated one week before the visit.
   hypothetical: {
     type: "default",
@@ -51,6 +54,13 @@ function applyScenario(s: Scenario): void {
   // date a previous scenario set, or switching back to sale mode later
   // would present a stale date as "from your notice".
   printedEl.value = s.printedSaleIso ?? "";
+  if (s.servicer) {
+    const servicerEl = document.getElementById("gServicer") as HTMLInputElement | null;
+    if (servicerEl && servicerEl.value !== s.servicer) {
+      servicerEl.value = s.servicer;
+      servicerEl.dispatchEvent(new Event("input"));
+    }
+  }
   // One change event is enough: the editor box re-reads every field.
   typeEl.dispatchEvent(new Event("change"));
   focusUrgency();

@@ -92,7 +92,7 @@ export function initUploadDemo(): void {
     const fine = el(
       "p",
       "ai-offer-fine",
-      "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a live API call if you want proof. ",
+      "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a fresh live API run if you want to compare. ",
     );
     const otherId = sampleId === "frcl-2026-2290" ? "frcl-3493" : "frcl-2290";
     const otherLink = el("button", "linklike");
@@ -139,7 +139,7 @@ export function initUploadDemo(): void {
       });
       if (resp.status === 429) {
         status.textContent =
-          "Live-demo quota reached for now — the recorded run above is the same temperature-0 output, and the chain never depended on either.";
+          "Live-demo quota reached for now — the recorded run above used the same sample and temperature-zero settings, and the chain never depended on either.";
         return;
       }
       if (!resp.ok) {
@@ -264,13 +264,17 @@ export function initUploadDemo(): void {
     const nextRow = el("div", "btnrow");
     const next = el("button", "abtn");
     next.type = "button";
-    next.textContent = "Next: turn this into a letter ↓";
+    next.textContent = "Next: build a sample hardship draft ↓";
     next.addEventListener("click", () => {
       document.dispatchEvent(new CustomEvent("fn:paperwork"));
       const docType = byId<HTMLSelectElement>("docType");
       docType.value = "hardship";
       docType.dispatchEvent(new Event("input"));
       byId<HTMLButtonElement>("sampleWordsBtn").click();
+      const note = byId<HTMLParagraphElement>("deskNote");
+      note.textContent =
+        "Demo sample facts loaded — the servicer from the selected notice and a test hardship sentence. Edit any of them.";
+      note.hidden = false;
       byId<HTMLElement>("docH").scrollIntoView({
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       });

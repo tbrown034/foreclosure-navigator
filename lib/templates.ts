@@ -45,7 +45,7 @@ Items that may be useful: the loan number, the notice, pen and paper. You can as
 5. Before hanging up: "Can you give me a reference number for this call?"
 
 One fact to state, in your words: "${readerFact(f)}"
-NOTE: This script asks questions only. A phone statement may not be binding — requesting important information in writing is a common step. Computed sale-clock reference: ${f.saleLine}.\nThis script is general legal information, not legal advice.`;
+NOTE: This script asks questions only. A phone statement may not be binding — requesting important information in writing is a common step. Computed sale-clock reference: ${f.saleLine}.\nGeneral legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.`;
 }
 
 export function noticeBrief(f: DocumentFacts): string {
@@ -84,7 +84,7 @@ What I am requesting: ${request}.
 
 Documentation I can provide for the statements above: [LIST ONLY RECORDS YOU ACTUALLY HAVE].
 
-[DRAFT FOR REVIEW — review every sentence before sending. General template, not legal advice, and not a substitute for advice about your situation.]`;
+[DRAFT FOR REVIEW — review every sentence before sending. General legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.]`;
 }
 
 export type DocumentType = "script" | "brief" | "hardship";
@@ -115,7 +115,7 @@ I intend to submit the materials you identify as required. Please tell me in wri
 [SIGNATURE]
 [DATE]
 
-[Template note — delete before sending: this is general legal information, not legal advice.]`;
+[Template note — delete before sending: General legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.]`;
 
 /** The reinstatement/payoff written demand from the action kits. */
 export const REINSTATEMENT_DEMAND_LETTER = `[YOUR NAME]
@@ -133,4 +133,4 @@ Please confirm the status and date of any scheduled foreclosure sale on this acc
 [SIGNATURE]
 [DATE]
 
-[Template note — delete before sending: this is general legal information, not legal advice.]`;
+[Template note — delete before sending: General legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.]`;

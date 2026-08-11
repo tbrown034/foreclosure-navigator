@@ -37,25 +37,6 @@ function tpl(text: string): HTMLParagraphElement {
   return p;
 }
 
-/** The tour's last beat: land on the verified phone numbers. */
-function beatFour(): HTMLDivElement {
-  const row = document.createElement("div");
-  row.className = "btnrow";
-  const next = document.createElement("button");
-  next.type = "button";
-  next.className = "abtn";
-  next.textContent = "Next: who to call today ↓";
-  next.addEventListener("click", () => {
-    const firstKit = document.querySelector<HTMLDetailsElement>("#actionCards details");
-    if (firstKit) firstKit.open = true;
-    document.getElementById("actH")?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-    });
-  });
-  row.append(next);
-  return row;
-}
-
 function status(text: string, flagged = false): HTMLParagraphElement {
   const p = document.createElement("p");
   p.className = "polish-status" + (flagged ? " flagged" : "");
@@ -169,17 +150,14 @@ export function initPolishDemo(): void {
         changeEl.value = data.polished;
         changeEl.dispatchEvent(new Event("input"));
         applyingPolish = false;
-        show(
-          status("Applied — the draft now carries a note that it contains AI-polished wording. Review every sentence before sending."),
-          beatFour(),
-        );
+        show(status("Applied — the draft now carries a note that it contains AI-polished wording. Review every sentence before sending."));
       });
       const keep = document.createElement("button");
       keep.type = "button";
       keep.className = "abtn ghost";
       keep.textContent = "Keep my words";
       keep.addEventListener("click", () => {
-        show(status("Kept your original words — always a fine choice."), beatFour());
+        show(status("Kept your original words — always a fine choice."));
       });
       actions.append(accept, keep);
       nodes.push(status("Nothing is applied until you choose."), actions);

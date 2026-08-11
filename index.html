@@ -76,11 +76,12 @@
   </section>
 
   <section aria-labelledby="docH">
-    <h2 id="docH">The document desk <span class="ai-badge" style="vertical-align:4px">AI-assisted in production</span></h2>
+    <h2 id="docH">The document desk <span class="ai-badge" style="vertical-align:4px">Code-built drafts &middot; optional live AI polish</span></h2>
     <p class="sub">The clock, turned into paperwork — drafted from your facts only. Drafts only, not legal advice; nothing is sent automatically, and these templates have not been reviewed by Texas housing counsel.</p>
     <div class="calc" style="margin-top:22px">
       <div class="panel">
         
+        <p id="deskNote" class="quiet-alts" hidden style="margin:0 0 8px"></p>
         <details class="sample-text" id="deskFacts">
           <summary>Facts used in this draft — edit any of them</summary>
           <label for="docType">Document</label>
@@ -121,7 +122,10 @@
       </div>
       <div class="panel">
         <pre id="docOut"></pre>
-        <button id="dlBtn" type="button">Download this draft</button>
+        <div class="btnrow" style="margin-top:14px;align-items:center">
+          <button id="dlBtn" type="button">Download this draft</button>
+          <button id="toCallsBtn" type="button" class="abtn">Next: see who to call &darr;</button>
+        </div>
       </div>
     </div>
   </section>
@@ -146,7 +150,7 @@
     <p class="sub">The seam map. Everything on this page runs with zero model calls until you explicitly click one of the two live demos — that's deliberate. AI earns exactly six jobs, each at the edges, each under a contract.</p>
     <div class="ai-map" id="aiMap">
       <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates and parties into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN; in production the reader confirms every field before anything computes. In this fixed-sample demo the chain is computed independently from Clerk metadata, before any AI runs. <strong>Proven on two real recorded instruments (the evidence page) — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
-      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice — and the test caught the AI in an error. Read that row on the evidence page.</strong></p></div>
+      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice — and human citation review caught the AI in an error. Read that row on the evidence page.</strong></p></div>
       <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested (evidence page) — an automated token check (dates, numbers) plus line-by-line review confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>4 · Spanish.</strong> Fixed legal language stays human-translated; AI translates only your personal narrative, shown beside the English for verification.</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>5 · Scam-offer check.</strong> Paste a rescue-company letter; the model flags known predatory patterns — "this deserves independent review," never "this is fraud."</p></div>
