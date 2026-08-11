@@ -8,3 +8,6 @@ docs/
 data-local/
 playwright-report/
 test-results/
+
+# The two fictional John Smith sample notices are deliberately shipped
+!public/samples/*.pdf
