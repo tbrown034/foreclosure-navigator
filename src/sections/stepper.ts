@@ -1,7 +1,11 @@
-/** Stage stepper: four stages of the process. Selecting a stage swaps the
- * guidance note and drives the calculator's notice type, not just the prose. */
+/** Stage readout: derived from the computed chain, never a control. It
+ * follows the "fn:stage" events the deadline chain announces, so it can
+ * never say "widest window you will ever have" beside a 22-day sale
+ * clock. */
 
 import { byId } from "../format";
+
+const STAGE_TITLES = ["Missed payments", "Notice of default", "Notice of sale", "Auction day"];
 
 const STAGE_NOTES = [
   "Behind on payments but no formal letter yet? This is the widest window you will ever have. Contact your servicer about loss-mitigation now — federal rules generally require a foreclosure hold while a complete application is under review.",
@@ -11,29 +15,18 @@ const STAGE_NOTES = [
 ];
 
 export function initStepper(): void {
-  const steps = document.querySelectorAll<HTMLButtonElement>(".step");
-  const stageNote = byId<HTMLParagraphElement>("stageNote");
-  const noticeType = byId<HTMLSelectElement>("noticeType");
+  const chip = byId<HTMLSpanElement>("stageChip");
+  const title = byId<HTMLElement>("stageTitle");
+  const note = byId<HTMLParagraphElement>("stageNote");
 
-  steps.forEach((btn) =>
-    btn.addEventListener("click", () => {
-      steps.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-pressed", "true");
-      const stage = Number(btn.dataset.stage);
-      stageNote.textContent = STAGE_NOTES[stage] ?? "";
-      // Stage drives the calculator, not just the prose.
-      if (stage === 1 && noticeType.value !== "default") {
-        noticeType.value = "default";
-        noticeType.dispatchEvent(new Event("change"));
-      }
-      if ((stage === 2 || stage === 3) && noticeType.value !== "sale") {
-        noticeType.value = "sale";
-        noticeType.dispatchEvent(new Event("change"));
-      }
-    }),
-  );
+  const render = (stage: number): void => {
+    chip.textContent = `Stage ${stage + 1} of 4`;
+    chip.className = "chip " + (stage >= 2 ? "deadline" : "window");
+    title.textContent = STAGE_TITLES[stage] ?? "";
+    note.textContent = STAGE_NOTES[stage] ?? "";
+  };
+
+  document.addEventListener("fn:stage", (e) => {
+    render((e as CustomEvent<{ stage: number }>).detail.stage);
+  });
 }

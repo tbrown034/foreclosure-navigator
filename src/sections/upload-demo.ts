@@ -89,13 +89,20 @@ export function initUploadDemo(): void {
     const row = el("div", "btnrow");
     row.append(btn);
     box.append(row);
-    box.append(
-      el(
-        "p",
-        "ai-offer-fine",
-        "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a live API call if you want proof.",
-      ),
+    const fine = el(
+      "p",
+      "ai-offer-fine",
+      "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a live API call if you want proof. ",
     );
+    const otherId = sampleId === "frcl-2026-2290" ? "frcl-3493" : "frcl-2290";
+    const otherLink = el("button", "linklike");
+    otherLink.type = "button";
+    otherLink.textContent = "Or try the other recorded notice →";
+    otherLink.addEventListener("click", () => {
+      document.querySelector<HTMLButtonElement>(`.scenario-btn[data-scenario="${otherId}"]`)?.click();
+    });
+    fine.append(otherLink);
+    box.append(fine);
     offer.append(box);
     offer.hidden = false;
   }
@@ -199,15 +206,28 @@ export function initUploadDemo(): void {
     wrap.appendChild(table);
     nodes.push(wrap);
 
-    nodes.push(el("h4", undefined, mode === "recorded" ? "Checks re-run in your browser, just now" : "Checks run in code, after the model"));
+    // Collapse the check list — the count is the story; the list is for
+    // the skeptic. Auto-open when anything flags.
+    const flaggedCount = data.checks.filter((c) => !c.pass).length;
+    const checksDetails = document.createElement("details");
+    checksDetails.className = "sample-text";
+    if (flaggedCount > 0) checksDetails.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent =
+      flaggedCount === 0
+        ? `All ${data.checks.length} checks passed ${mode === "recorded" ? "in your browser, just now" : "in code, after the model"} — open the list`
+        : `${flaggedCount} of ${data.checks.length} checks FLAGGED — open the list`;
+    checksDetails.appendChild(summary);
     const ul = el("ul", "extract-checks");
+    ul.style.marginTop = "8px";
     data.checks.forEach((c) => {
       const li = el("li");
       const chip = el("span", "chip " + (c.pass ? "window" : "deadline"), c.pass ? "PASS" : "FLAG");
       li.append(chip, document.createTextNode(" " + c.name));
       ul.appendChild(li);
     });
-    nodes.push(ul);
+    checksDetails.appendChild(ul);
+    nodes.push(checksDetails);
 
     if (data.allPass) {
       nodes.push(
@@ -229,7 +249,7 @@ export function initUploadDemo(): void {
       const liveP = el("p", "ai-offer-fine");
       const liveLink = el("button", "linklike");
       liveLink.type = "button";
-      liveLink.textContent = "Don't take the recording's word for it — run this live against the API right now →";
+      liveLink.textContent = "Not convinced? Run it live against the API →";
       liveLink.addEventListener("click", () => void runLive(sampleId, liveP));
       liveP.append(liveLink);
       nodes.push(liveP);
@@ -239,7 +259,7 @@ export function initUploadDemo(): void {
     const nextRow = el("div", "btnrow");
     const next = el("button", "abtn");
     next.type = "button";
-    next.textContent = "Next: the paperwork — polish a homeowner's own words ↓";
+    next.textContent = "Next: turn this into a letter ↓";
     next.addEventListener("click", () => {
       const docType = byId<HTMLSelectElement>("docType");
       docType.value = "hardship";

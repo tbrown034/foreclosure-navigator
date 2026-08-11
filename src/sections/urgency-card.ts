@@ -19,7 +19,7 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
     (verified ? "sale date printed on your notice" : "earliest possible sale (projected)") +
     "</strong> — " +
     fmt(saleDate) +
-    '.<br><span style="font-size:12.5px;color:var(--ink-2)">Safest next step today: call free legal aid (first card below) and request your servicer’s requirements in writing.</span></span>' +
+    '.<br><span style="font-size:12.5px;color:var(--ink-2)">Safest next step today: call free legal aid (the calls section at the bottom of this page) and request your servicer’s requirements in writing.</span></span>' +
     '<span class="chip ' +
     (verified ? "deadline" : "window") +
     '">' +

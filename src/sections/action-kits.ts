@@ -207,7 +207,7 @@ export function initActionKits(): void {
       const s = el(
         "summary",
         null,
-        `<span class="tag ${k.cls}" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${k.cls === "free" ? "var(--ok)" : "var(--alarm)"}">${k.cls === "free" ? "Always free" : "Clock-sensitive"}</span><h3>${k.title}</h3><span class="arrow">&#9656;</span><p>${k.lede}</p>`,
+        `<span class="tag ${k.cls}" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${k.cls === "free" ? "var(--ok)" : "var(--alarm)"}">${k.cls === "free" ? "Always free" : "Clock-sensitive"}</span><h3>${k.title}</h3><span class="kit-open">Open kit <span class="arrow">&#9656;</span></span><p>${k.lede}</p>`,
       );
       d.appendChild(s);
       const kit = el("div", "kit");
