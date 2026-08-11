@@ -157,18 +157,11 @@ export function initDeadlineChain(): void {
   const chainEl = byId<HTMLOListElement>("chain");
   const urgencyEl = byId<HTMLDivElement>("urgency");
 
-  // The stage strip is a status readout of the computed chain — it must
-  // never contradict the answer on screen.
-  const announceStage = (stage: number): void => {
-    document.dispatchEvent(new CustomEvent("fn:stage", { detail: { stage } }));
-  };
-
   const build = (state: EditorState): void => {
     if (!state.noticeIso || (state.type === "sale" && !state.printedSaleIso)) {
       chainEl.innerHTML = "";
       renderUrgencyEmpty(urgencyEl);
       setSaleInfo({ text: null, verified: false });
-      announceStage(0);
       return;
     }
     const today = todayAtNoon();
@@ -180,7 +173,6 @@ export function initDeadlineChain(): void {
     renderUrgency(urgencyEl, sale, verified);
     renderRail(chainEl, rows);
     setSaleInfo({ text: fmt(sale), verified });
-    announceStage(verified ? 2 : 1);
   };
 
   initEditorBox(build);

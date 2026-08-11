@@ -79,7 +79,7 @@ export function initUploadDemo(): void {
       el(
         "p",
         "ai-offer-lede",
-        `That chain was computed in code from the Clerk's public record of ${sample.basedOn}. In production, AI would read the notice itself — see what that looks like:`,
+        `That chain came from the Clerk's record of ${sample.basedOn}. In production, AI reads the notice itself:`,
       ),
     );
     const btn = el("button", "abtn ai");
@@ -181,6 +181,27 @@ export function initUploadDemo(): void {
 
     nodes.push(el("p", "extract-meta", data.meta));
 
+    // The story first; the payload behind dropdowns.
+    if (data.allPass) {
+      nodes.push(
+        statusLine(
+          `It read the sale date as ${data.extracted.sale_date} — matching the Clerk's record the chain used — and every check passed. Code computed the chain; the model just agreed with the record.`,
+        ),
+      );
+    } else {
+      nodes.push(
+        statusLine(
+          "One or more checks flagged. In production this routes to a human reviewer and computes nothing — that refusal is the design. The chain above never depended on the model.",
+          true,
+        ),
+      );
+    }
+
+    const fieldsDetails = document.createElement("details");
+    fieldsDetails.className = "sample-text";
+    const fSummary = document.createElement("summary");
+    fSummary.textContent = "The nine extracted fields";
+    fieldsDetails.appendChild(fSummary);
     const wrap = el("div", "extract-table-wrap");
     const table = el("table", "ledger");
     const tbody = el("tbody");
@@ -195,7 +216,7 @@ export function initUploadDemo(): void {
       } else {
         td.textContent = String(value);
         const c = conf[key as string];
-        if (typeof c === "number") {
+        if (typeof c === "number" && key === "sale_date") {
           td.appendChild(el("span", "cite", `model confidence ${c.toFixed(2)} — a human confirms, not the model`));
         }
       }
@@ -204,10 +225,9 @@ export function initUploadDemo(): void {
     });
     table.appendChild(tbody);
     wrap.appendChild(table);
-    nodes.push(wrap);
+    fieldsDetails.appendChild(wrap);
+    nodes.push(fieldsDetails);
 
-    // Collapse the check list — the count is the story; the list is for
-    // the skeptic. Auto-open when anything flags.
     const flaggedCount = data.checks.filter((c) => !c.pass).length;
     const checksDetails = document.createElement("details");
     checksDetails.className = "sample-text";
@@ -215,8 +235,8 @@ export function initUploadDemo(): void {
     const summary = document.createElement("summary");
     summary.textContent =
       flaggedCount === 0
-        ? `All ${data.checks.length} checks passed ${mode === "recorded" ? "in your browser, just now" : "in code, after the model"} — open the list`
-        : `${flaggedCount} of ${data.checks.length} checks FLAGGED — open the list`;
+        ? `All ${data.checks.length} checks passed ${mode === "recorded" ? "in your browser, just now" : "in code, after the model"}`
+        : `${flaggedCount} of ${data.checks.length} checks FLAGGED`;
     checksDetails.appendChild(summary);
     const ul = el("ul", "extract-checks");
     ul.style.marginTop = "8px";
@@ -228,21 +248,6 @@ export function initUploadDemo(): void {
     });
     checksDetails.appendChild(ul);
     nodes.push(checksDetails);
-
-    if (data.allPass) {
-      nodes.push(
-        statusLine(
-          "Same record, two readers: the chain above was computed in code from the Clerk's public dates. The model read the document text — and check #1 confirms its sale date matches the record the chain used.",
-        ),
-      );
-    } else {
-      nodes.push(
-        statusLine(
-          "One or more checks flagged. In production this result routes to a human reviewer and computes nothing — that refusal is the design. The chain above is untouched: it never depended on the model.",
-          true,
-        ),
-      );
-    }
 
     // The one allowed choice: replay (default, already shown) vs live proof.
     if (mode === "recorded") {

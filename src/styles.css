@@ -536,3 +536,85 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
   a { color: #000; text-decoration: none; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 10px; color: #555; }
 }
+
+/* ---- Minimal editorial skin (tool page only, <main class="minimal">) ----
+ * The structure comes from whitespace, hairlines and left rules — not from
+ * boxes. /more keeps the boxed reference layout. */
+.minimal section { margin-top: 60px; }
+.minimal .demo-banner {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0 0 10px;
+}
+.minimal .panel {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+.minimal .calc { gap: 36px; }
+.minimal .scenario-strip {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 22px 0 30px;
+}
+.minimal .abtn, .minimal .abtn.primary, .minimal input[type="date"], .minimal select, .minimal .text-input {
+  border-radius: 4px;
+}
+.minimal .ai-offer {
+  border: none;
+  border-left: 3px solid var(--ai);
+  border-radius: 0;
+  padding: 2px 0 2px 16px;
+  margin-top: 24px;
+}
+.minimal #extractResult { margin-top: 20px; }
+.minimal details.action {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--line);
+}
+.minimal #actionCards { gap: 0 !important; }
+.minimal #actionCards details.action:last-child { border-bottom: 1px solid var(--line); }
+.minimal details.action > summary { padding: 16px 2px; }
+.minimal .kit { border-top: 1px dashed var(--line); padding: 14px 2px 20px; }
+.minimal .ai-row {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-top: 1px solid var(--line);
+  padding: 12px 2px;
+}
+.minimal .receipt {
+  background: transparent;
+  border: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  padding: 4px 0 4px 16px;
+}
+.minimal details.newsroom { border-top: 1px solid var(--line); border-bottom: none; }
+.minimal details.newsroom + section details.newsroom,
+.minimal section:last-of-type details.newsroom { border-bottom: 1px solid var(--line); }
+.minimal .newsroom-body { border-top: none; padding: 4px 2px 16px; }
+.minimal #docOut {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.minimal #dlBtn {
+  margin-top: 12px;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 650;
+}
+.minimal .stage-line { margin: 20px 0 4px; }
+.minimal .stage-note { border-left: 3px solid var(--line); margin: 8px 0 26px; }

@@ -11,13 +11,21 @@ import { initDeadlineChain } from "./sections/deadline-chain";
 import { initDocumentDesk } from "./sections/document-desk";
 import { initPolishDemo } from "./sections/polish-demo";
 import { initSampleScenarios } from "./sections/sample-scenarios";
-import { initStepper } from "./sections/stepper";
 import { initUploadDemo } from "./sections/upload-demo";
 
-initStepper();
 initDeadlineChain();
 initActionKits();
 initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
+
+// "enter your own dates" opens the collapsed manual form.
+document.getElementById("openManual")?.addEventListener("click", () => {
+  const manual = document.getElementById("manualEntry") as HTMLDetailsElement | null;
+  if (manual) {
+    manual.open = true;
+    manual.scrollIntoView({ block: "center" });
+    (manual.querySelector("select") as HTMLSelectElement | null)?.focus();
+  }
+});
