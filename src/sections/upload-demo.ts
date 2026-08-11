@@ -146,7 +146,9 @@ export function initUploadDemo(): void {
           " — the recorded run above stands, and the chain never depended on either.";
         return;
       }
-      const live = (await resp.json()) as {
+      const parsedAt = (await resp.json()) as unknown;
+      if (seq !== scenarioSeq) return; // moved on while parsing — drop it
+      const live = parsedAt as {
         basedOn: string;
         extracted: ExtractedNotice;
         checks: Check[];
@@ -277,8 +279,8 @@ export function initUploadDemo(): void {
     const detail = (e as CustomEvent<{ sampleId: string | null; viaUpload?: boolean }>).detail;
     const sampleId = detail.sampleId;
     const viaUpload = detail.viaUpload === true;
-    scenarioSeq++;
     if (sampleId === currentSample && sampleId !== null && viaUpload === currentViaUpload) return;
+    scenarioSeq++;
     currentSample = sampleId;
     currentViaUpload = viaUpload;
     clearAll();
