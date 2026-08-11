@@ -154,3 +154,46 @@ async function initBenchmark(): Promise<void> {
 initTaxPanel();
 initAuctionCalendar();
 void initBenchmark();
+
+// Real filings-by-week bars from the county index — the last demo figures
+// on the site, replaced with the official record.
+async function renderWeekBars(): Promise<void> {
+  const slot = document.getElementById("weekBars");
+  if (!slot) return;
+  try {
+    const resp = await fetch("/data/frcl-index.json");
+    if (!resp.ok) return;
+    const idx = (await resp.json()) as { filings: Array<{ fileDate: string }> };
+    const weeks = new Map<string, number>();
+    for (const f of idx.filings) {
+      const d = new Date(f.fileDate + "T12:00:00");
+      const monday = new Date(d);
+      monday.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      const key = monday.toISOString().slice(0, 10);
+      weeks.set(key, (weeks.get(key) ?? 0) + 1);
+    }
+    const entries = [...weeks.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+    const max = Math.max(...entries.map(([, n]) => n));
+    for (const [week, n] of entries) {
+      const row = document.createElement("div");
+      row.className = "bar";
+      const label = document.createElement("span");
+      label.className = "zip";
+      label.textContent = new Date(week + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const track = document.createElement("div");
+      track.className = "track";
+      const fill = document.createElement("div");
+      fill.className = "fill";
+      fill.style.width = `${Math.round((n / max) * 100)}%`;
+      track.appendChild(fill);
+      const v = document.createElement("span");
+      v.className = "v";
+      v.textContent = String(n);
+      row.append(label, track, v);
+      slot.appendChild(row);
+    }
+  } catch {
+    // leave empty on failure — the section header explains the source
+  }
+}
+void renderWeekBars();
