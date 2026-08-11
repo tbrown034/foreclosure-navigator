@@ -64,7 +64,7 @@ QUESTIONS TO RESOLVE
 DOCUMENTS THAT ARE COMMONLY USEFUL: the notice and its envelope (postmark matters), recent mortgage statements, available income records, and any letters from ${servicerName(f)}.
 
 YOUR STATED FACT: "${readerFact(f)}"
-FREE HELP: Lone Star Legal Aid · Houston Volunteer Lawyers. This brief organizes facts; it is not legal advice.`;
+FREE HELP: Lone Star Legal Aid · Houston Volunteer Lawyers. This brief organizes facts. General legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.`;
 }
 
 export function hardshipNarrative(f: DocumentFacts): string {
