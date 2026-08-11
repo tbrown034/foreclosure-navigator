@@ -186,7 +186,7 @@ export function initUploadDoor(): void {
       byId<HTMLInputElement>("printedSaleDate").value = data.sampleDoc.saleDate;
       typeEl.value = "sale";
       typeEl.dispatchEvent(new Event("change"));
-      document.dispatchEvent(new CustomEvent("fn:scenario", { detail: { sampleId: null } }));
+      document.dispatchEvent(new CustomEvent("fn:scenario", { detail: { sampleId: null, viaUpload: true } }));
       document.getElementById("urgency")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }

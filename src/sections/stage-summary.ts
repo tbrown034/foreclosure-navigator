@@ -81,7 +81,7 @@ function kitToggle(r: RecourseStatus, row: HTMLDivElement): HTMLButtonElement {
  * optional, and double-checked: the server recomputes the same stage
  * facts in code, the model restates them in plain words, and a token
  * guard rejects any output containing a date or number not in the facts. */
-function aiSummaryBox(info: StageInfo): HTMLDivElement {
+function aiSummaryBox(info: StageInfo, autorun: boolean): HTMLDivElement {
   const box = document.createElement("div");
   box.className = "ai-summary";
   const tag = document.createElement("p");
@@ -102,7 +102,7 @@ function aiSummaryBox(info: StageInfo): HTMLDivElement {
   out.hidden = true;
   box.append(tag, row, fine, out);
 
-  btn.addEventListener("click", () => {
+  const run = (): void => {
     btn.disabled = true;
     btn.textContent = "The model is reading the computed facts…";
     void (async () => {
@@ -142,12 +142,23 @@ function aiSummaryBox(info: StageInfo): HTMLDivElement {
         btn.textContent = "Put this in plain words →";
       }
     })();
-  });
+  };
+  btn.addEventListener("click", run);
+  // A document was just handed over — the plain-words readout shouldn't
+  // need a second ask. Typed and demo paths keep the explicit button.
+  if (autorun) run();
   return box;
 }
 
 export function initStageSummary(): void {
   const panel = byId<HTMLDivElement>("stagePanel");
+
+  // Set by fn:scenario when the current notice arrived through the upload
+  // door; consumed by the next render.
+  let uploadOriginated = false;
+  document.addEventListener("fn:scenario", (e) => {
+    uploadOriginated = (e as CustomEvent<{ viaUpload?: boolean }>).detail?.viaUpload === true;
+  });
 
   const emptyHint = (): HTMLParagraphElement => {
     const p = document.createElement("p");
@@ -216,7 +227,10 @@ export function initStageSummary(): void {
       "Everything above is computed in code from the dates on the notice — no AI. Windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
     panel.appendChild(foot);
 
-    if (info) panel.insertBefore(aiSummaryBox(info), listLabel);
+    if (info) {
+      panel.insertBefore(aiSummaryBox(info, uploadOriginated), listLabel);
+      uploadOriginated = false;
+    }
 
     // The panel replaces the standalone kit list — same six, personalized.
     const cards = document.getElementById("actionCards");
