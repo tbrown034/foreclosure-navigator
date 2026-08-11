@@ -54,6 +54,7 @@ export function initUploadDoor(): void {
 
   doorBtn.addEventListener("click", () => {
     panel.hidden = !panel.hidden;
+    doorBtn.setAttribute("aria-expanded", String(!panel.hidden));
     if (!panel.hidden) panel.scrollIntoView({ block: "nearest" });
   });
 

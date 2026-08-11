@@ -38,8 +38,8 @@ function draftButton(r: RecourseStatus): HTMLButtonElement | null {
   const service = r.draft;
   const b = document.createElement("button");
   b.type = "button";
-  b.className = "abtn";
-  b.textContent = service === "legal" || service === "servicer" ? "Call — get the script" : "Email — draft it";
+  b.className = "abtn primary";
+  b.textContent = service === "legal" || service === "servicer" ? "Call — get the script ↓" : "Email — draft it ↓";
   b.setAttribute("aria-label", `${service === "legal" || service === "servicer" ? "Get the call script" : "Draft the email"} for ${r.title}`);
   b.addEventListener("click", () => {
     document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service } }));
@@ -75,6 +75,9 @@ function kitToggle(r: RecourseStatus, row: HTMLDivElement): HTMLButtonElement {
     const open = !body.hidden;
     b.setAttribute("aria-expanded", String(open));
     b.textContent = open ? "Show less" : "Tell me more";
+    // Growing the document at the bottom can shove the viewport past the
+    // content — keep the row where the reader can see it.
+    if (open) row.scrollIntoView({ block: "nearest" });
   });
   return b;
 }
@@ -99,7 +102,7 @@ function aiSummaryBox(info: StageInfo): HTMLDivElement {
   const fine = document.createElement("p");
   fine.className = "ai-offer-fine";
   fine.textContent =
-    "Sends only the computed facts above (no personal data) to Anthropic's Claude Haiku through this site's server. A code check rejects any output containing a date or number that isn't in those facts — the deadlines themselves are computed in code and never come from AI.";
+    "Sends only the computed facts above — no personal data — to Anthropic's Claude Haiku; a code check rejects any output containing a date or number that isn't in those facts.";
   const out = document.createElement("div");
   out.hidden = true;
   box.append(tag, row, fine, out);
@@ -215,7 +218,7 @@ export function initStageSummary(): void {
     const foot = document.createElement("p");
     foot.className = "quiet-alts";
     foot.textContent =
-      "Everything above is computed in code from the dates on the notice — no AI. General legal information, not legal advice; windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
+      "Everything above is computed in code from the dates on the notice — no AI. Windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
     panel.appendChild(foot);
 
     if (info) panel.insertBefore(aiSummaryBox(info), listLabel);

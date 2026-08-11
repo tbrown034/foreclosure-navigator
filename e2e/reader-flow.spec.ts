@@ -107,7 +107,7 @@ test.describe("reader flow", () => {
 
     // The AI summary is offered, labeled, and optional (not called here).
     await expect(stage.locator(".ai-summary")).toContainText("AI summary — optional live model call");
-    await expect(stage.locator(".ai-summary")).toContainText("never come from AI");
+    await expect(stage.locator(".ai-summary")).toContainText("code check rejects");
 
     // The desk offers a way back up to the chain.
     await expect(page.getByRole("button", { name: /Back to your deadline chain/ })).toBeVisible();

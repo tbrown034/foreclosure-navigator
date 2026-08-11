@@ -104,7 +104,7 @@ header.masthead { margin: 28px 0 8px; }
 h1 {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(30px, 4.6vw, 44px);
+  font-size: clamp(26px, 3.4vw, 34px);
   letter-spacing: -0.4px;
   line-height: 1.12;
   margin: 6px 0 10px;
@@ -132,7 +132,7 @@ h1 {
   font: inherit;
   color: var(--ink-2);
 }
-.step:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.step-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .step .n {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11px;
@@ -798,7 +798,7 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 .takeaway .big {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(20px, 3vw, 26px);
+  font-size: clamp(24px, 3.6vw, 34px);
   line-height: 1.25;
   margin: 0;
   color: var(--ink);
@@ -974,4 +974,48 @@ a { color: var(--accent); }
   border-top: 1px solid var(--line);
   margin-top: 12px;
   padding-top: 12px;
+}
+
+/* One left edge: on wide screens the masthead, banner and footer align
+ * with the content column (rail 185px + 40px gap), not the rail. */
+@media (min-width: 901px) {
+  .minimal header.masthead, .minimal .demo-banner, .minimal footer { margin-left: 225px; }
+}
+
+/* 18: native controls (date/file inputs, scrollbars) follow the theme. */
+:root { color-scheme: light dark; }
+
+/* 5: the upload control is the drop-target moment, not an afterthought. */
+#noticeFile {
+  display: block;
+  width: 100%;
+  border: 1.5px dashed var(--ink-3);
+  border-radius: 4px;
+  padding: 14px;
+  background: var(--surface);
+}
+#noticeFile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 20: skip link for keyboard users. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--surface);
+  padding: 10px 16px;
+  z-index: 10;
+}
+.skip-link:focus { left: 8px; }
+
+/* 15: dialing reads as dialing. */
+a.abtn[href^="tel:"]::before { content: "\260E  "; }
+
+/* 17: small screens — long action labels wrap, service buttons stack. */
+@media (max-width: 600px) {
+  .abtn { white-space: normal; }
+  .service-btn { width: 100%; text-align: left; }
+  .tour-rail .step-item { flex: 1 1 100%; border-top: none; border-left: 3px solid var(--line); padding: 0 0 0 10px; }
+  .tour-rail .step-item.is-current { border-left-color: var(--accent); border-top: none; }
+  .tour-rail .step-item.is-done { border-left-color: var(--ok); border-top: none; }
 }

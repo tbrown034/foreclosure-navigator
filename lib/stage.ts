@@ -78,7 +78,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
     ? `As of ${fmtLong(today)} — the printed sale date (${fmtShort(c.sale)}) has passed.`
     : toSale === 0
       ? `As of ${fmtLong(today)} — the printed sale date is today.`
-      : `As of ${fmtLong(today)} — ${toSale} day${toSale === 1 ? "" : "s"} until the printed sale date (${fmtShort(c.sale)}).`;
+      : `As of ${fmtLong(today)} — ${toSale} day${toSale === 1 ? "" : "s"} until the printed sale date.`;
 
   const lines: string[] = [];
   if (salePassed) {

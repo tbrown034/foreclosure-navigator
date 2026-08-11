@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<a class="skip-link" href="#startH">Skip to content</a>
 <div class="appbar">
   <span class="appbar-name">Foreclosure Navigator</span>
   <span class="appbar-sub">Internal concept demo &middot; Harris County</span>
@@ -40,15 +41,15 @@
       <div class="btnrow entry-actions" style="align-items:stretch">
         <input type="text" id="caseNumber" class="text-input" style="max-width:240px" placeholder="File number: FRCL-2026-1234" aria-label="File number from your notice" />
         <button type="button" class="abtn primary big" id="findCaseBtn">Find my case</button>
-        <button type="button" class="abtn outline big" id="uploadDoor">Upload the notice</button>
+        <button type="button" class="abtn outline big" id="uploadDoor" aria-expanded="false" aria-controls="uploadPanel">Upload the notice</button>
         <button type="button" class="abtn outline big" id="demoCase">See a demo case &darr;</button>
       </div>
-      <p class="quiet-alts">The file number (FRCL-2026-####) is the county's filing ID, stamped on the recorded copy of the notice of sale. If your copy doesn't show one, <a href="https://cclerk.hctx.net/applications/websearch/FRCL_R.aspx" target="_blank" rel="noopener">find it on the Harris County Clerk's foreclosure search</a> — or <button type="button" class="linklike" id="openManual">enter dates manually</button>. This lookup uses the Clerk's public index of Sept 1, 2026 filings (snapshot as of Aug 10; newer filings may not appear) — file numbers and dates only, nothing personal. General legal information, not legal advice.</p>
+      <p class="quiet-alts">The file number (FRCL-2026-####) is stamped on the recorded copy of the notice. No number handy? <a href="https://cclerk.hctx.net/applications/websearch/FRCL_R.aspx" target="_blank" rel="noopener">Find it on the Clerk's foreclosure search</a> or <button type="button" class="linklike" id="openManual">enter dates manually</button>. The lookup uses the Clerk's public index of Sept 1 filings (snapshot Aug 10) — file numbers and dates only, nothing personal.</p>
       <div id="uploadPanel" hidden style="margin:12px 0 0;border-left:3px solid var(--ai);padding:2px 0 2px 14px">
         <p style="margin:0 0 6px"><strong>Upload the recorded notice (PDF, up to 3&nbsp;MB).</strong> The AI reads the county file number and dates off the document; code then looks that number up in the Clerk's official index, and deadlines are computed only when the number, the filing date and the sale date all match the official record. The model's reading is never trusted on its own.</p>
-        <p class="quiet-alts" style="margin:0 0 8px">Straight talk before you click: the ENTIRE file you choose is transmitted as-is to Anthropic's Claude model through this site's server to be read — this demo does not redact it first (a production version would redact names and addresses before transmission) (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this site stores nothing). Don't want to upload a real document? Download a fictional John Smith notice — <a href="/samples/sample-notice-a.pdf" download>fictional notice A: sale weeks out</a> &middot; <a href="/samples/sample-notice-b.pdf" download>fictional notice B: sale close</a> — and upload it here, or run one now:</p>
+        <input type="file" id="noticeFile" accept="application/pdf" aria-label="Notice PDF to read" />
+        <p class="quiet-alts" style="margin:8px 0 8px">Straight talk before you click: the ENTIRE file you choose is transmitted as-is to Anthropic's Claude model through this site's server to be read — this demo does not redact it first (a production version would redact names and addresses before transmission) (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this site stores nothing). Don't want to upload a real document? Download a fictional John Smith notice — <a href="/samples/sample-notice-a.pdf" download>fictional notice A: sale weeks out</a> &middot; <a href="/samples/sample-notice-b.pdf" download>fictional notice B: sale close</a> — and upload it here, or run one now:</p>
         <div class="btnrow" style="margin:0 0 10px"><button type="button" class="abtn ghost" id="trySampleA">Run fictional notice A (live AI call)</button><button type="button" class="abtn ghost" id="trySampleB">Run fictional notice B (live AI call)</button></div>
-        <div class="btnrow"><input type="file" id="noticeFile" accept="application/pdf" aria-label="Notice PDF to read" /></div>
         <div id="uploadStatus" hidden style="margin:8px 0 0"></div>
       </div>
       <div id="lookupResult" hidden style="margin:10px 0 0"></div>

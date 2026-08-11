@@ -14,6 +14,9 @@ export function initTourSteps(): void {
   if (items.length === 0) return;
 
   const stepByScroll = (): number => {
+    // At the bottom of the document the last section is "current" even if
+    // it is too short to ever cross the 40% line.
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 8) return items.length;
     const threshold = window.scrollY + window.innerHeight * 0.4;
     let step = 1;
     for (let n = 2; n <= items.length; n++) {

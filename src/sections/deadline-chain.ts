@@ -110,7 +110,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       what: REGX_COPY,
       cite: "RESPA / Reg X, 12 CFR §1024.41",
       cls: c.regX < today ? "past" : "window",
-      label: c.regX < today ? "Passed" : "Open",
+      label: c.regX < today ? "Marker passed" : "Window open",
       short: "38-day federal marker",
     },
     {
