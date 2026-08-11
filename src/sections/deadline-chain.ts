@@ -6,7 +6,8 @@
  */
 
 import { defaultNoticeChain, isAllowedSaleDay, saleNoticeChain } from "../../lib/deadlines";
-import { byId, fmt, todayAtNoon } from "../format";
+import { stageAssessment } from "../../lib/stage";
+import { byId, fmt, todayAtNoon, todayIso } from "../format";
 import { setSaleInfo, setStageInfo } from "../state";
 import type { EditorState } from "./editor-box";
 import { initEditorBox } from "./editor-box";
@@ -22,6 +23,8 @@ interface ChainRow {
   cite: string;
   cls: RowClass;
   label: string;
+  /** Short name for the takeaway card, e.g. "38-day federal marker". */
+  short: string;
 }
 
 const REGX_COPY =
@@ -36,6 +39,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       cite: "Tex. Prop. Code §51.002(d)",
       cls: c.notice < today ? "past" : "window",
       label: c.notice < today ? "Served" : "Upcoming",
+      short: "notice of default served",
     },
     {
       date: c.cureEnd,
@@ -43,6 +47,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       cite: "Day 20 of the statutory window",
       cls: c.cureEnd < today ? "deadline" : "window",
       label: c.cureEnd < today ? "Passed" : "Open",
+      short: "end of the 20-day cure minimum",
     },
     {
       date: c.earliestSaleNotice,
@@ -50,6 +55,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       cite: "After the cure window closes",
       cls: "window",
       label: "Projected",
+      short: "earliest a notice of sale could issue",
     },
     {
       // A rule, not a date: no sale is scheduled in this projection, and
@@ -64,6 +70,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       cite: "RESPA / Reg X, 12 CFR §1024.41 and official interpretations",
       cls: "window",
       label: "Rule — applies now",
+      short: "loss-mitigation rule",
     },
     {
       date: c.projectedSale,
@@ -71,6 +78,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       cite: "Tex. Prop. Code §51.002(a)-(b), (a-1)",
       cls: "deadline",
       label: "Projected",
+      short: "earliest possible sale (projected)",
     },
   ];
   return { rows, sale: c.projectedSale };
@@ -95,6 +103,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       cite: "Tex. Prop. Code §51.002(b)" + (allowedDay ? "" : " · §51.002(a), (a-1)"),
       cls: pass && allowedDay ? "window" : "deadline",
       label: pass && allowedDay ? "Filing check: pass" : "Filing check: FLAG",
+      short: "notice of sale filed" + (pass && allowedDay ? "" : " (FLAGGED)"),
     },
     {
       date: c.regX,
@@ -102,6 +111,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       cite: "RESPA / Reg X, 12 CFR §1024.41",
       cls: c.regX < today ? "past" : "window",
       label: c.regX < today ? "Passed" : "Open",
+      short: "38-day federal marker",
     },
     {
       date: c.planBy,
@@ -109,6 +119,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       cite: "Day before the stated sale",
       cls: "deadline",
       label: "Plan by",
+      short: "plan-by day (day before the sale)",
     },
     {
       date: c.sale,
@@ -116,6 +127,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       cite: "Tex. Prop. Code §51.002(a), (c)",
       cls: "deadline",
       label: "Sale day",
+      short: "the printed sale date",
     },
   ];
   return { rows, sale: c.sale };
@@ -175,7 +187,25 @@ export function initDeadlineChain(): void {
       ? saleRows(state.noticeIso, state.printedSaleIso, today)
       : defaultRows(state.noticeIso, today);
 
-    renderUrgency(urgencyEl, sale, verified);
+    // The takeaway card: dated steps split by today; the sale itself is
+    // the headline, not a list entry. Open doors come from the stage
+    // engine — top tiers only, lowercased for prose.
+    const dated = rows.filter((r): r is typeof r & { date: Date } => r.date !== null);
+    const upcoming = dated
+      .filter((r) => r.date >= today && r.date.getTime() !== sale.getTime())
+      .map((r) => ({ date: r.date, short: r.short }));
+    const passed = dated.filter((r) => r.date < today).map((r) => ({ date: r.date, short: r.short }));
+    const assessment = stageAssessment(
+      state.type === "sale" ? "sale" : "default",
+      state.noticeIso,
+      state.type === "sale" ? state.printedSaleIso : null,
+      todayIso(),
+    );
+    const openNow = (assessment?.recourses ?? [])
+      .filter((r) => r.tier === "act-now" || r.tier === "open")
+      .slice(0, 3)
+      .map((r) => r.title.toLowerCase());
+    renderUrgency(urgencyEl, sale, verified, upcoming, passed, openNow);
     renderRail(chainEl, rows, today);
     setSaleInfo({ text: fmt(sale), verified });
     setStageInfo({

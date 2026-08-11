@@ -126,7 +126,7 @@ function aiSummaryBox(info: StageInfo): HTMLDivElement {
         const body = document.createElement("p");
         body.className = "ai-summary-text";
         if (resp.ok && data.summary) {
-          label.textContent = "AI-generated — from the computed facts only, checked in code:";
+          label.textContent = "AI-generated from the computed panel below — dates and numbers checked in code; compare with the panel:";
           body.textContent = data.summary;
         } else if (data.flagged) {
           label.textContent = "The code check rejected the model's output:";

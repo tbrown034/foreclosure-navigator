@@ -24,6 +24,22 @@ const limiter = createRateLimiter({
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
+/** The facts are OUR computed text with abbreviated months ("Jul 25").
+ * The model writing "July" is a faithful expansion, not an invention —
+ * license the full name whenever its abbreviation is in the facts.
+ * Deterministic: the expansion set is fixed and derived only from the
+ * facts, never from the model's output. */
+const MONTH_EXPANSIONS: Array<[RegExp, string]> = [
+  [/\bjan\b/i, "january"], [/\bfeb\b/i, "february"], [/\bmar\b/i, "march"],
+  [/\bapr\b/i, "april"], [/\bjun\b/i, "june"], [/\bjul\b/i, "july"],
+  [/\baug\b/i, "august"], [/\bsept?\b/i, "september"], [/\boct\b/i, "october"],
+  [/\bnov\b/i, "november"], [/\bdec\b/i, "december"],
+];
+
+export function guardFacts(facts: string): string {
+  return facts + " " + MONTH_EXPANSIONS.filter(([re]) => re.test(facts)).map(([, full]) => full).join(" ");
+}
+
 const PROMPT_HEADER = `You are writing a short plain-language summary for a homeowner using a Texas foreclosure-deadline tool. Below are COMPUTED FACTS produced by the tool's date engine from the homeowner's notice. Restate them as 3 to 5 warm, clear, second-person sentences.
 
 HARD RULES:
@@ -98,21 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return;
   }
 
-  // The facts are OUR computed text with abbreviated months ("Jul 25").
-  // The model writing "July" is a faithful expansion, not an invention —
-  // license the full name whenever its abbreviation is in the facts.
-  // (Deterministic: the expansion set is fixed and derived only from the
-  // facts, never from the model's output.)
-  const MONTH_EXPANSIONS: Array<[RegExp, string]> = [
-    [/\bjan\b/i, "january"], [/\bfeb\b/i, "february"], [/\bmar\b/i, "march"],
-    [/\bapr\b/i, "april"], [/\bjun\b/i, "june"], [/\bjul\b/i, "july"],
-    [/\baug\b/i, "august"], [/\bsept?\b/i, "september"], [/\boct\b/i, "october"],
-    [/\bnov\b/i, "november"], [/\bdec\b/i, "december"],
-  ];
-  const guardFacts =
-    facts + " " + MONTH_EXPANSIONS.filter(([re]) => re.test(facts)).map(([, full]) => full).join(" ");
-
-  const invented = inventedTokens(guardFacts, summary);
+  const invented = inventedTokens(guardFacts(facts), summary);
   if (invented.length > 0) {
     res.status(200).json({
       flagged: true,

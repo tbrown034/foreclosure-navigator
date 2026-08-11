@@ -1,31 +1,96 @@
-/** Urgency card: the day count until the sale date — always labeled as
- * printed-on-your-notice vs projected statutory minimum. */
+/** The takeaway card: the whole clock in one glance, computed in code —
+ * how many days until WHAT, what sits between now and then, what has
+ * already passed, and which doors are open right now (with a jump to the
+ * what-you-can-do section). The AI summary in that section is the
+ * generative retelling; this card is the deterministic source. */
 
-import { daysFromNow, fmt } from "../format";
+import { daysFromNow, fmt, fmtShort } from "../format";
 
-export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean): void {
+export interface UrgencyStep {
+  date: Date;
+  /** Short name for the step, e.g. "38-day federal marker". */
+  short: string;
+}
+
+export function renderUrgency(
+  el: HTMLElement,
+  saleDate: Date,
+  verified: boolean,
+  upcoming: UrgencyStep[],
+  passed: UrgencyStep[],
+  openNow: string[],
+): void {
   const daysLeft = daysFromNow(saleDate);
-  el.innerHTML =
-    '<div class="takeaway">' +
-    '<p class="big">If this were your notice, you would have <span class="num">' +
-    daysLeft +
-    " days</span> — the " +
-    (verified ? "sale date printed on it" : "earliest possible sale (projected, not scheduled)") +
-    " is " +
-    fmt(saleDate) +
-    '. <span class="chip ' +
-    (verified ? "deadline" : "window") +
-    '">' +
-    (verified ? "From the notice" : "Projected minimum") +
-    "</span></p>" +
-    '<p class="fine">One generally useful option: contacting free legal aid (numbers at the bottom of this page) and requesting the servicer’s requirements in writing — a lawyer can advise what should come first in a specific situation. General legal information, not legal advice; verify every date against the recorded notice.</p>' +
-    "</div>";
+  const wrap = document.createElement("div");
+  wrap.className = "takeaway";
+
+  const big = document.createElement("p");
+  big.className = "big";
+  const num = document.createElement("span");
+  num.className = "num";
+  num.textContent = `${daysLeft} day${daysLeft === 1 ? "" : "s"}`;
+  if (daysLeft >= 0) {
+    big.append(
+      num,
+      ` until the ${verified ? "sale date printed on the notice" : "earliest possible sale under the statutory minimums (projected, not scheduled)"} — ${fmt(saleDate)}. `,
+    );
+  } else {
+    big.append(`The ${verified ? "printed sale date" : "projected date"} — ${fmt(saleDate)} — is behind today. `);
+  }
+  const chip = document.createElement("span");
+  chip.className = "chip " + (verified ? "deadline" : "window");
+  chip.textContent = verified ? "From the notice" : "Projected minimum";
+  big.appendChild(chip);
+  wrap.appendChild(big);
+
+  if (upcoming.length > 0 && daysLeft >= 0) {
+    const ul = document.createElement("ul");
+    ul.className = "takeaway-steps";
+    upcoming.forEach((s) => {
+      const li = document.createElement("li");
+      const d = daysFromNow(s.date);
+      li.textContent = `${d === 0 ? "Today" : `In ${d} day${d === 1 ? "" : "s"}`} — ${fmtShort(s.date)}: ${s.short}`;
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+  }
+
+  if (passed.length > 0) {
+    const p = document.createElement("p");
+    p.className = "takeaway-passed";
+    p.textContent =
+      "Already behind you: " + passed.map((s) => `${s.short} (${fmtShort(s.date)})`).join(" · ") + ".";
+    wrap.appendChild(p);
+  }
+
+  if (openNow.length > 0) {
+    const p = document.createElement("p");
+    p.className = "takeaway-open";
+    p.append(`Doors open right now: ${openNow.join(", ")} — `);
+    const go = document.createElement("button");
+    go.type = "button";
+    go.className = "linklike";
+    go.textContent = "see what you can do ↓";
+    go.addEventListener("click", () => {
+      document.querySelector('section[data-tour="3"]')?.scrollIntoView({ block: "start" });
+    });
+    p.appendChild(go);
+    wrap.appendChild(p);
+  }
+
+  const fine = document.createElement("p");
+  fine.className = "fine";
+  fine.textContent =
+    "Computed in code from the dates on the notice. General legal information, not legal advice; verify every date against the recorded notice.";
+  wrap.appendChild(fine);
+
+  el.replaceChildren(wrap);
 }
 
 export function renderUrgencyEmpty(el: HTMLElement): void {
   el.innerHTML =
     '<div style="border-left:3px solid var(--line);padding:2px 0 2px 16px">' +
     '<p style="margin:0;font-size:15px;color:var(--ink)">Nothing to compute yet.</p>' +
-    '<p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-2)">Click the button above, or enter the date from your notice — the deadline chain appears here.</p>' +
+    '<p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-2)">Click a button above, or enter the date from your notice — the deadline chain appears here.</p>' +
     "</div>";
 }
