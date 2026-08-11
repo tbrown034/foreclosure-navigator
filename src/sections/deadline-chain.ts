@@ -94,7 +94,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
           : " A second check: the printed sale date is NOT a first Tuesday (or the Jan 1 / Jul 4 Wednesday) — this tool never replaces a printed date, but that discrepancy is worth photographing and showing a lawyer."),
       cite: "Tex. Prop. Code §51.002(b)" + (allowedDay ? "" : " · §51.002(a), (a-1)"),
       cls: pass && allowedDay ? "window" : "deadline",
-      label: pass && allowedDay ? "Check: pass" : "Check: FLAG",
+      label: pass && allowedDay ? "Filing check: pass" : "Filing check: FLAG",
     },
     {
       date: c.regX,
@@ -121,7 +121,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
   return { rows, sale: c.sale };
 }
 
-function renderRail(chainEl: HTMLOListElement, rows: ChainRow[]): void {
+function renderRail(chainEl: HTMLOListElement, rows: ChainRow[], today: Date): void {
   chainEl.innerHTML = "";
   rows.forEach((row) => {
     const li = document.createElement("li");
@@ -136,6 +136,10 @@ function renderRail(chainEl: HTMLOListElement, rows: ChainRow[]): void {
     const date = document.createElement("span");
     date.className = row.date ? "date" : "rail-rule";
     date.textContent = row.date ? fmt(row.date) : "Not a date — a standing rule";
+    if (row.date && row.date < today) {
+      date.classList.add("date-passed");
+      date.title = "This date has passed";
+    }
     const chip = document.createElement("span");
     chip.className = "chip " + row.cls;
     chip.textContent = row.label;
@@ -172,7 +176,7 @@ export function initDeadlineChain(): void {
       : defaultRows(state.noticeIso, today);
 
     renderUrgency(urgencyEl, sale, verified);
-    renderRail(chainEl, rows);
+    renderRail(chainEl, rows, today);
     setSaleInfo({ text: fmt(sale), verified });
     setStageInfo({
       kind: state.type === "sale" ? "sale" : "default",

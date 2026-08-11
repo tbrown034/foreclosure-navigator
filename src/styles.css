@@ -920,3 +920,6 @@ a { color: var(--accent); }
   cursor: pointer;
 }
 #noticeFile::file-selector-button:hover { background: var(--accent-soft); }
+
+/* A chain date behind today is visibly behind: struck and dimmed. */
+.rail .date.date-passed { text-decoration: line-through; color: var(--ink-3); }
