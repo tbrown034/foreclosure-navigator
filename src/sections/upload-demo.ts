@@ -69,7 +69,7 @@ export function initUploadDemo(): void {
     result.replaceChildren();
   };
 
-  function renderOffer(sampleId: string): void {
+  function renderOffer(sampleId: string, viaUpload: boolean): void {
     const sample = getSampleNotice(sampleId);
     if (!sample) return;
     offer.replaceChildren();
@@ -79,30 +79,21 @@ export function initUploadDemo(): void {
       el(
         "p",
         "ai-offer-lede",
-        `That chain came from the Clerk's record of ${sample.basedOn}. In production, AI reads the notice itself:`,
+        viaUpload
+          ? `The dates above came from the Clerk's official index — the AI read was only the key. Compare it with the recorded temperature-0 run of this same instrument, checked nineteen ways in code:`
+          : `That chain came from the Clerk's record of ${sample.basedOn}. In production, AI reads the notice itself:`,
       ),
     );
     const btn = el("button", "abtn ai");
     btn.type = "button";
-    btn.textContent = "Next: replay the AI read of this notice →";
+    btn.textContent = viaUpload
+      ? "Compare: the recorded AI read, checked →"
+      : "Next: replay the AI read of this notice →";
     btn.addEventListener("click", () => playRecorded(sampleId));
     const row = el("div", "btnrow");
     row.append(btn);
     box.append(row);
-    const fine = el(
-      "p",
-      "ai-offer-fine",
-      "Instant recorded run — nothing is sent anywhere. ",
-    );
-    const otherId = sampleId === "frcl-2026-2290" ? "frcl-3493" : "frcl-2290";
-    const otherLink = el("button", "linklike");
-    otherLink.type = "button";
-    otherLink.textContent = "Or try the other recorded notice →";
-    otherLink.addEventListener("click", () => {
-      document.querySelector<HTMLButtonElement>(`.scenario-btn[data-scenario="${otherId}"]`)?.click();
-    });
-    fine.append(otherLink);
-    box.append(fine);
+    box.append(el("p", "ai-offer-fine", "Instant recorded run — nothing is sent anywhere."));
     offer.append(box);
     offer.hidden = false;
   }
@@ -288,11 +279,12 @@ export function initUploadDemo(): void {
 
   // Wire to the scenario beat.
   document.addEventListener("fn:scenario", (e) => {
-    const sampleId = (e as CustomEvent<{ sampleId: string | null }>).detail.sampleId;
+    const detail = (e as CustomEvent<{ sampleId: string | null; viaUpload?: boolean }>).detail;
+    const sampleId = detail.sampleId;
     if (sampleId === currentSample && sampleId !== null) return;
     currentSample = sampleId;
     clearAll();
-    if (sampleId) renderOffer(sampleId);
+    if (sampleId) renderOffer(sampleId, detail.viaUpload === true);
   });
 
   // "The exact text that gets sent" — the same module the server reads.

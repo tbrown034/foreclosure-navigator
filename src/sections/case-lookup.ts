@@ -50,17 +50,25 @@ const RECORDED_SAMPLE_IDS: Record<string, string> = {
   "FRCL-2026-3493": "frcl-2026-3493",
 };
 
-function applyFiling(f: Filing): void {
+function applyFiling(f: Filing, viaUpload = false): void {
   const typeEl = byId<HTMLSelectElement>("noticeType");
   byId<HTMLInputElement>("noticeDate").value = f.fileDate;
   byId<HTMLInputElement>("printedSaleDate").value = f.saleDate;
   typeEl.value = "sale";
   typeEl.dispatchEvent(new Event("change"));
   document.dispatchEvent(
-    new CustomEvent("fn:scenario", { detail: { sampleId: RECORDED_SAMPLE_IDS[f.docId] ?? null } }),
+    new CustomEvent("fn:scenario", {
+      detail: { sampleId: RECORDED_SAMPLE_IDS[f.docId] ?? null, viaUpload },
+    }),
   );
   focusUrgency();
 }
+
+/** The upload door hands verified filings off through here, so its results
+ * take exactly the road a typed file number takes — flagged as
+ * upload-originated so the AI offer can present itself as a comparison
+ * rather than a first read. Assigned during init. */
+export let lookupDocId: (docId: string, viaUpload: boolean) => void = () => {};
 
 const SAVE_KEY = "fn-saved-case";
 
@@ -90,7 +98,7 @@ export function initCaseLookup(): void {
     out.hidden = false;
   };
 
-  async function find(): Promise<void> {
+  async function find(viaUpload = false): Promise<void> {
     const norm = normalizeDocId(input.value);
     if (!norm) {
       show('<p class="polish-status">Enter the file number from the notice — it looks like FRCL-2026-1234.</p>');
@@ -113,7 +121,7 @@ export function initCaseLookup(): void {
       `<p class="polish-status"><strong>${filing.docId}</strong> — filed ${filing.fileDate} for the September 1, 2026 sale, per the Clerk's public index. The chain below is computed from those official dates. ` +
         `<button type="button" class="linklike" id="saveCaseBtn">Save on this device</button></p>`,
     );
-    applyFiling(filing);
+    applyFiling(filing, viaUpload);
     byId<HTMLButtonElement>("saveCaseBtn").addEventListener("click", () => {
       localStorage.setItem(SAVE_KEY, JSON.stringify(filing));
       renderSaved();
@@ -121,6 +129,10 @@ export function initCaseLookup(): void {
   }
 
   btn.addEventListener("click", () => void find());
+  lookupDocId = (docId, viaUpload) => {
+    input.value = docId;
+    void find(viaUpload);
+  };
   // The demo case: a real filing that also carries a recorded model run,
   // so the guided AI beat follows the chain.
   document.getElementById("demoCase")?.addEventListener("click", () => {

@@ -112,7 +112,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       note: salePassed
         ? "Free legal aid can find out what actually happened and what applies now. Verified numbers in the kit below."
         : "The earlier legal aid is in, the more they can do — sharing the sale date early helps intake understand urgency. Verified numbers below.",
-      draft: "script",
+      draft: null,
     },
     {
       id: "loss-mitigation",
@@ -121,13 +121,13 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       label: salePassed
         ? "Ask what applies"
         : regXOpen
-          ? `Window open — marker ${fmtShort(c.regX)}`
+          ? `38-day marker: ${fmtShort(c.regX)}`
           : "Marker passed — still worth asking",
       note: salePassed
         ? "After a sale date passes, whether review options remain is a servicer-and-lawyer question — worth asking in writing."
         : regXOpen
           ? "A complete application received more than 37 days before the sale may restrict the servicer from moving forward while it is reviewed — exceptions apply. The request letter below starts it."
-          : "The 38-day marker has passed, but applying can still be possible and servicers accept applications later — protections differ; ask the servicer and a lawyer what applies now.",
+          : "The 38-day marker has passed — that does not by itself mean materials cannot still be submitted or considered; protections differ, and the servicer and a lawyer can say what applies now.",
       draft: "hardship",
     },
     {
@@ -152,9 +152,9 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       id: "sell",
       title: "Sell before the sale",
       tier: salePassed ? "passed-marker" : soon ? "confirm" : "open",
-      label: salePassed ? "Timing has passed" : soon ? "Tight timeline" : "Time-dependent",
+      label: salePassed ? "Printed date passed — verify sale status" : soon ? "Tight timeline" : "Time-dependent",
       note: salePassed
-        ? "A pre-sale listing no longer fits a printed date that has passed — what remains depends on what happened; a lawyer can say."
+        ? "Whether a pre-sale listing still fits depends on what actually happened to the sale — the county record and the servicer can say; a lawyer can advise."
         : soon
           ? "Whether a private sale can close before the printed date is a question for an agent or buyer on day one — the window is tight."
           : "With equity, selling before the auction can preserve value — whether it fits depends on the equity, the loan and the goals.",
@@ -208,7 +208,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       tier: "act-now",
       label: "Call early",
       note: "This is the stage where legal aid has the most room to work. Verified numbers in the kit below.",
-      draft: "script",
+      draft: null,
     },
     {
       id: "loss-mitigation",

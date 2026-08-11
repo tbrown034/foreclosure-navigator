@@ -55,7 +55,7 @@ test.describe("reader flow", () => {
 
     const panel = page.locator("#uploadPanel");
     await expect(panel).toBeVisible();
-    await expect(panel).toContainText("transmitted to Anthropic");
+    await expect(panel).toContainText("transmitted as-is to Anthropic");
     await expect(panel).toContainText("never trusted on its own");
     await expect(panel.locator("#noticeFile")).toBeVisible();
     // Both fictional samples are downloadable from the panel.

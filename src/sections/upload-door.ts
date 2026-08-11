@@ -12,6 +12,7 @@
  */
 
 import { byId } from "../format";
+import { lookupDocId } from "./case-lookup";
 
 interface UploadResponse {
   mode?: string;
@@ -124,11 +125,29 @@ export function initUploadDoor(): void {
     status.hidden = false;
   }
 
+  // Stale-response guard: only the latest upload may touch the page.
+  let runSeq = 0;
+
+  /** A new upload means the notice on screen is no longer the reader's
+   * subject — clear the chain so a failed or unverified read can never
+   * leave someone else's deadlines standing under their document. */
+  function clearNoticeState(): void {
+    const typeEl = byId<HTMLSelectElement>("noticeType");
+    byId<HTMLInputElement>("noticeDate").value = "";
+    byId<HTMLInputElement>("printedSaleDate").value = "";
+    typeEl.dispatchEvent(new Event("change"));
+    const lookup = byId<HTMLDivElement>("lookupResult");
+    lookup.hidden = true;
+    lookup.replaceChildren();
+  }
+
   async function run(pdf: Blob, sourceLabel: string): Promise<void> {
     if (pdf.size > MAX_FILE_BYTES) {
       say(null, "That file is over 3 MB — the recorded notices themselves are typically well under 1 MB. Try the Clerk's copy of the instrument.");
       return;
     }
+    const seq = ++runSeq;
+    clearNoticeState();
     say(null, `Reading ${sourceLabel} with Claude Haiku (temperature 0)… the model's only job is the county stamp and the printed dates; code does the verifying.`);
     let data: UploadResponse;
     try {
@@ -139,11 +158,13 @@ export function initUploadDoor(): void {
         body: JSON.stringify({ pdf: b64 }),
       });
       data = (await resp.json()) as UploadResponse;
+      if (seq !== runSeq) return; // a newer upload superseded this one
       if (!resp.ok) {
         say(null, data.error ?? "The read failed — nothing was computed. The lookup and manual entry above still work.");
         return;
       }
     } catch {
+      if (seq !== runSeq) return;
       say(null, "The read failed — nothing was computed. The lookup and manual entry above still work.");
       return;
     }
@@ -151,10 +172,9 @@ export function initUploadDoor(): void {
     if (data.verified && data.filing) {
       status.replaceChildren(receipt("official"));
       status.hidden = false;
-      // Hand off to the same lookup path a typed file number takes.
-      const input = byId<HTMLInputElement>("caseNumber");
-      input.value = data.filing.docId;
-      byId<HTMLButtonElement>("findCaseBtn").click();
+      // Hand off to the same lookup path a typed file number takes,
+      // flagged upload-originated so the AI offer reads as a comparison.
+      lookupDocId(data.filing.docId, true);
       return;
     }
     if (data.verified && data.sampleDoc) {

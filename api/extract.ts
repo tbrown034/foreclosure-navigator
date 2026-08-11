@@ -1,17 +1,26 @@
 /**
- * Live extraction demo — job #1 from the AI seam map, runnable by anyone.
+ * Live extraction — job #1 from the AI seam map, runnable by anyone, in
+ * two modes.
  *
- * The client may only name one of the two built-in sanitized samples
- * (lib/sample-notices.ts); no arbitrary text is accepted. The sample's
- * text goes to Claude Haiku with the same fixed schema the Aug 10
- * real-document pilot used, and the same deterministic checks run in code
- * AFTER the model. Clerk metadata for the checks comes from this server,
- * never from the model.
+ * Sample-text mode: the client may only name one of the two built-in
+ * sanitized samples (lib/sample-notices.ts); the sample's text goes to
+ * Claude Haiku with the fixed nine-field schema the Aug 10 real-document
+ * pilot used, and the nineteen deterministic checks run in code AFTER the
+ * model, against Clerk metadata held by this server.
+ *
+ * PDF mode (the upload door): an uploaded recorded notice (size- and
+ * magic-byte-checked) goes to the model with one job — read the county
+ * stamp and the printed dates. Code then requires the canonical file
+ * number, the FILED date and the sale date to exactly match one row of
+ * the Clerk's official index (or, for the two committed fictional
+ * samples, a byte-hash-gated sample table) before anything is computed.
+ * On any miss, nothing is computed and the read is returned as unverified.
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { validateExtraction, validateFidelity, type ExtractedNotice } from "../lib/extraction-checks.js";
-import { SAMPLE_DOCS, normalizeDocId, normalizeSampleId } from "../lib/lookup.js";
+import { createHash } from "node:crypto";
+import { SAMPLE_DOCS } from "../lib/lookup.js";
 import { getSampleNotice } from "../lib/sample-notices.js";
 import { QUOTA_BODY, callAnthropic, clientIp, createRateLimiter } from "./_shared.js";
 
@@ -76,6 +85,22 @@ interface PdfRead {
 }
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+// The stamp on a recorded copy reads exactly FRCL-2026-#### — the model's
+// output must match it CANONICALLY. The permissive typed-lookup grammar
+// (bare "2290") stays reader-side only: a partial OCR read must never
+// resolve to a valid filing.
+const CANONICAL_STAMP = /^FRCL-2026-(\d{1,4})$/;
+const SAMPLE_STAMP = /^SAMPLE-2026-([AB])$/;
+
+// Sample verification is additionally gated on the EXACT committed bytes:
+// a stranger's PDF that merely claims a sample's stamp must fall through
+// to the county-index path (and honestly fail there). Regenerating the
+// samples (scripts/make-sample-pdfs.py) means refreshing these.
+const SAMPLE_SHA256: Record<string, string> = {
+  "fd67916b9fdb497c7657ac517121501395159fb0785916c976fd5a97df33a8ed": "SAMPLE-2026-A",
+  "98d36858c7adb65942ebb1fee538157844addce1118c3ad55e72141249392db7": "SAMPLE-2026-B",
+};
 const str = (v: unknown): string | null => (typeof v === "string" && v.trim() !== "" ? v.trim() : null);
 
 interface IndexFiling {
@@ -84,14 +109,18 @@ interface IndexFiling {
   fileDate: string;
 }
 
-/** The Clerk index ships with the same deployment as /data/frcl-index.json;
- * fetching our own static copy keeps one source of truth. */
-async function loadIndex(req: VercelRequest): Promise<IndexFiling[] | null> {
+/** The Clerk index ships with the same deployment as /data/frcl-index.json.
+ * The origin is fixed to this project's production URL (env-derived, never
+ * request-derived — a client-controlled Host header must not choose where
+ * "official" data comes from). */
+function indexOrigin(): string {
+  const prod = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  return prod ? `https://${prod}` : "https://foreclosure-navigator.vercel.app";
+}
+
+async function loadIndex(): Promise<IndexFiling[] | null> {
   try {
-    const host = req.headers.host;
-    if (!host) return null;
-    const proto = host.startsWith("localhost") ? "http" : "https";
-    const resp = await fetch(`${proto}://${host}/data/frcl-index.json`, {
+    const resp = await fetch(`${indexOrigin()}/data/frcl-index.json`, {
       signal: AbortSignal.timeout(5000),
     });
     if (!resp.ok) return null;
@@ -106,6 +135,19 @@ async function handlePdf(req: VercelRequest, res: VercelResponse, pdfBase64: str
   // ~3 MB of file becomes ~4 MB of base64 — under the request-body ceiling.
   if (pdfBase64.length > 4_200_000 || !/^[A-Za-z0-9+/=]+$/.test(pdfBase64)) {
     res.status(400).json({ error: "pdf must be base64, at most ~3 MB of file" });
+    return;
+  }
+  // Decode before spending a model call: enforce the decoded size and the
+  // PDF magic bytes — base64 charset alone proves nothing about content.
+  let pdfBytes: Buffer;
+  try {
+    pdfBytes = Buffer.from(pdfBase64, "base64");
+  } catch {
+    res.status(400).json({ error: "pdf must be valid base64" });
+    return;
+  }
+  if (pdfBytes.length > 3_145_728 || pdfBytes.subarray(0, 5).toString("latin1") !== "%PDF-") {
+    res.status(400).json({ error: "not a PDF, or over the 3 MB limit" });
     return;
   }
   try {
@@ -163,8 +205,12 @@ async function handlePdf(req: VercelRequest, res: VercelResponse, pdfBase64: str
     notice_type: str(read.notice_type),
   };
 
-  // Three-field match, sample table first (fictional ids can't collide).
-  const sampleId = fileNumberRaw ? normalizeSampleId(fileNumberRaw) : null;
+  // Three-field match, sample table first. Sample verification requires the
+  // EXACT committed bytes AND the canonical stamp AND both dates — an
+  // arbitrary PDF claiming a sample stamp falls through to the index path.
+  const stamp = fileNumberRaw ? fileNumberRaw.trim().toUpperCase() : null;
+  const uploadHash = createHash("sha256").update(pdfBytes).digest("hex");
+  const sampleId = stamp && SAMPLE_STAMP.test(stamp) && SAMPLE_SHA256[uploadHash] === stamp ? stamp : null;
   if (sampleId) {
     const doc = SAMPLE_DOCS[sampleId];
     const verified = !!doc && doc.fileDate === extracted.file_date && doc.saleDate === extracted.sale_date;
@@ -180,8 +226,11 @@ async function handlePdf(req: VercelRequest, res: VercelResponse, pdfBase64: str
     return;
   }
 
-  const docId = fileNumberRaw ? normalizeDocId(fileNumberRaw) : null;
-  const index = await loadIndex(req);
+  // Canonical stamp only — "2290" or "FRCL-2290" from a partial read must
+  // not resolve to a filing.
+  const m = stamp ? stamp.match(CANONICAL_STAMP) : null;
+  const docId = m ? `FRCL-2026-${Number(m[1])}` : null;
+  const index = await loadIndex();
   if (!index) {
     res.status(200).json({ mode: "pdf", verified: false, extracted, model: MODEL, ms, reason: "index unavailable" });
     return;
