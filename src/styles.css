@@ -317,6 +317,11 @@ details.action > summary p { margin: 0; font-size: 13.5px; color: var(--ink-2); 
 .kit h4 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); }
 .kit ul { margin: 0; padding-left: 20px; font-size: 14px; color: var(--ink-2); }
 .kit ul li { margin: 4px 0; }
+/* Newsroom layers: the verification material (seam map, trust receipt)
+ * collapses on the main page — the default view is the reader's. */
+details.newsroom > summary h2 { font-size: 20px; margin: 0; }
+details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16px 18px; }
+
 .btnrow { display: flex; gap: 8px; flex-wrap: wrap; }
 .abtn {
   display: inline-block;
@@ -461,7 +466,7 @@ details.action > summary p { margin: 0; font-size: 13.5px; color: var(--ink-2); 
   [aria-labelledby="dataH"], [aria-labelledby="aiH"], header.masthead a { display: none !important; }
   a[href^="tel:"] { display: inline !important; border: none; background: none; padding: 0; color: #000; font-weight: 700; }
   .panel, details.action, .card { border: 1px solid #999; break-inside: avoid; }
-  details.action > .kit { display: block !important; }
+  details.action > .kit, details.action > .newsroom-body { display: block !important; }
   details.action > summary .arrow { display: none; }
   .tpl, #docOut { border: 1px solid #999; }
   .rail li:not(:last-child)::before { background: #999; }

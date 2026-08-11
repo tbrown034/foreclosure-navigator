@@ -81,7 +81,7 @@ export function initUploadDemo(): void {
         if (resp.status === 429) {
           show(
             statusLine(
-              "Demo quota reached — the deterministic demo still works. The recorded results of the Aug 10 pilot on the real instruments are in the exhibit below.",
+              "Demo quota reached — the deterministic demo still works. The recorded results of the Aug 10 pilot on the real instruments are on the evidence page (/more).",
             ),
           );
           return;

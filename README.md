@@ -19,7 +19,11 @@ Built August 10, 2026 by [Trevor Brown](https://trevorthewebdeveloper.com), a jo
 Vite + TypeScript, static build output, two small serverless functions, no framework. That is a deliberate decision, and it is the same decision the product itself makes about AI: the smallest tool that does the job. A page of static HTML with a few typed behavior modules does not need a component framework, and a codebase meant to be read as a work sample benefits from having nothing in it that isn't earning its place.
 
 ```
-index.html               All page content, as plain HTML — the copy is the product
+index.html               The tool — built to be grasped in under 90 seconds;
+                         newsroom-facing layers (seam map, trust receipt)
+                         collapse behind "For the newsroom" dropdowns
+more.html                The full story: the pitch, the three tested exhibits,
+                         the tax/HOA tracks and the county accountability layer
 lib/deadlines.ts         The statutory date engine: pure typed functions, no DOM
 lib/deadlines.test.ts    Tests pinning the statutory boundary cases
 lib/templates.ts         Letter and call-script templates: facts in, string out
@@ -27,7 +31,8 @@ lib/sample-notices.ts    The two sanitized sample documents for the live
                          extraction demo — single source of truth for what the
                          page shows AND what the server sends to the model
 lib/extraction-checks.ts Deterministic validation of extraction output
-src/main.ts              Entry point; mounts one behavior module per section
+src/main.ts              Entry point for the tool page
+src/more.ts              Entry point for /more (tax calculator, auction calendar)
 src/sections/            Stepper, editor box, deadline chain (timeline rail),
                          urgency card, sample scenarios, upload demo,
                          track selector + tax calculator, action kits,
@@ -38,7 +43,7 @@ api/extract.ts           Live extraction on the sanitized samples (see below)
 api/polish.ts            Narrative polish for the reader's sentence (see below)
 ```
 
-The exhibits, AI seam map and trust receipt are static HTML in `index.html` on purpose — they are content, not behavior.
+The exhibits, AI seam map and trust receipt are static HTML on purpose — they are content, not behavior. The page split serves the same goal as everything else: the tool page carries only what a reader needs in the first 90 seconds; evidence and background live one click away at `/more`.
 
 ### The two live AI features
 

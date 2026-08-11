@@ -1,5 +1,7 @@
-/** Track selector: mortgage tool active; tax and HOA informational panels.
- * The tax panel runs the deterministic §34.21 redemption calculator. */
+/** Tax panel (lives on the /more page): the deterministic §34.21
+ * redemption calculator. The HOA panel beside it is informational only.
+ * On the main page, the track choices are plain links here — only the
+ * mortgage / trustee-sale track has a live calculator. */
 
 import { taxRedemption } from "../../lib/deadlines";
 import { byId, fmt } from "../format";
@@ -23,25 +25,7 @@ function buildTax(): void {
   byId<HTMLDivElement>("taxOut").innerHTML = html;
 }
 
-export function initTrackSelector(): void {
-  const trackTax = byId<HTMLDivElement>("trackTax");
-  const trackHoa = byId<HTMLDivElement>("trackHoa");
-  const buttons = document.querySelectorAll<HTMLButtonElement>(".track-btn");
-
-  buttons.forEach((btn) =>
-    btn.addEventListener("click", () => {
-      buttons.forEach((b) => {
-        b.classList.add("ghost");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.remove("ghost");
-      btn.setAttribute("aria-pressed", "true");
-      const t = btn.dataset.track;
-      trackTax.hidden = t !== "tax";
-      trackHoa.hidden = t !== "hoa";
-    }),
-  );
-
+export function initTaxPanel(): void {
   byId<HTMLInputElement>("taxSaleDate").addEventListener("change", buildTax);
   byId<HTMLSelectElement>("taxHomestead").addEventListener("change", buildTax);
   buildTax();

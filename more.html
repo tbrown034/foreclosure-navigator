@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foreclosure Navigator — The Full Story (Concept Demo)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' rx='3' fill='%231C5D99'/%3E%3Crect x='10' y='9' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='14' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='19' width='8' height='2.5' rx='1' fill='white'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<main class="wrap">
+  <div class="demo-banner">Concept mockup · demo data only · not legal advice · all deadlines must be verified against the recorded notice</div>
+
+  <p style="margin:14px 0 0"><a class="abtn ghost" href="/">&larr; Back to the tool</a></p>
+
+  <header class="masthead">
+    <p class="eyebrow">Reader tool concept · Harris County</p>
+    <h1 style="font-size:clamp(26px,4vw,36px)">The full story</h1>
+    <p class="dek">Everything that supports the tool without needing to sit on top of it: the pitch, the tested evidence, and the county accountability layer. The tool itself is one click back.</p>
+  </header>
+
+  <section id="pitch" aria-labelledby="pitchH">
+    <h2 id="pitchH">The pitch</h2>
+  <div class="panel" style="margin-top:14px;border-left:4px solid var(--accent)">
+    <p class="eyebrow" style="margin:0 0 6px">What you're looking at — 30 seconds</p>
+    <ul style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.6;color:var(--ink-2)">
+      <li><strong style="color:var(--ink)">The idea:</strong> TX Tax, pointed at a scarier clock. Texas forecloses in as few as 41 days; Houston had 13,009 foreclosure starts last year. This walks a homeowner from "what is this letter" to "here's your deadline, here's who to call, here's the paperwork" — free where it matters, with a paid layer that doesn't touch survival.</li>
+      <li><strong style="color:var(--ink)">What's real:</strong> everything you can click. The deadline math runs live, the letters generate, the phone numbers are verified — and the AI extraction was tested today on two actual notices recorded at the Harris County Clerk (results below, including one AI error our checks caught).</li>
+      <li><strong style="color:var(--ink)">Why it's built this way:</strong> code computes every date, attorneys own every legal sentence (the production contract — this demo's templates await that review), AI works only at the edges — the same posture as Meeting Monitor's discrepancy checker and the quiz's human review. Built in one afternoon.</li>
+      <li><strong style="color:var(--ink)">What the newsroom would measure:</strong> completed answers, source-document clicks, legal-aid referrals, saved-notice reminder opt-ins, returning users, subscriber conversions and a public corrections count — all real events this page already structures, none fabricated here.</li>
+    </ul>
+  </div>
+  </section>
+
+  <section id="exhibits" aria-labelledby="exH">
+    <h2 id="exH">The evidence — three exhibits from the Aug 10 build day</h2>
+    <p class="sub">Everything below was run on August 10, 2026 against real recorded instruments from the Harris County Clerk — including the one error the checks caught, displayed rather than hidden, because it is the argument for the architecture.</p>
+    <div class="panel" style="margin-top:18px;border-left:4px solid var(--ok)">
+      <p class="eyebrow" style="margin:0 0 6px;color:var(--ok)">Exhibit — real extraction: a two-document pilot, run Aug 10, 2026</p>
+      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-2)">Two Notices of Substitute Trustee's Sale for the Sept 1, 2026 auction, pulled from the Harris County Clerk's public foreclosure search and run through Claude Haiku 4.5 with the fixed extraction schema. Two documents is a pilot, not a benchmark — production needs a golden set and calibrated accuracy. Validation is deterministic code, run AFTER the model — the same contract as everything else on this page. Homeowner names and property addresses were excluded from the schema by design; the parties shown are the professional ones.</p>
+      <div style="overflow-x:auto">
+      <table class="ledger">
+        <thead><tr><th>Field</th><th>FRCL-2026-2290</th><th>FRCL-2026-3493</th></tr></thead>
+        <tbody>
+          <tr><td>Notice type</td><td>Notice of Substitute Trustee's Sale</td><td>Notice of Substitute Trustee's Sale</td></tr>
+          <tr><td>Extracted sale date</td><td class="date">2026-09-01 <span class="chip window">= Clerk metadata</span></td><td class="date">2026-09-01 <span class="chip window">= Clerk metadata</span></td></tr>
+          <tr><td>Sale window &amp; location</td><td>10 a.m. + 3 hrs · Bayou City Event Center, Magnolia Ballroom</td><td>10 a.m. + 3 hrs · Bayou City Event Center, Magnolia South Ballroom</td></tr>
+          <tr><td>Substitute trustee</td><td>Auction.com, LLC</td><td>Auction.com, LLC + Barrett Daffin Frappier Turner &amp; Engel, LLP</td></tr>
+          <tr><td>Lender / servicer</td><td>Lakeview Loan Servicing (stated servicer)</td><td>MidFirst Bank / Midland Mortgage</td></tr>
+          <tr><td>21-day rule check (code)</td><td>Filed 152 days before sale <span class="chip window">PASS</span></td><td>Filed 110 days before sale <span class="chip window">PASS</span></td></tr>
+          <tr><td>All validation checks</td><td>6 of 6 <span class="chip window">PASS</span></td><td>6 of 6 <span class="chip window">PASS</span></td></tr>
+          <tr><td>Model · latency · confidence</td><td class="date">claude-haiku-4-5 · 3.3s · 0.95-0.98</td><td class="date">claude-haiku-4-5 · 3.4s · 0.95</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--ink-3)">Total cost for both extractions: roughly half a cent. Checks run in code: sale date matches Clerk metadata · first-Tuesday rule · §51.002 21-day minimum · county · no privacy fields in output · confidence present. Watermarked public records, free to view; instruments referenced by file number only.</p>
+      <p style="margin:8px 0 0;font-size:12.5px;color:var(--ink-3)">One discrepancy worth naming: this table records the pilot's sale window for FRCL-2026-2290 as 10 a.m., while the document text quoted in the translation exhibit below reads 11:00 a.m. The pilot's six checks did not test the stated time — the live demo's checks now do. The record above is left as it was produced.</p>
+    </div>
+
+    <div class="panel" style="margin-top:14px;border-left:4px solid var(--stamp)">
+      <p class="eyebrow" style="margin:0 0 6px;color:var(--stamp)">Exhibit — plain-language translation, and the error our checks caught</p>
+      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-2)">The same real notice (FRCL-2026-2290), translated under the no-citation-no-sentence rule: every plain sentence must carry its basis from the document or statute. Four sentences came back — three clean, and one where <strong>the AI's plain sentence contradicts its own citation</strong>. That row is the whole design argument.</p>
+      <div style="overflow-x:auto">
+      <table class="ledger">
+        <thead><tr><th>Plain English (AI)</th><th>Its cited basis (from the document)</th><th>Check</th></tr></thead>
+        <tbody>
+          <tr><td>A lender has claimed the homeowner stopped paying, so the lender is taking action to sell the home to recover the money owed.</td><td class="cite" style="font-size:12.5px">"defaults have occurred in the covenants of the Deed of Trust... the indebtedness... is now wholly due"</td><td><span class="chip window">Clean</span></td></tr>
+          <tr><td>Auction.com, acting as substitute trustee, will sell the property at public auction to the highest bidder for cash.</td><td class="cite" style="font-size:12.5px">"appointed Auction.com, LLC... as Substitute Trustee... to sell the Property"</td><td><span class="chip window">Clean</span></td></tr>
+          <tr><td>The sale is scheduled for Tuesday, September 1, 2026, <strong>at 10:00 AM</strong> in Harris County.</td><td class="cite" style="font-size:12.5px">"on Tuesday, September 1, 2026 <strong>at 11:00 a.m.</strong>, no later than three (3) hours after such time..."</td><td><span class="chip deadline">FLAGGED — sentence contradicts its own basis</span></td></tr>
+          <tr><td>The property sells "as is," with no guarantees; bidders are urged to inspect the records first.</td><td class="cite" style="font-size:12.5px">"Pursuant to Section 51.009... in 'as is', 'where is' condition, without any expressed or implied warranties"</td><td><span class="chip window">Clean</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)"><strong>Why the flagged row is the point:</strong> because every sentence must carry its basis, a simple comparison catches the model saying 10:00 when its own quoted source says 11:00 — and routes that row to a human instead of a reader. That is Meeting Monitor's discrepancy-checker pattern, demonstrated on a live error, on a real document, on the first try. A time-of-sale error in a foreclosure tool is exactly the class of mistake this architecture exists to stop.</p>
+    </div>
+
+    <div class="panel" style="margin-top:14px;border-left:4px solid var(--ai)">
+      <p class="eyebrow" style="margin:0 0 6px;color:var(--ai)">Exhibit — hardship polish, zero facts added (verified in code)</p>
+      <div class="mockrow">
+        <div>
+          <h4 style="margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">Reader's words (test input)</h4>
+          <p class="tpl" style="font-family:inherit">"i got behind becuase my hours got cut at the plant in june, my wife had surgery in july so we had them bills to, im back to full time since august 3 and can pay the regular payment again but not the whole missed amount at once"</p>
+        </div>
+        <div>
+          <h4 style="margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">AI-polished (output)</h4>
+          <p class="tpl" style="font-family:inherit">"My financial hardship began in June when my hours were reduced at the plant. In July, my wife underwent surgery, which resulted in additional medical expenses. I returned to full-time employment on August 3 and am able to resume regular monthly payments. However, I am unable to pay the entire missed amount in a lump sum at this time."</p>
+        </div>
+      </div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)">The model also returned a facts-used ledger (six claims, each traceable to the input), and an automated token check (dates, numbers) plus line-by-line review confirmed <strong>no date, number or circumstance appears in the output that wasn't in the reader's words</strong>. Same dignity, better sentences, nothing invented — the reader approves every line before it goes anywhere. The live demo's server gate checks the same token categories; the reader's approval covers the rest.</p>
+    </div>
+  </section>
+
+  <section id="tracks" aria-labelledby="tracksH">
+    <h2 id="tracksH">The other clocks: property tax and HOA</h2>
+    <p class="sub">The main page's calculator covers the mortgage / trustee-sale track. These two are completely different legal processes with their own timelines.</p>
+    <div id="tax" class="panel" style="margin-top:12px;border-left:4px solid var(--stamp)">
+        <p style="margin:0 0 8px;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">The tax track is a different legal process</strong> — the taxing authority must sue and win a court judgment before any sale, and unlike the mortgage track, you CAN buy the home back afterward. If you are 65+ or disabled with a homestead, a tax-deferral affidavit (Tax Code §33.06) can postpone collection — the tax still accrues with interest, but the foreclosure stops while the deferral holds.</p>
+        <div class="calc tax-calc">
+          <div>
+            <label for="taxSaleDate">Date the buyer's deed was RECORDED (the redemption clock runs from recording, not the sale)</label>
+            <input type="date" id="taxSaleDate" />
+            <label for="taxHomestead">What kind of property was it?</label>
+            <select id="taxHomestead"><option value="yes">Homestead, agricultural land or mineral interest — 2-year window</option><option value="no">Other property — 180 days</option></select>
+          </div>
+          <div id="taxOut" style="font-size:14px;color:var(--ink-2)"></div>
+        </div>
+      </div>
+      <div id="hoa" class="panel" style="margin-top:12px;border-left:4px solid var(--stamp)">
+        <p style="margin:0;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">HOA foreclosure generally requires a court's approval</strong> for residential assessment liens, and many associations must offer a payment-plan option (Prop. Code §209.0062 — exceptions apply by association size and prior defaults). After an HOA sale there is a 180-day redemption right (§209.011) that runs from the association's post-sale notice to you, and the request must move by certified mail. If you received HOA foreclosure papers, the legal-aid card below is the first call — the timelines are strict and the mail rules matter.</p>
+      </div>
+  </section>
+
+  <section aria-labelledby="dataH">
+    <h2 id="dataH">The county picture <span class="chip past" style="vertical-align:middle">demo data</span></h2>
+    <p class="sub">The accountability layer behind the reader tool: every posted notice, every filer, every outcome — the public record, made legible. Numbers below are placeholders for the demo.</p>
+    <div class="mockrow">
+      <div class="panel">
+        <h3 style="margin:0 0 2px;font-size:16px">Postings by ZIP, last 90 days <span class="chip past">demo figures — not real counts</span></h3>
+        <div class="bars">
+          <div class="bar"><span class="zip">77449</span><div class="track"><div class="fill" style="width:88%"></div></div><span class="v">148</span></div>
+          <div class="bar"><span class="zip">77084</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="v">123</span></div>
+          <div class="bar"><span class="zip">77489</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="v">108</span></div>
+          <div class="bar"><span class="zip">77373</span><div class="track"><div class="fill" style="width:55%"></div></div><span class="v">92</span></div>
+          <div class="bar"><span class="zip">77090</span><div class="track"><div class="fill" style="width:47%"></div></div><span class="v">79</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3 style="margin:0 0 2px;font-size:16px">Upcoming auction days <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)">computed live</span></h3>
+        <p style="margin:4px 0 8px;font-size:13px;color:var(--ink-2)">Sales happen only on the first Tuesday (first Wednesday when that Tuesday is Jan 1 or July 4), 10 a.m.–4 p.m., Bayou City Event Center, 9401 Knight Rd.</p>
+        <div id="auctionCal" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        <h3 style="margin:16px 0 2px;font-size:16px">Questions this layer can answer</h3>
+        <ul style="margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2)">
+          <li>Which servicers and trustees post the most sales — and where?</li>
+          <li>How many postings end in an actual sale vs. get pulled?</li>
+          <li>Is the investor share of auction purchases rising?</li>
+          <li>Which neighborhoods carry the load, month over month?</li>
+          <li>Do HOA and tax foreclosures track different streets than mortgage sales?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Concept demo built Aug 10, 2026 · Statutory minimums shown; real notices can allow more time, never less · A production version verifies every date against the recorded instrument · Free legal help: Lone Star Legal Aid, Houston Volunteer Lawyers
+  </footer>
+</main>
+
+<script type="module" src="/src/more.ts"></script>
+</body>
+</html>

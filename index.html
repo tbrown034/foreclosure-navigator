@@ -12,15 +12,8 @@
   <div class="demo-banner">Concept mockup · demo data only · not legal advice · all deadlines must be verified against the recorded notice</div>
 
   <div class="panel" style="margin-top:14px;border-left:4px solid var(--accent)">
-    <p class="eyebrow" style="margin:0 0 6px">What you're looking at — 30 seconds</p>
-    <ul style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.6;color:var(--ink-2)">
-      <li><strong style="color:var(--ink)">The idea:</strong> TX Tax, pointed at a scarier clock. Texas forecloses in as few as 41 days; Houston had 13,009 foreclosure starts last year. This walks a homeowner from "what is this letter" to "here's your deadline, here's who to call, here's the paperwork" — free where it matters, with a paid layer that doesn't touch survival.</li>
-      <li><strong style="color:var(--ink)">What's real:</strong> everything you can click. The deadline math runs live, the letters generate, the phone numbers are verified — and the AI extraction was tested today on two actual notices recorded at the Harris County Clerk (results below, including one AI error our checks caught).</li>
-      <li><strong style="color:var(--ink)">Why it's built this way:</strong> code computes every date, attorneys own every legal sentence (the production contract — this demo's templates await that review), AI works only at the edges — the same posture as Meeting Monitor's discrepancy checker and the quiz's human review. Built in one afternoon.</li>
-      <li><strong style="color:var(--ink)">What the newsroom would measure:</strong> completed answers, source-document clicks, legal-aid referrals, saved-notice reminder opt-ins, returning users, subscriber conversions and a public corrections count — all real events this page already structures, none fabricated here.</li>
-    </ul>
+    <p style="margin:0;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">A working concept, built in one afternoon:</strong> the deadline math runs live, the letters generate, the phone numbers are verified, and AI works only at the edges — under contracts enforced in code. <a href="/more.html" style="color:var(--accent);font-weight:650;white-space:nowrap">The full pitch and the tested evidence &rarr;</a></p>
   </div>
-
   <header class="masthead">
     <p class="eyebrow">Reader tool concept · Harris County</p>
     <h1>Foreclosure Navigator</h1>
@@ -28,24 +21,9 @@
     <div style="margin:10px 0 0">
       <p style="margin:0 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--ink-3)">Which kind of foreclosure? The clocks are completely different.</p>
       <div class="btnrow" role="group" aria-label="Foreclosure track">
-        <button type="button" class="abtn track-btn" data-track="mortgage" aria-pressed="true">Mortgage / trustee sale</button>
-        <button type="button" class="abtn ghost track-btn" data-track="tax" aria-pressed="false">Property tax</button>
-        <button type="button" class="abtn ghost track-btn" data-track="hoa" aria-pressed="false">HOA / association</button>
-      </div>
-      <div id="trackTax" class="panel" hidden style="margin-top:12px;border-left:4px solid var(--stamp)">
-        <p style="margin:0 0 8px;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">The tax track is a different legal process</strong> — the taxing authority must sue and win a court judgment before any sale, and unlike the mortgage track, you CAN buy the home back afterward. If you are 65+ or disabled with a homestead, a tax-deferral affidavit (Tax Code §33.06) can postpone collection — the tax still accrues with interest, but the foreclosure stops while the deferral holds.</p>
-        <div class="calc tax-calc">
-          <div>
-            <label for="taxSaleDate">Date the buyer's deed was RECORDED (the redemption clock runs from recording, not the sale)</label>
-            <input type="date" id="taxSaleDate" />
-            <label for="taxHomestead">What kind of property was it?</label>
-            <select id="taxHomestead"><option value="yes">Homestead, agricultural land or mineral interest — 2-year window</option><option value="no">Other property — 180 days</option></select>
-          </div>
-          <div id="taxOut" style="font-size:14px;color:var(--ink-2)"></div>
-        </div>
-      </div>
-      <div id="trackHoa" class="panel" hidden style="margin-top:12px;border-left:4px solid var(--stamp)">
-        <p style="margin:0;font-size:14.5px;color:var(--ink-2)"><strong style="color:var(--ink)">HOA foreclosure generally requires a court's approval</strong> for residential assessment liens, and many associations must offer a payment-plan option (Prop. Code §209.0062 — exceptions apply by association size and prior defaults). After an HOA sale there is a 180-day redemption right (§209.011) that runs from the association's post-sale notice to you, and the request must move by certified mail. If you received HOA foreclosure papers, the legal-aid card below is the first call — the timelines are strict and the mail rules matter.</p>
+        <span class="abtn" aria-current="page" style="cursor:default">Mortgage / trustee sale — this page</span>
+        <a class="abtn ghost" href="/more.html#tax">Property tax &rarr;</a>
+        <a class="abtn ghost" href="/more.html#hoa">HOA / association &rarr;</a>
       </div>
     </div>
     <p class="free-note">Deadlines, stage guidance and legal-aid referrals are always free. No account required for the answer.</p>
@@ -87,7 +65,7 @@
     <div class="panel upload-demo">
       <p style="margin:0 0 6px"><span class="ai-badge">Live model call — optional</span></p>
       <h3 style="margin:0 0 4px;font-size:16px">Or watch the extraction run, live — the heart of the upload path</h3>
-      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibit below), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this demo itself stores nothing). The model fills a fixed schema, nineteen deterministic checks then run in code — including field-by-field fidelity checks against the sample's known contents — and nothing enters the calculator until you confirm the dates.</p>
+      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibits on the evidence page), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this demo itself stores nothing). The model fills a fixed schema, nineteen deterministic checks then run in code — including field-by-field fidelity checks against the sample's known contents — and nothing enters the calculator until you confirm the dates.</p>
       <div class="btnrow">
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI (based on FRCL-2026-2290)</button>
         <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI (based on FRCL-2026-3493)</button>
@@ -179,106 +157,43 @@
     </div>
   </section>
 
-  <section aria-labelledby="dataH">
-    <h2 id="dataH">The county picture <span class="chip past" style="vertical-align:middle">demo data</span></h2>
-    <p class="sub">The accountability layer behind the reader tool: every posted notice, every filer, every outcome — the public record, made legible. Numbers below are placeholders for the demo.</p>
-    <div class="mockrow">
-      <div class="panel">
-        <h3 style="margin:0 0 2px;font-size:16px">Postings by ZIP, last 90 days <span class="chip past">demo figures — not real counts</span></h3>
-        <div class="bars">
-          <div class="bar"><span class="zip">77449</span><div class="track"><div class="fill" style="width:88%"></div></div><span class="v">148</span></div>
-          <div class="bar"><span class="zip">77084</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="v">123</span></div>
-          <div class="bar"><span class="zip">77489</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="v">108</span></div>
-          <div class="bar"><span class="zip">77373</span><div class="track"><div class="fill" style="width:55%"></div></div><span class="v">92</span></div>
-          <div class="bar"><span class="zip">77090</span><div class="track"><div class="fill" style="width:47%"></div></div><span class="v">79</span></div>
-        </div>
-      </div>
-      <div class="panel">
-        <h3 style="margin:0 0 2px;font-size:16px">Upcoming auction days <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)">computed live</span></h3>
-        <p style="margin:4px 0 8px;font-size:13px;color:var(--ink-2)">Sales happen only on the first Tuesday (first Wednesday when that Tuesday is Jan 1 or July 4), 10 a.m.–4 p.m., Bayou City Event Center, 9401 Knight Rd.</p>
-        <div id="auctionCal" style="display:flex;gap:8px;flex-wrap:wrap"></div>
-        <h3 style="margin:16px 0 2px;font-size:16px">Questions this layer can answer</h3>
-        <ul style="margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2)">
-          <li>Which servicers and trustees post the most sales — and where?</li>
-          <li>How many postings end in an actual sale vs. get pulled?</li>
-          <li>Is the investor share of auction purchases rising?</li>
-          <li>Which neighborhoods carry the load, month over month?</li>
-          <li>Do HOA and tax foreclosures track different streets than mortgage sales?</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section aria-labelledby="aiH">
-    <h2 id="aiH">Where AI runs — and where it never does</h2>
+    <details class="action newsroom" id="aiDetails">
+      <summary>
+        <span class="tag" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ai)">For the newsroom</span>
+        <h2 id="aiH" style="font-size:20px;margin:0">Where AI runs — and where it never does</h2>
+        <span class="arrow">&#9656;</span>
+        <p>The seam map: the six jobs AI earns, the four things it never touches, and the contracts enforced in code. A reader doesn't need this — an editor does.</p>
+      </summary>
+      <div class="newsroom-body">
     <p class="sub">The seam map. Everything on this page runs with zero model calls until you explicitly click one of the two live demos — that's deliberate. AI earns exactly six jobs, each at the edges, each under a contract.</p>
     <div class="ai-map" id="aiMap">
-      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates and parties into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN, the reader confirms every field before anything computes. <strong>Proven below on two real recorded instruments — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
-      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice below — and the test caught the AI in an error. Read that row.</strong></p></div>
-      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested below — an automated token check (dates, numbers) plus line-by-line review confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
+      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates and parties into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN, the reader confirms every field before anything computes. <strong>Proven on two real recorded instruments (the evidence page) — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
+      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice — and the test caught the AI in an error. Read that row on the evidence page.</strong></p></div>
+      <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested (evidence page) — an automated token check (dates, numbers) plus line-by-line review confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>4 · Spanish.</strong> Fixed legal language stays human-translated; AI translates only your personal narrative, shown beside the English for verification.</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>5 · Scam-offer check.</strong> Paste a rescue-company letter; the model flags known predatory patterns — "this deserves independent review," never "this is fraud."</p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>6 · The county picture.</strong> Extraction at posting scale feeds the trends desk — aggregate only, minimum-count suppression, no property dots.</p></div>
       <div class="ai-row"><span class="status never">Never</span><p><strong>Deadline arithmetic · legal language · remedy selection · advice.</strong> Code computes every date. Attorneys own every legal sentence — that is the production contract; this demo's templates await that review, and the trust receipt says so. The reader (and their lawyer) own every decision. The demo you're using proves the spine works with no AI at all.</p></div>
     </div>
 
-    <div class="panel" style="margin-top:18px;border-left:4px solid var(--ok)">
-      <p class="eyebrow" style="margin:0 0 6px;color:var(--ok)">Exhibit — real extraction: a two-document pilot, run Aug 10, 2026</p>
-      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-2)">Two Notices of Substitute Trustee's Sale for the Sept 1, 2026 auction, pulled from the Harris County Clerk's public foreclosure search and run through Claude Haiku 4.5 with the schema above. Two documents is a pilot, not a benchmark — production needs a golden set and calibrated accuracy. Validation is deterministic code, run AFTER the model — the same contract as everything else on this page. Homeowner names and property addresses were excluded from the schema by design; the parties shown are the professional ones.</p>
-      <div style="overflow-x:auto">
-      <table class="ledger">
-        <thead><tr><th>Field</th><th>FRCL-2026-2290</th><th>FRCL-2026-3493</th></tr></thead>
-        <tbody>
-          <tr><td>Notice type</td><td>Notice of Substitute Trustee's Sale</td><td>Notice of Substitute Trustee's Sale</td></tr>
-          <tr><td>Extracted sale date</td><td class="date">2026-09-01 <span class="chip window">= Clerk metadata</span></td><td class="date">2026-09-01 <span class="chip window">= Clerk metadata</span></td></tr>
-          <tr><td>Sale window &amp; location</td><td>10 a.m. + 3 hrs · Bayou City Event Center, Magnolia Ballroom</td><td>10 a.m. + 3 hrs · Bayou City Event Center, Magnolia South Ballroom</td></tr>
-          <tr><td>Substitute trustee</td><td>Auction.com, LLC</td><td>Auction.com, LLC + Barrett Daffin Frappier Turner &amp; Engel, LLP</td></tr>
-          <tr><td>Lender / servicer</td><td>Lakeview Loan Servicing (stated servicer)</td><td>MidFirst Bank / Midland Mortgage</td></tr>
-          <tr><td>21-day rule check (code)</td><td>Filed 152 days before sale <span class="chip window">PASS</span></td><td>Filed 110 days before sale <span class="chip window">PASS</span></td></tr>
-          <tr><td>All validation checks</td><td>6 of 6 <span class="chip window">PASS</span></td><td>6 of 6 <span class="chip window">PASS</span></td></tr>
-          <tr><td>Model · latency · confidence</td><td class="date">claude-haiku-4-5 · 3.3s · 0.95-0.98</td><td class="date">claude-haiku-4-5 · 3.4s · 0.95</td></tr>
-        </tbody>
-      </table>
-      </div>
-      <p style="margin:10px 0 0;font-size:12.5px;color:var(--ink-3)">Total cost for both extractions: roughly half a cent. Checks run in code: sale date matches Clerk metadata · first-Tuesday rule · §51.002 21-day minimum · county · no privacy fields in output · confidence present. Watermarked public records, free to view; instruments referenced by file number only.</p>
-      <p style="margin:8px 0 0;font-size:12.5px;color:var(--ink-3)">One discrepancy worth naming: this table records the pilot's sale window for FRCL-2026-2290 as 10 a.m., while the document text quoted in the translation exhibit below reads 11:00 a.m. The pilot's six checks did not test the stated time — the live demo's checks now do. The record above is left as it was produced.</p>
+    <div class="panel" style="margin-top:18px;border-left:4px solid var(--stamp)">
+      <p style="margin:0;font-size:14px;color:var(--ink-2)"><strong style="color:var(--ink)">The evidence lives on its own page</strong> — the two-document pilot on real recorded instruments, the plain-language translation where the checks caught the AI saying 10:00 AM while its own citation read 11:00 a.m., and the hardship polish verified to add zero facts.</p>
+      <p style="margin:10px 0 0"><a class="abtn" href="/more.html#exhibits">See the three exhibits &rarr;</a></p>
     </div>
-
-    <div class="panel" style="margin-top:14px;border-left:4px solid var(--stamp)">
-      <p class="eyebrow" style="margin:0 0 6px;color:var(--stamp)">Exhibit — plain-language translation, and the error our checks caught</p>
-      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-2)">The same real notice (FRCL-2026-2290), translated under the no-citation-no-sentence rule: every plain sentence must carry its basis from the document or statute. Four sentences came back — three clean, and one where <strong>the AI's plain sentence contradicts its own citation</strong>. That row is the whole design argument.</p>
-      <div style="overflow-x:auto">
-      <table class="ledger">
-        <thead><tr><th>Plain English (AI)</th><th>Its cited basis (from the document)</th><th>Check</th></tr></thead>
-        <tbody>
-          <tr><td>A lender has claimed the homeowner stopped paying, so the lender is taking action to sell the home to recover the money owed.</td><td class="cite" style="font-size:12.5px">"defaults have occurred in the covenants of the Deed of Trust... the indebtedness... is now wholly due"</td><td><span class="chip window">Clean</span></td></tr>
-          <tr><td>Auction.com, acting as substitute trustee, will sell the property at public auction to the highest bidder for cash.</td><td class="cite" style="font-size:12.5px">"appointed Auction.com, LLC... as Substitute Trustee... to sell the Property"</td><td><span class="chip window">Clean</span></td></tr>
-          <tr><td>The sale is scheduled for Tuesday, September 1, 2026, <strong>at 10:00 AM</strong> in Harris County.</td><td class="cite" style="font-size:12.5px">"on Tuesday, September 1, 2026 <strong>at 11:00 a.m.</strong>, no later than three (3) hours after such time..."</td><td><span class="chip deadline">FLAGGED — sentence contradicts its own basis</span></td></tr>
-          <tr><td>The property sells "as is," with no guarantees; bidders are urged to inspect the records first.</td><td class="cite" style="font-size:12.5px">"Pursuant to Section 51.009... in 'as is', 'where is' condition, without any expressed or implied warranties"</td><td><span class="chip window">Clean</span></td></tr>
-        </tbody>
-      </table>
       </div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)"><strong>Why the flagged row is the point:</strong> because every sentence must carry its basis, a simple comparison catches the model saying 10:00 when its own quoted source says 11:00 — and routes that row to a human instead of a reader. That is Meeting Monitor's discrepancy-checker pattern, demonstrated on a live error, on a real document, on the first try. A time-of-sale error in a foreclosure tool is exactly the class of mistake this architecture exists to stop.</p>
-    </div>
-
-    <div class="panel" style="margin-top:14px;border-left:4px solid var(--ai)">
-      <p class="eyebrow" style="margin:0 0 6px;color:var(--ai)">Exhibit — hardship polish, zero facts added (verified in code)</p>
-      <div class="mockrow">
-        <div>
-          <h4 style="margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">Reader's words (test input)</h4>
-          <p class="tpl" style="font-family:inherit">"i got behind becuase my hours got cut at the plant in june, my wife had surgery in july so we had them bills to, im back to full time since august 3 and can pay the regular payment again but not the whole missed amount at once"</p>
-        </div>
-        <div>
-          <h4 style="margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">AI-polished (output)</h4>
-          <p class="tpl" style="font-family:inherit">"My financial hardship began in June when my hours were reduced at the plant. In July, my wife underwent surgery, which resulted in additional medical expenses. I returned to full-time employment on August 3 and am able to resume regular monthly payments. However, I am unable to pay the entire missed amount in a lump sum at this time."</p>
-        </div>
-      </div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2)">The model also returned a facts-used ledger (six claims, each traceable to the input), and an automated token check (dates, numbers) plus line-by-line review confirmed <strong>no date, number or circumstance appears in the output that wasn't in the reader's words</strong>. Same dignity, better sentences, nothing invented — the reader approves every line before it goes anywhere. The live demo's server gate checks the same token categories; the reader's approval covers the rest.</p>
-    </div>
+    </details>
   </section>
 
   <section aria-labelledby="trustH">
-    <h2 id="trustH">Trust receipt</h2>
+    <details class="action newsroom" id="trustDetails">
+      <summary>
+        <span class="tag" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">For the newsroom</span>
+        <h2 id="trustH" style="font-size:20px;margin:0">Trust receipt</h2>
+        <span class="arrow">&#9656;</span>
+        <p>What the software does, what AI does and does not, sources, editorial ownership and privacy — the disclosure box a production version would publish.</p>
+      </summary>
+      <div class="newsroom-body">
     <div class="receipt">
       <ul>
         <li><strong>What the software does:</strong> computes statutory deadlines from recorded notice dates, in code. Dates are never produced by a language model.</li>
@@ -289,6 +204,8 @@
         <li><strong>Privacy (production design):</strong> individual owners are never surfaced by name in the county picture — addresses appear only to the person who searched their own. In this demo, the rule shows up as absence: the extraction schema has no fields for the homeowner's name or address, and the sample documents mark them [REMOVED].</li>
       </ul>
     </div>
+      </div>
+    </details>
   </section>
 
   <footer>
