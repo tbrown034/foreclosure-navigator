@@ -66,22 +66,37 @@ export function initSampleScenarios(): void {
     buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === target)));
   };
 
+  // The guided tour's next beat (the AI-read offer) listens for this.
+  const announce = (sampleId: string | null): void => {
+    document.dispatchEvent(new CustomEvent("fn:scenario", { detail: { sampleId } }));
+  };
+
+  const SAMPLE_IDS: Record<string, string> = {
+    "frcl-2290": "frcl-2026-2290",
+    "frcl-3493": "frcl-2026-3493",
+  };
+
   buttons.forEach((btn) =>
     btn.addEventListener("click", () => {
-      const s = SCENARIOS[btn.dataset.scenario ?? ""];
+      const key = btn.dataset.scenario ?? "";
+      const s = SCENARIOS[key];
       if (!s) return;
       applying = true;
       applyScenario(s);
       applying = false;
       setActive(btn);
+      announce(SAMPLE_IDS[key] ?? null);
     }),
   );
 
   // Editing the form by hand means the chain no longer shows a sample —
-  // clear the selected state so the buttons never lie.
+  // clear the selected state and retract the AI offer so nothing lies.
   ["noticeType", "noticeDate", "printedSaleDate"].forEach((id) =>
     byId<HTMLElement>(id).addEventListener("change", () => {
-      if (!applying) setActive(null);
+      if (!applying) {
+        setActive(null);
+        announce(null);
+      }
     }),
   );
 

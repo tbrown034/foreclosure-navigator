@@ -1,21 +1,20 @@
 /**
- * The upload path, live: run the production extraction flow (AI seam-map
- * job #1) on one of two sanitized sample documents. The samples are built
- * client- and server-side from the same module (lib/sample-notices.ts), so
- * the text shown to the reader is exactly the text sent to the model.
+ * Beat two of the guided tour: after a real-notice scenario computes the
+ * chain, ONE offer appears with it — watch AI read the same document,
+ * live. No parallel entry point, no decision: the deterministic chain
+ * comes first, the model reads second, and the checks judge it in front
+ * of the visitor.
  *
- * The reader-facing contract mirrors the pilot: the model fills a fixed
- * schema, deterministic checks run in code AFTER it, and nothing enters
- * the calculator until the reader confirms the dates. If any check flags,
- * there is no confirm button — that result routes to a human in
- * production, so here it computes nothing.
+ * The samples are built client- and server-side from the same module
+ * (lib/sample-notices.ts), so the text shown to the reader is exactly the
+ * text sent to the model. The chain is never computed from model output
+ * here — the scenario already filled it from the Clerk's public dates,
+ * and check #1 verifies the model's sale date against that same record.
  */
 
 import type { Check, ExtractedNotice } from "../../lib/extraction-checks";
-import { SAMPLE_NOTICES } from "../../lib/sample-notices";
-import { byId, fmt } from "../format";
-import { atNoon } from "../../lib/deadlines";
-import { focusUrgency } from "./focus-urgency";
+import { SAMPLE_NOTICES, getSampleNotice } from "../../lib/sample-notices";
+import { byId } from "../format";
 
 interface ExtractResponse {
   sample: string;
@@ -52,59 +51,98 @@ function el<K extends keyof HTMLElementTagNameMap>(
 }
 
 function statusLine(text: string, alarm = false): HTMLParagraphElement {
-  const p = el("p", "polish-status" + (alarm ? " flagged" : ""), text);
-  return p;
+  return el("p", "polish-status" + (alarm ? " flagged" : ""), text);
 }
 
 export function initUploadDemo(): void {
+  const offer = byId<HTMLDivElement>("aiOffer");
   const result = byId<HTMLDivElement>("extractResult");
-  const buttons = document.querySelectorAll<HTMLButtonElement>(".extract-btn");
+  let currentSample: string | null = null;
+  let busy = false;
 
-  const show = (...nodes: HTMLElement[]): void => {
+  const showResult = (...nodes: HTMLElement[]): void => {
     result.replaceChildren(...nodes);
     result.hidden = false;
   };
 
-  buttons.forEach((btn) =>
-    btn.addEventListener("click", async () => {
-      const sampleId = btn.dataset.sample ?? "";
-      buttons.forEach((b) => (b.disabled = true));
-      const was = btn.textContent;
-      btn.textContent = "Reading the document…";
-      show(statusLine("Sending the sample's text to the model — the fixed schema and the checks run next."));
-      try {
-        const resp = await fetch("/api/extract", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ sample: sampleId }),
-        });
-        if (resp.status === 429) {
-          show(
-            statusLine(
-              "Demo quota reached — the deterministic demo still works. The recorded results of the Aug 10 pilot on the real instruments are on the evidence page (/more).",
-            ),
-          );
-          return;
-        }
-        if (!resp.ok) {
-          const body = (await resp.json().catch(() => null)) as { error?: string } | null;
-          show(
-            statusLine(
-              (body?.error ?? "The extraction endpoint is unavailable right now") +
-                " — the rest of the page is deterministic and unaffected.",
-            ),
-          );
-          return;
-        }
-        renderResult((await resp.json()) as ExtractResponse);
-      } catch {
-        show(statusLine("The extraction endpoint is unavailable right now — the rest of the page is deterministic and unaffected."));
-      } finally {
-        buttons.forEach((b) => (b.disabled = false));
-        btn.textContent = was;
+  const clearAll = (): void => {
+    offer.hidden = true;
+    offer.replaceChildren();
+    result.hidden = true;
+    result.replaceChildren();
+  };
+
+  function renderOffer(sampleId: string): void {
+    const sample = getSampleNotice(sampleId);
+    if (!sample) return;
+    offer.replaceChildren();
+
+    const box = el("div", "ai-offer");
+    box.append(
+      el(
+        "p",
+        "ai-offer-lede",
+        `That chain was computed in code from the Clerk's public record of ${sample.basedOn}. In production, AI would read the notice itself — watch it happen, live, with every check run in code:`,
+      ),
+    );
+    const btn = el("button", "abtn ai");
+    btn.type = "button";
+    btn.textContent = "Next: watch AI read this notice →";
+    btn.addEventListener("click", () => void runExtraction(sampleId, btn));
+    const row = el("div", "btnrow");
+    row.append(btn);
+    box.append(row);
+    box.append(
+      el(
+        "p",
+        "ai-offer-fine",
+        "Optional. Sends the sanitized sample's text (nothing of yours) to Claude Haiku — full disclosure under “About these samples” above.",
+      ),
+    );
+    offer.append(box);
+    offer.hidden = false;
+  }
+
+  async function runExtraction(sampleId: string, btn: HTMLButtonElement): Promise<void> {
+    if (busy) return;
+    busy = true;
+    btn.disabled = true;
+    const was = btn.textContent;
+    btn.textContent = "Reading the document…";
+    showResult(statusLine("Sending the sample's text to the model — the fixed schema and the checks run next."));
+    try {
+      const resp = await fetch("/api/extract", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ sample: sampleId }),
+      });
+      if (resp.status === 429) {
+        showResult(
+          statusLine(
+            "Demo quota reached — the chain above is deterministic and unaffected. The recorded results of the Aug 10 pilot on the real instruments are on the evidence page (/more).",
+          ),
+        );
+        return;
       }
-    }),
-  );
+      if (!resp.ok) {
+        const body = (await resp.json().catch(() => null)) as { error?: string } | null;
+        showResult(
+          statusLine(
+            (body?.error ?? "The extraction endpoint is unavailable right now") +
+              " — the chain above is deterministic and unaffected.",
+          ),
+        );
+        return;
+      }
+      renderResult((await resp.json()) as ExtractResponse);
+    } catch {
+      showResult(statusLine("The extraction endpoint is unavailable right now — the chain above is deterministic and unaffected."));
+    } finally {
+      busy = false;
+      btn.disabled = false;
+      btn.textContent = was;
+    }
+  }
 
   function renderResult(data: ExtractResponse): void {
     const nodes: HTMLElement[] = [];
@@ -117,7 +155,6 @@ export function initUploadDemo(): void {
       ),
     );
 
-    // Field table
     const wrap = el("div", "extract-table-wrap");
     const table = el("table", "ledger");
     const tbody = el("tbody");
@@ -133,7 +170,7 @@ export function initUploadDemo(): void {
         td.textContent = String(value);
         const c = conf[key as string];
         if (typeof c === "number") {
-          td.appendChild(el("span", "cite", `model confidence ${c.toFixed(2)} — you confirm, not the model`));
+          td.appendChild(el("span", "cite", `model confidence ${c.toFixed(2)} — a human confirms, not the model`));
         }
       }
       tr.appendChild(td);
@@ -143,7 +180,6 @@ export function initUploadDemo(): void {
     wrap.appendChild(table);
     nodes.push(wrap);
 
-    // Deterministic checks
     nodes.push(el("h4", undefined, "Checks run in code, after the model"));
     const ul = el("ul", "extract-checks");
     data.checks.forEach((c) => {
@@ -154,37 +190,49 @@ export function initUploadDemo(): void {
     });
     nodes.push(ul);
 
-    if (data.allPass && data.extracted.sale_date) {
-      const saleIso = data.extracted.sale_date;
-      const actions = el("div", "btnrow");
-      const confirm = el("button", "abtn", `Confirm these dates — compute the chain for a ${fmt(atNoon(saleIso))} sale`);
-      confirm.type = "button";
-      confirm.addEventListener("click", () => {
-        const typeEl = byId<HTMLSelectElement>("noticeType");
-        byId<HTMLInputElement>("noticeDate").value = data.clerk.fileDate;
-        byId<HTMLInputElement>("printedSaleDate").value = saleIso;
-        typeEl.value = "sale";
-        typeEl.dispatchEvent(new Event("change"));
-        focusUrgency();
-      });
-      actions.appendChild(confirm);
+    if (data.allPass) {
       nodes.push(
         statusLine(
-          "Nothing has been computed yet — extraction only fills the form. The filing date comes from the Clerk's metadata, and check #1 verified the model's sale date against it.",
+          "Same record, two readers: the chain above was computed in code from the Clerk's public dates. The model just read the document text — and check #1 confirms its sale date matches the record the chain used.",
         ),
-        actions,
       );
     } else {
       nodes.push(
         statusLine(
-          "One or more checks flagged. In production this result routes to a human reviewer — so here, nothing is computed from it. That refusal is the design.",
+          "One or more checks flagged. In production this result routes to a human reviewer and computes nothing — that refusal is the design. The chain above is untouched: it never depended on the model.",
           true,
         ),
       );
     }
 
-    show(...nodes);
+    // Beat three: keep the thread moving into the document desk.
+    const nextRow = el("div", "btnrow");
+    const next = el("button", "abtn");
+    next.type = "button";
+    next.textContent = "Next: the paperwork — polish a homeowner's own words ↓";
+    next.addEventListener("click", () => {
+      const docType = byId<HTMLSelectElement>("docType");
+      docType.value = "hardship";
+      docType.dispatchEvent(new Event("input"));
+      byId<HTMLButtonElement>("sampleWordsBtn").click();
+      byId<HTMLElement>("docH").scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
+    });
+    nextRow.append(next);
+    nodes.push(nextRow);
+
+    showResult(...nodes);
   }
+
+  // Wire to the scenario beat.
+  document.addEventListener("fn:scenario", (e) => {
+    const sampleId = (e as CustomEvent<{ sampleId: string | null }>).detail.sampleId;
+    if (sampleId === currentSample && sampleId !== null) return;
+    currentSample = sampleId;
+    clearAll();
+    if (sampleId) renderOffer(sampleId);
+  });
 
   // "The exact text that gets sent" — the same module the server reads.
   SAMPLE_NOTICES.forEach((s) => {
