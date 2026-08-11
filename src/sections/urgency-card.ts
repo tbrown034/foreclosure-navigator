@@ -11,7 +11,7 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
     tone +
     ');padding:2px 0 2px 16px">' +
     '<div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">' +
-    '<span style="font-family:ui-monospace,Menlo,monospace;font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--' +
+    '<span style="font-family:var(--serif);font-size:56px;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:var(--' +
     tone +
     ')">' +
     daysLeft +

@@ -4,12 +4,12 @@
  * legible on paper. No framework, no utility classes — deliberately. */
 
 :root {
-  --ground: #F4F6F7;
-  --surface: #FFFFFF;
+  --ground: #F7F4EC;
+  --surface: #FDFBF5;
   --ink: #232E38;
   --ink-2: #55636F;
   --ink-3: #64737E;
-  --line: #D8DFE4;
+  --line: #DDD6C7;
   --accent: #1C5D99;
   --accent-soft: #E3EDF6;
   --alarm: #B3261E;
@@ -23,12 +23,12 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #171D23;
-    --surface: #1F272F;
+    --ground: #16171A;
+    --surface: #1E1F23;
     --ink: #E8EDF1;
     --ink-2: #A9B6C0;
     --ink-3: #93A2AE;
-    --line: #333F4A;
+    --line: #37393E;
     --accent: #6FA7DC;
     --accent-soft: #24384C;
     --alarm: #E58A82;
@@ -42,12 +42,12 @@
   }
 }
 :root[data-theme="dark"] {
-  --ground: #171D23;
-  --surface: #1F272F;
+  --ground: #16171A;
+  --surface: #1E1F23;
   --ink: #E8EDF1;
   --ink-2: #A9B6C0;
   --ink-3: #93A2AE;
-  --line: #333F4A;
+  --line: #37393E;
   --accent: #6FA7DC;
   --accent-soft: #24384C;
   --alarm: #E58A82;
@@ -58,11 +58,23 @@
   --stamp-soft: #37311F;
 }
 * { box-sizing: border-box; }
+:root {
+  --serif: "Iowan Old Style", "Charter", "Palatino", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 16px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 16.5px/1.62 var(--serif);
+}
+/* UI details stay sans: labels, chips, buttons, badges, kickers. */
+label, .chip, .abtn, .ai-badge, .eyebrow, .scenario-label, .strip-how,
+.quiet-alts, .demo-banner, .free-note, .kit h4, .polish-status,
+.extract-meta, .ai-offer-fine, .sample-text summary, .code-note,
+.scenario-note, .kit-open, input, select, button {
+  font-family: var(--sans);
 }
 .wrap { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
 .demo-banner {
@@ -89,8 +101,9 @@ header.masthead { margin: 28px 0 8px; }
   font-weight: 700;
 }
 h1 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(30px, 5vw, 44px);
+  font-family: var(--serif);
+  font-size: clamp(38px, 6vw, 58px);
+  letter-spacing: -0.5px;
   line-height: 1.12;
   margin: 6px 0 10px;
   text-wrap: balance;
@@ -141,8 +154,8 @@ h1 {
 
 section { margin-top: 38px; }
 h2 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 24px;
+  font-family: var(--serif);
+  font-size: 26px;
   margin: 0 0 4px;
 }
 .sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 16px; max-width: 66ch; }
@@ -618,3 +631,76 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 }
 .minimal .stage-line { margin: 20px 0 4px; }
 .minimal .stage-note { border-left: 3px solid var(--line); margin: 8px 0 26px; }
+
+/* ---- Editorial button voice (tool page): ink, not brand-blue/purple.
+ * AI actions are marked by their labels, not by a color. Semantic
+ * red/green chips and inline text links keep their colors. */
+.minimal .abtn {
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  border-radius: 3px;
+  font-weight: 600;
+}
+.minimal .abtn.primary,
+.minimal .abtn.ai {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+}
+.minimal .abtn.ghost {
+  border-color: var(--line);
+  color: var(--ink-2);
+  background: transparent;
+}
+.minimal .scenario-btn[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ground);
+}
+.minimal .ai-badge {
+  background: transparent;
+  border: none;
+  color: var(--ink-3);
+  padding: 0;
+}
+.minimal .ai-offer { border-left-color: var(--line); }
+.minimal details.newsroom > summary .tag { color: var(--ink-3) !important; }
+.minimal .kit-open { color: var(--ink-2); border-color: var(--line); }
+
+/* ---- Courthouse broadsheet (tool page) ---- */
+.minimal header.masthead {
+  margin: 30px 0 0;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--ink);
+}
+.minimal .eyebrow { color: var(--ink-3); letter-spacing: .18em; }
+.minimal .demo-banner { font-size: 11.5px; letter-spacing: .06em; }
+.minimal .abtn {
+  text-transform: uppercase;
+  font-size: 12.5px;
+  letter-spacing: .07em;
+  padding: 11px 18px;
+  border-radius: 2px;
+  font-weight: 700;
+}
+.minimal .abtn.primary { font-size: 13px; }
+.minimal .chip { border-radius: 2px; letter-spacing: .04em; }
+.minimal .scenario-label { color: var(--ink-3); }
+/* The countdown is the page's one big typographic moment. */
+.minimal #urgency [style*="font-family"] { font-family: var(--serif) !important; }
+/* One high-impact reveal when the chain computes. */
+@media (prefers-reduced-motion: no-preference) {
+  .minimal .rail li {
+    animation: rail-rise .38s ease-out both;
+  }
+  .minimal .rail li:nth-child(2) { animation-delay: .07s; }
+  .minimal .rail li:nth-child(3) { animation-delay: .14s; }
+  .minimal .rail li:nth-child(4) { animation-delay: .21s; }
+  .minimal .rail li:nth-child(5) { animation-delay: .28s; }
+  @keyframes rail-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+.minimal footer { font-family: var(--sans); }
