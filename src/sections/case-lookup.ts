@@ -50,13 +50,23 @@ export function normalizeDocId(raw: string): string | null {
   return `FRCL-2026-${Number(m[1])}`;
 }
 
+/** Instruments we hold recorded temperature-0 model runs for — looking
+ * one of these up (the demo case included) unlocks the AI beat, because
+ * the replay is of that exact instrument. All other cases never touch AI. */
+const RECORDED_SAMPLE_IDS: Record<string, string> = {
+  "FRCL-2026-2290": "frcl-2026-2290",
+  "FRCL-2026-3493": "frcl-2026-3493",
+};
+
 function applyFiling(f: Filing): void {
   const typeEl = byId<HTMLSelectElement>("noticeType");
   byId<HTMLInputElement>("noticeDate").value = f.fileDate;
   byId<HTMLInputElement>("printedSaleDate").value = f.saleDate;
   typeEl.value = "sale";
   typeEl.dispatchEvent(new Event("change"));
-  document.dispatchEvent(new CustomEvent("fn:scenario", { detail: { sampleId: null } }));
+  document.dispatchEvent(
+    new CustomEvent("fn:scenario", { detail: { sampleId: RECORDED_SAMPLE_IDS[f.docId] ?? null } }),
+  );
   focusUrgency();
 }
 
@@ -119,9 +129,10 @@ export function initCaseLookup(): void {
   }
 
   btn.addEventListener("click", () => void find());
-  // One-click example: fills a real filing from the index and searches.
-  document.getElementById("tryRealCase")?.addEventListener("click", () => {
-    input.value = "FRCL-2026-5486";
+  // The demo case: a real filing that also carries a recorded model run,
+  // so the guided AI beat follows the chain.
+  document.getElementById("demoCase")?.addEventListener("click", () => {
+    input.value = "FRCL-2026-2290";
     void find();
   });
   input.addEventListener("keydown", (e) => {

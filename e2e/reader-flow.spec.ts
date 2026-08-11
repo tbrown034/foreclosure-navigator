@@ -62,7 +62,7 @@ test.describe("reader flow", () => {
     const errors = trackRuntimeErrors(page);
 
     await page.goto("/");
-    await page.getByRole("button", { name: /Walk the demo/ }).click();
+    await page.getByRole("button", { name: /See a demo case/ }).click();
 
     await expect(page.locator("#chain > li")).toHaveCount(4);
     await expect(page.locator("#aiOffer")).toBeVisible();
