@@ -11,6 +11,7 @@ import { initDeadlineChain } from "./sections/deadline-chain";
 import { initDocumentDesk } from "./sections/document-desk";
 import { initPolishDemo } from "./sections/polish-demo";
 import { initSampleScenarios } from "./sections/sample-scenarios";
+import { initTourSteps } from "./sections/tour-steps";
 import { initUploadDemo } from "./sections/upload-demo";
 
 initDeadlineChain();
@@ -19,6 +20,7 @@ initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
+initTourSteps();
 
 // "Read the notice" opens the example document.
 document.getElementById("viewExample")?.addEventListener("click", () => {

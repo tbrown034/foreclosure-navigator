@@ -60,6 +60,7 @@
 * { box-sizing: border-box; }
 :root {
   --serif: "Iowan Old Style", "Charter", "Palatino", Georgia, "Times New Roman", serif;
+  --display: "Avenir Next", "Avenir", "Trebuchet MS", "Segoe UI", sans-serif;
   --sans: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -67,7 +68,7 @@ body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 16.5px/1.62 var(--serif);
+  font: 16px/1.6 var(--sans);
 }
 /* UI details stay sans: labels, chips, buttons, badges, kickers. */
 label, .chip, .abtn, .ai-badge, .eyebrow, .scenario-label, .strip-how,
@@ -101,9 +102,10 @@ header.masthead { margin: 28px 0 8px; }
   font-weight: 700;
 }
 h1 {
-  font-family: var(--serif);
-  font-size: clamp(38px, 6vw, 58px);
-  letter-spacing: -0.5px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(30px, 4.6vw, 44px);
+  letter-spacing: -0.4px;
   line-height: 1.12;
   margin: 6px 0 10px;
   text-wrap: balance;
@@ -154,8 +156,9 @@ h1 {
 
 section { margin-top: 38px; }
 h2 {
-  font-family: var(--serif);
-  font-size: 26px;
+  font-family: var(--display);
+  font-weight: 750;
+  font-size: 23px;
   margin: 0 0 4px;
 }
 .sub { color: var(--ink-2); font-size: 14.5px; margin: 0 0 16px; max-width: 66ch; }
@@ -742,3 +745,66 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 /* The example-notice details is driven by the 'Read the notice' link. */
 #exampleDoc > summary { display: none; }
 #exampleDoc .tpl { margin-top: 4px; }
+
+/* ---- TX-Tax-style product chrome, internal-demo flavor ---- */
+.appbar {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: var(--ink);
+  color: var(--ground);
+  font-family: var(--sans);
+}
+.appbar-name { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: .01em; }
+.appbar-sub { font-size: 12px; opacity: .75; }
+.appbar-link { margin-left: auto; color: var(--ground); font-size: 12.5px; font-weight: 650; text-decoration: underline; }
+.appbar-link:focus-visible { outline: 2px solid var(--ground); outline-offset: 2px; }
+
+.steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 0 0 26px;
+  padding: 0;
+  font-family: var(--sans);
+}
+.step-item span { display: block; font-size: 12.5px; font-weight: 650; color: var(--ink-3); padding-bottom: 7px; }
+.step-item i { display: block; height: 4px; border-radius: 2px; background: var(--line); }
+.step-item.is-current span { color: var(--ink); }
+.step-item.is-current i { background: var(--accent); }
+.step-item.is-done span { color: var(--ink-2); }
+.step-item.is-done i { background: var(--ok); }
+@media (max-width: 600px) {
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The answer as a highlighted takeaway (their olive box, our stamp tint). */
+.takeaway {
+  background: var(--stamp-soft);
+  border-radius: 6px;
+  padding: 16px 18px;
+}
+.takeaway .big {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(20px, 3vw, 26px);
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ink);
+}
+.takeaway .big .num { color: var(--alarm); }
+.takeaway .fine { margin: 8px 0 0; font-size: 13px; color: var(--ink-2); }
+
+/* Author display rules must never defeat the hidden attribute. */
+[hidden] { display: none !important; }

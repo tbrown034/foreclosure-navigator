@@ -266,6 +266,7 @@ export function initUploadDemo(): void {
     next.type = "button";
     next.textContent = "Next: turn this into a letter ↓";
     next.addEventListener("click", () => {
+      document.dispatchEvent(new CustomEvent("fn:paperwork"));
       const docType = byId<HTMLSelectElement>("docType");
       docType.value = "hardship";
       docType.dispatchEvent(new Event("input"));
@@ -278,6 +279,7 @@ export function initUploadDemo(): void {
     nodes.push(nextRow);
 
     showResult(...nodes);
+    document.dispatchEvent(new CustomEvent("fn:extracted"));
   }
 
   // Wire to the scenario beat.
