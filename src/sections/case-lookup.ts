@@ -119,6 +119,11 @@ export function initCaseLookup(): void {
   }
 
   btn.addEventListener("click", () => void find());
+  // One-click example: fills a real filing from the index and searches.
+  document.getElementById("tryRealCase")?.addEventListener("click", () => {
+    input.value = "FRCL-2026-5486";
+    void find();
+  });
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") void find();
   });
