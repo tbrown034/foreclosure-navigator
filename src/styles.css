@@ -1019,3 +1019,15 @@ a.abtn[href^="tel:"]::before { content: "\260E  "; }
   .tour-rail .step-item.is-current { border-left-color: var(--accent); border-top: none; }
   .tour-rail .step-item.is-done { border-left-color: var(--ok); border-top: none; }
 }
+
+/* The nudge beside the demo button. */
+.demo-hint {
+  align-self: center;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* The takeaway's source line: the fact the number derives from. */
+.takeaway-source { margin: 0 0 6px; font-size: 15px; color: var(--ink-2); }

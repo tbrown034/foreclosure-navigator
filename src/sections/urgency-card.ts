@@ -24,23 +24,31 @@ export function renderUrgency(
   const wrap = document.createElement("div");
   wrap.className = "takeaway";
 
+  // Source fact first, then what it means: the reader sees WHERE the
+  // number comes from before the number.
+  const source = document.createElement("p");
+  source.className = "takeaway-source";
+  source.append(
+    verified
+      ? `The filing states a sale date of ${fmt(saleDate)}. `
+      : `No sale is scheduled — the earliest possible under the statutory minimums is ${fmt(saleDate)}. `,
+  );
+  const chip = document.createElement("span");
+  chip.className = "chip " + (verified ? "deadline" : "window");
+  chip.textContent = verified ? "From the notice" : "Projected minimum";
+  source.appendChild(chip);
+  wrap.appendChild(source);
+
   const big = document.createElement("p");
   big.className = "big";
   const num = document.createElement("span");
   num.className = "num";
   num.textContent = `${daysLeft} day${daysLeft === 1 ? "" : "s"}`;
   if (daysLeft >= 0) {
-    big.append(
-      num,
-      ` until the ${verified ? "sale date printed on the notice" : "earliest possible sale under the statutory minimums (projected, not scheduled)"} — ${fmt(saleDate)}. `,
-    );
+    big.append("That means ", num, " from today.");
   } else {
-    big.append(`The ${verified ? "printed sale date" : "projected date"} — ${fmt(saleDate)} — is behind today. `);
+    big.append("That date is behind today.");
   }
-  const chip = document.createElement("span");
-  chip.className = "chip " + (verified ? "deadline" : "window");
-  chip.textContent = verified ? "From the notice" : "Projected minimum";
-  big.appendChild(chip);
   wrap.appendChild(big);
 
   if (upcoming.length > 0 && daysLeft >= 0) {

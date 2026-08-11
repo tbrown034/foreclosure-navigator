@@ -46,7 +46,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       what: "End of the statutory cure period, calculated from the date entered. Fully curing the stated default by the applicable deadline may prevent the lender from proceeding on that default — confirm the exact amount and deadline with the servicer or a lawyer.",
       cite: "Day 20 of the statutory window",
       cls: c.cureEnd < today ? "deadline" : "window",
-      label: c.cureEnd < today ? "Passed" : "Open",
+      label: c.cureEnd < today ? "Cure minimum ended" : "Cure window open",
       short: "end of the 20-day cure minimum",
     },
     {
@@ -77,7 +77,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       what: "EARLIEST POSSIBLE sale under statutory minimums — projected, not scheduled. An actual sale requires its own notice stating its own date. First-Tuesday rule (first Wednesday if that Tuesday is Jan 1 or Jul 4).",
       cite: "Tex. Prop. Code §51.002(a)-(b), (a-1)",
       cls: "deadline",
-      label: "Projected",
+      label: "Earliest possible",
       short: "earliest possible sale (projected)",
     },
   ];
@@ -102,7 +102,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
           : " A second check: the printed sale date is NOT a first Tuesday (or the Jan 1 / Jul 4 Wednesday) — this tool never replaces a printed date, but that discrepancy is worth photographing and showing a lawyer."),
       cite: "Tex. Prop. Code §51.002(b)" + (allowedDay ? "" : " · §51.002(a), (a-1)"),
       cls: pass && allowedDay ? "window" : "deadline",
-      label: pass && allowedDay ? "Filing check: pass" : "Filing check: FLAG",
+      label: pass && allowedDay ? "Met the 21-day rule" : "PROBLEM: short of the 21-day rule",
       short: "notice of sale filed" + (pass && allowedDay ? "" : " (FLAGGED)"),
     },
     {
@@ -118,7 +118,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
       what: "Planning marker only: funds, closings or court action may need to be complete before the sale begins. Exact cutoffs and legal effects vary — confirming yours with counsel promptly is a common step.",
       cite: "Day before the stated sale",
       cls: "deadline",
-      label: "Plan by",
+      label: "Last practical day",
       short: "plan-by day (day before the sale)",
     },
     {
