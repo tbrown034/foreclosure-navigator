@@ -894,3 +894,29 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 .stage-row-head strong { font-size: 15px; }
 .stage-row p { margin: 6px 0 10px; font-size: 14px; color: var(--ink-2); max-width: 74ch; }
 .stage-row .btnrow { margin: 0; }
+
+/* Bare links were falling through to UA blue - unreadable on the dark
+ * ground. Context-specific rules elsewhere still override. */
+a { color: var(--accent); }
+
+/* Landing flash for stage-panel jumps: the reader sees where they arrived. */
+@keyframes flash-target {
+  0% { background: var(--accent-soft); }
+  100% { background: transparent; }
+}
+.flash-target { animation: flash-target 1.6s ease-out; }
+
+/* The upload door's native file control, dressed to match. */
+#noticeFile { font-size: 13.5px; color: var(--ink-2); max-width: 100%; }
+#noticeFile::file-selector-button {
+  font: inherit;
+  font-weight: 650;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  padding: 8px 14px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#noticeFile::file-selector-button:hover { background: var(--accent-soft); }

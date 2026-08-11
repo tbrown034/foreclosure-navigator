@@ -13,12 +13,12 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
     (verified ? "sale date printed on it" : "earliest possible sale (projected, not scheduled)") +
     " is " +
     fmt(saleDate) +
-    ".</p>" +
-    '<p class="fine"><span class="chip ' +
+    '. <span class="chip ' +
     (verified ? "deadline" : "window") +
     '">' +
     (verified ? "From the notice" : "Projected minimum") +
-    "</span>&nbsp; One generally useful option: contacting free legal aid (numbers at the bottom of this page) and requesting the servicer’s requirements in writing — a lawyer can advise what should come first in a specific situation. General legal information, not legal advice; verify every date against the recorded notice.</p>" +
+    "</span></p>" +
+    '<p class="fine">One generally useful option: contacting free legal aid (numbers at the bottom of this page) and requesting the servicer’s requirements in writing — a lawyer can advise what should come first in a specific situation. General legal information, not legal advice; verify every date against the recorded notice.</p>' +
     "</div>";
 }
 

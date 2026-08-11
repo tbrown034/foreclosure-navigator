@@ -20,6 +20,18 @@ const TIER_CLASS: Record<RecourseStatus["tier"], string> = {
   "passed-marker": "past",
 };
 
+/** Jump without smooth behavior (it silently no-ops in some Chrome
+ * configurations, leaving the button looking dead) and flash the landing
+ * so the reader sees where they arrived. */
+function jumpTo(el: Element): void {
+  el.scrollIntoView({ block: "start" });
+  el.classList.remove("flash-target");
+  // Reflow so re-adding restarts the animation.
+  void (el as HTMLElement).offsetWidth;
+  el.classList.add("flash-target");
+  setTimeout(() => el.classList.remove("flash-target"), 1800);
+}
+
 function draftButton(r: RecourseStatus): HTMLButtonElement | null {
   if (!r.draft) return null;
   const b = document.createElement("button");
@@ -34,7 +46,8 @@ function draftButton(r: RecourseStatus): HTMLButtonElement | null {
     const note = byId<HTMLParagraphElement>("deskNote");
     note.textContent = `Draft matched to “${r.title}” — assembled in code from your facts. Edit the facts below; nothing is sent anywhere.`;
     note.hidden = false;
-    document.getElementById("docH")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const desk = document.getElementById("docH")?.closest("section");
+    if (desk) jumpTo(desk);
     document.dispatchEvent(new CustomEvent("fn:paperwork"));
   });
   return b;
@@ -49,7 +62,7 @@ function kitButton(r: RecourseStatus): HTMLButtonElement {
     const kit = document.querySelector<HTMLDetailsElement>(`details.action[data-kit="${r.id}"]`);
     if (kit) {
       kit.open = true;
-      kit.scrollIntoView({ behavior: "smooth", block: "start" });
+      jumpTo(kit);
     }
   });
   return b;
