@@ -142,7 +142,7 @@ const KITS: Kit[] = [
     cls: "deadline",
     id: "reinstate",
     title: "Reinstate or pay off",
-    lede: "Depending on your loan and where the clock stands, paying the missed amount (reinstatement) or the full payoff may stop the process. The exact figures and cutoffs come from the servicer — written confirmation is worth requesting, since phone information may not be binding.",
+    lede: "Depending on your loan and where the clock stands, paying the missed amount (reinstatement) or the full payoff may stop the process. Why the clock matters here: the money generally has to arrive before the sale is held, the servicer's cutoff may fall earlier than the sale date, and getting quotes and delivering funds both take days. The exact figures and cutoffs come from the servicer — request written confirmation, since phone information may not be binding.",
     build(kit) {
       kit.appendChild(el("h4", null, "The written demand — copy, fill, send"));
       kit.appendChild(el("pre", "tpl", REINSTATEMENT_DEMAND_LETTER.replace(/</g, "&lt;")));
@@ -164,7 +164,7 @@ const KITS: Kit[] = [
     cls: "deadline",
     id: "sell",
     title: "Sell before the sale",
-    lede: "With equity in the home, selling before the auction can preserve value that a foreclosure sale may not — whether it fits depends on the equity, the loan and the goals. The clock above shows time until the printed date; it does not determine whether a private sale can close in time.",
+    lede: "With equity in the home, selling before the auction can preserve value that a foreclosure sale may not — whether it fits depends on the equity, the loan and the goals. Why the clock matters here: a private sale only helps if it CLOSES before the sale date, and listing, contract and closing commonly take weeks — which is why agents ask about the date on day one.",
     build(kit) {
       kit.appendChild(el("h4", null, "Questions a homeowner might ask an agent or buyer, on day one"));
       kit.appendChild(
@@ -184,7 +184,7 @@ const KITS: Kit[] = [
     cls: "deadline",
     id: "court",
     title: "Court and bankruptcy options",
-    lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary — and none of it is fast. This is why the deadline chain matters.",
+    lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary. Why the clock matters here: either route must be in place BEFORE the sale is held, and preparing one takes a lawyer time — days at minimum, not hours.",
     build(kit) {
       kit.appendChild(
         el(
