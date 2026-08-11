@@ -158,6 +158,15 @@ export function initStageSummary(): void {
   let uploadOriginated = false;
   document.addEventListener("fn:scenario", (e) => {
     uploadOriginated = (e as CustomEvent<{ viaUpload?: boolean }>).detail?.viaUpload === true;
+    if (uploadOriginated) {
+      // fn:scenario lands AFTER the synchronous chain rebuild rendered the
+      // panel, so fire the already-rendered box's button directly.
+      const btn = panel.querySelector<HTMLButtonElement>(".ai-summary button.ai");
+      if (btn && !btn.disabled) {
+        uploadOriginated = false;
+        btn.click();
+      }
+    }
   });
 
   const emptyHint = (): HTMLParagraphElement => {
