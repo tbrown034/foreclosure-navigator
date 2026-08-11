@@ -35,7 +35,7 @@ export function callScript(f: DocumentFacts): string {
         : "understand the notice I received";
   return `CALL SCRIPT — ${servicerName(f)}
 Goal: ${goal}
-Have ready: loan number, the notice, pen and paper. Ask for the LOSS MITIGATION department.
+Items that may be useful: the loan number, the notice, pen and paper. You can ask for the LOSS MITIGATION department.
 
 1. "Can you confirm whether a foreclosure sale is currently scheduled for my property, and for what date?"
    (Their records may differ from your notice. Write down the answer and the rep's name.)
@@ -45,7 +45,7 @@ Have ready: loan number, the notice, pen and paper. Ask for the LOSS MITIGATION 
 5. Before hanging up: "Can you give me a reference number for this call?"
 
 One fact to state, in your words: "${readerFact(f)}"
-NOTE: This script asks questions only. Nothing a representative says by phone is a commitment — request everything in writing. Computed sale-clock reference: ${f.saleLine}.`;
+NOTE: This script asks questions only. A phone statement may not be binding — requesting important information in writing is a common step. Computed sale-clock reference: ${f.saleLine}.\nThis script is general legal information, not legal advice.`;
 }
 
 export function noticeBrief(f: DocumentFacts): string {
@@ -61,7 +61,7 @@ QUESTIONS TO RESOLVE
 - Have you received BOTH notices (default AND sale), or only one?
 - Is your loan under review for loss mitigation? If an application is complete more than 37 days before the sale, Reg X may restrict the servicer from proceeding to the sale while it is reviewed — exceptions apply.
 
-DOCUMENTS TO GATHER: the notice and its envelope (postmark matters), your last 3 mortgage statements, proof of income, and any letters from ${servicerName(f)}.
+DOCUMENTS THAT ARE COMMONLY USEFUL: the notice and its envelope (postmark matters), recent mortgage statements, available income records, and any letters from ${servicerName(f)}.
 
 YOUR STATED FACT: "${readerFact(f)}"
 FREE HELP: Lone Star Legal Aid · Houston Volunteer Lawyers. This brief organizes facts; it is not legal advice.`;
@@ -82,9 +82,9 @@ ${readerFact(f)}.
 
 What I am requesting: ${request}.
 
-I can document everything stated above and will provide any records you require.
+Documentation I can provide for the statements above: [LIST ONLY RECORDS YOU ACTUALLY HAVE].
 
-[Review every sentence before sending — this draft contains ONLY what you typed. Add nothing you cannot document.]`;
+[DRAFT FOR REVIEW — review every sentence before sending. General template, not legal advice, and not a substitute for advice about your situation.]`;
 }
 
 export type DocumentType = "script" | "brief" | "hardship";
@@ -110,17 +110,19 @@ Please send me, in writing:
 2. The exact address or portal where my application must be submitted.
 3. Written confirmation when you have received each item I send.
 
-I intend to submit a complete application promptly. Please confirm the current status of any scheduled foreclosure sale on this account.
+I intend to submit the materials you identify as required. Please tell me in writing whether anything remains missing, and confirm the current status of any scheduled foreclosure sale on this account.
 
 [SIGNATURE]
-[DATE]`;
+[DATE]
+
+[Template note — delete before sending: this is general legal information, not legal advice.]`;
 
 /** The reinstatement/payoff written demand from the action kits. */
 export const REINSTATEMENT_DEMAND_LETTER = `[YOUR NAME]
 [PROPERTY ADDRESS]
 Loan number: [LOAN NUMBER]
 
-I am requesting, in writing, within 5 business days:
+I am requesting the following in writing — promptly, and if possible within five business days:
 
 1. A REINSTATEMENT QUOTE: the exact amount required to bring this loan fully current, itemized, with the date through which it is valid.
 2. A PAYOFF QUOTE: the exact amount to satisfy the loan in full, itemized, with its good-through date.
@@ -129,4 +131,6 @@ I am requesting, in writing, within 5 business days:
 Please confirm the status and date of any scheduled foreclosure sale on this account.
 
 [SIGNATURE]
-[DATE]`;
+[DATE]
+
+[Template note — delete before sending: this is general legal information, not legal advice.]`;

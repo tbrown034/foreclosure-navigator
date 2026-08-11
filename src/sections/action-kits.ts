@@ -62,7 +62,7 @@ const KITS: Kit[] = [
       row.appendChild(el("a", "abtn", "LSLA toll-free: 800-733-8394")).href = "tel:+18007338394";
       row.appendChild(el("a", "abtn", "Houston Volunteer Lawyers: 713-228-0735")).href = "tel:+17132280735";
       kit.appendChild(row);
-      kit.appendChild(el("h4", null, "When they answer, say this"));
+      kit.appendChild(el("h4", null, "Information that may help when you call"));
       kit.appendChild(
         el(
           "ul",
@@ -70,8 +70,8 @@ const KITS: Kit[] = [
           `
         <li>"I'm a homeowner in Harris County and I received a foreclosure notice."</li>
         <li>Which notice you got (default or trustee sale) and the date printed on it.</li>
-        <li>The sale date: <strong>${saleDateText()}</strong> — say it early, they triage by urgency.</li>
-        <li>Household size and rough monthly income — eligibility is income-based; let THEM decide, don't self-reject.</li>
+        <li>The sale date: <strong>${saleDateText()}</strong> — sharing it early helps intake understand urgency.</li>
+        <li>Household size and rough monthly income — eligibility is income-based and determined by the provider.</li>
         <li>Ask: "What documents should I gather before our first meeting?"</li>`,
         ),
       );
@@ -89,7 +89,7 @@ const KITS: Kit[] = [
     title: "Loss mitigation — apply in writing",
     lede: "Ask your servicer in writing for loss-mitigation options: modification, forbearance, repayment plan. Received complete more than 37 days before the sale, an application may restrict the servicer from moving forward with the sale while it is under review — exceptions apply.",
     build(kit) {
-      kit.appendChild(el("h4", null, "The request letter — copy, fill the brackets, send certified mail"));
+      kit.appendChild(el("h4", null, "The request letter — copy, fill the brackets, and send it in a trackable way"));
       kit.appendChild(el("pre", "tpl", LOSS_MITIGATION_LETTER.replace(/</g, "&lt;")));
       const row = el("div", "btnrow");
       row.appendChild(copyBtn("Copy letter", () => LOSS_MITIGATION_LETTER));
@@ -103,7 +103,7 @@ const KITS: Kit[] = [
           "ul",
           null,
           `
-        <li>Send certified mail, return receipt — the green card is your proof.</li>
+        <li>One common option: certified mail with return receipt, keeping a copy of everything sent. A delivery receipt documents arrival — not the package's contents, and not whether the servicer considers an application complete.</li>
         <li>The SERVICER judges completeness: send every item they list, keep copies of everything.</li>
         <li>Use the document desk below to build the cover letter and enclosure index for the application itself.</li>`,
         ),
@@ -128,7 +128,7 @@ const KITS: Kit[] = [
         <li>The filing date: was it at least 21 days before the sale date? The chain above computes it.</li>
         <li>The property's legal description — does it actually match your property?</li>
         <li>The trustee's name and address, and the stated sale start time — the sale must begin within three hours after it (10 a.m.–4 p.m. is the statutory outer window).</li>
-        <li>Discrepancies don't void anything by themselves — but they're exactly what a lawyer wants to see. Photograph everything.</li>`,
+        <li>A discrepancy does not necessarily invalidate a sale — its effect depends on the facts and the law — but preserved copies or photographs are exactly what a lawyer wants to see.</li>`,
         ),
       );
     },
@@ -136,7 +136,7 @@ const KITS: Kit[] = [
   {
     cls: "deadline",
     title: "Reinstate or pay off",
-    lede: "Depending on your loan and where the clock stands, paying the missed amount (reinstatement) or the full payoff can stop the process. The exact figures and cutoffs come from your servicer — demand them in writing, never rely on a phone quote.",
+    lede: "Depending on your loan and where the clock stands, paying the missed amount (reinstatement) or the full payoff may stop the process. The exact figures and cutoffs come from the servicer — written confirmation is worth requesting, since phone information may not be binding.",
     build(kit) {
       kit.appendChild(el("h4", null, "The written demand — copy, fill, send"));
       kit.appendChild(el("pre", "tpl", REINSTATEMENT_DEMAND_LETTER.replace(/</g, "&lt;")));
@@ -148,8 +148,8 @@ const KITS: Kit[] = [
           "ul",
           null,
           `
-        <li>Reinstatement (catching up) is usually far smaller than payoff — get both numbers.</li>
-        <li>Certified funds only, delivered exactly as instructed, with time to spare before the sale.</li>`,
+        <li>Reinstatement (catching up) is usually far smaller than payoff — both numbers are worth requesting.</li>
+        <li>Ask about accepted payment methods and exact delivery instructions, and allow time before the sale.</li>`,
         ),
       );
     },
@@ -157,15 +157,15 @@ const KITS: Kit[] = [
   {
     cls: "deadline",
     title: "Sell before the sale",
-    lede: "With equity in the home, selling before the auction can preserve value that a foreclosure sale may not — whether it's right for you depends on your equity, your loan and your goals. The clock above tells you how many days you'd have.",
+    lede: "With equity in the home, selling before the auction can preserve value that a foreclosure sale may not — whether it fits depends on the equity, the loan and the goals. The clock above shows time until the printed date; it does not determine whether a private sale can close in time.",
     build(kit) {
-      kit.appendChild(el("h4", null, "Ask any agent or buyer these, on day one"));
+      kit.appendChild(el("h4", null, "Questions a homeowner might ask an agent or buyer, on day one"));
       kit.appendChild(
         el(
           "ul",
           null,
           `
-        <li>"Can you close before <strong>${saleDateText()}</strong>?" — if not, this conversation is moot.</li>
+        <li>"Can you close before <strong>${saleDateText()}</strong>?" — if not, the timing may not work.</li>
         <li>"Will you coordinate the payoff directly with my servicer's foreclosure department?"</li>
         <li>"What is my realistic net after the payoff, taxes and costs?" — get it in writing.</li>
         <li>Beware anyone who asks you to sign over the deed "temporarily," to stop talking to your servicer, or to pay upfront fees — classic rescue-scam patterns. Run those letters past legal aid first.</li>`,
@@ -176,14 +176,14 @@ const KITS: Kit[] = [
   {
     cls: "deadline",
     title: "Court and bankruptcy options",
-    lede: "A temporary restraining order or a bankruptcy filing can stop a sale — both need a lawyer and both take days, not hours. This is why the deadline chain matters.",
+    lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary, and both take days, not hours. This is why the deadline chain matters.",
     build(kit) {
       kit.appendChild(
         el(
           "ul",
           null,
           `
-        <li>These are lawyer moves — this tool deliberately does not generate court documents. The free-legal-help card above is the path, and "my sale date is <strong>${saleDateText()}</strong>" is the first sentence to say.</li>
+        <li>These are lawyer questions — this tool deliberately does not generate court documents. The legal-aid contacts above are one place to seek an assessment; sharing any printed sale date (<strong>${saleDateText()}</strong>) early helps them understand urgency.</li>
         <li>A bankruptcy filing generally puts a hold on collection actions when it's filed — but it has lasting consequences, exceptions exist, and only a lawyer can tell you whether it fits your situation.</li>
         <li>Whether a court would pause a sale depends on your specific facts — a lawyer must assess it. The records and discrepancies you photographed at the Clerk's office are what you bring to that conversation.</li>`,
         ),

@@ -84,7 +84,7 @@ export function initUploadDemo(): void {
     );
     const btn = el("button", "abtn ai");
     btn.type = "button";
-    btn.textContent = "Next: watch AI read this notice →";
+    btn.textContent = "Next: replay the recorded AI read of this notice →";
     btn.addEventListener("click", () => playRecorded(sampleId));
     const row = el("div", "btnrow");
     row.append(btn);
@@ -200,7 +200,7 @@ export function initUploadDemo(): void {
     const fieldsDetails = document.createElement("details");
     fieldsDetails.className = "sample-text";
     const fSummary = document.createElement("summary");
-    fSummary.textContent = "The nine extracted fields";
+    fSummary.textContent = mode === "recorded" ? "Nine fields extracted by the recorded AI run" : "Nine fields extracted by the live AI run";
     fieldsDetails.appendChild(fSummary);
     const wrap = el("div", "extract-table-wrap");
     const table = el("table", "ledger");

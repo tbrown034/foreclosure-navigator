@@ -25,7 +25,7 @@ interface ChainRow {
 }
 
 const REGX_COPY =
-  "Loss-mitigation window: a complete application received more than 37 days before a scheduled sale may trigger federal review protections — exceptions apply, and the servicer judges completeness. Get every requested item in, with proof of delivery.";
+  "Loss-mitigation window: a complete application received more than 37 days before a scheduled sale may trigger federal review protections, subject to exceptions. The servicer determines what completeness requires; keeping proof of submission and seeking advice about applicability are common steps.";
 
 function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: Date } {
   const c = defaultNoticeChain(noticeIso);
@@ -39,7 +39,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
     },
     {
       date: c.cureEnd,
-      what: "Last day to cure: under the statute, paying the stated missed amount (not the whole loan) requires the process to stop — the exact figure must come from the servicer in writing.",
+      what: "End of the statutory cure period, calculated from the date entered. Fully curing the stated default by the applicable deadline may prevent the lender from proceeding on that default — confirm the exact amount and deadline with the servicer or a lawyer.",
       cite: "Day 20 of the statutory window",
       cls: c.cureEnd < today ? "deadline" : "window",
       label: c.cureEnd < today ? "Passed" : "Open",
@@ -60,7 +60,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
       date: null,
       what:
         REGX_COPY +
-        " No sale is scheduled in this projection — a complete application submitted before any sale is ever scheduled has the strongest protections, and they survive a later scheduling.",
+        " No sale is scheduled in this projection; CFPB interpretations also address applications received before a sale is ever scheduled.",
       cite: "RESPA / Reg X, 12 CFR §1024.41 and official interpretations",
       cls: "window",
       label: "Rule — applies now",
@@ -105,7 +105,7 @@ function saleRows(noticeIso: string, printedSaleIso: string, today: Date): { row
     },
     {
       date: c.planBy,
-      what: "Planning marker: reinstatement funds, closings and any court filings must be COMPLETE before sale day — individual cutoffs vary and a lawyer confirms yours.",
+      what: "Planning marker only: funds, closings or court action may need to be complete before the sale begins. Exact cutoffs and legal effects vary — confirming yours with counsel promptly is a common step.",
       cite: "Day before the stated sale",
       cls: "deadline",
       label: "Plan by",

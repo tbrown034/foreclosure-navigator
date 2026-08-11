@@ -18,7 +18,7 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
     (verified ? "deadline" : "window") +
     '">' +
     (verified ? "From the notice" : "Projected minimum") +
-    "</span>&nbsp; A free first step many take: calling legal aid (numbers at the bottom of this page) and requesting the servicer’s requirements in writing.</p>" +
+    "</span>&nbsp; One generally useful option: contacting free legal aid (numbers at the bottom of this page) and requesting the servicer’s requirements in writing — a lawyer can advise what should come first in a specific situation. General legal information, not legal advice; verify every date against the recorded notice.</p>" +
     "</div>";
 }
 

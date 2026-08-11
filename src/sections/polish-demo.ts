@@ -12,6 +12,7 @@
  */
 
 import { byId } from "../format";
+import { getPolishApplied, setPolishApplied } from "../state";
 
 interface PolishResponse {
   polished: string;
@@ -62,10 +63,21 @@ function status(text: string, flagged = false): HTMLParagraphElement {
   return p;
 }
 
+let applyingPolish = false;
+
 export function initPolishDemo(): void {
   const btn = byId<HTMLButtonElement>("polishBtn");
   const result = byId<HTMLDivElement>("polishResult");
   const changeEl = byId<HTMLInputElement>("gChange");
+
+  // Hand-editing the fact clears the AI-provenance flag (and re-renders
+  // the draft without its note via the second input event).
+  changeEl.addEventListener("input", () => {
+    if (!applyingPolish && getPolishApplied()) {
+      setPolishApplied(false);
+      changeEl.dispatchEvent(new Event("input"));
+    }
+  });
 
   const show = (...nodes: HTMLElement[]): void => {
     result.replaceChildren(...nodes);
@@ -152,9 +164,15 @@ export function initPolishDemo(): void {
       accept.className = "abtn";
       accept.textContent = "Use polished wording";
       accept.addEventListener("click", () => {
+        applyingPolish = true;
+        setPolishApplied(true);
         changeEl.value = data.polished;
         changeEl.dispatchEvent(new Event("input"));
-        show(status("Applied. Review every sentence of the draft before sending."), beatFour());
+        applyingPolish = false;
+        show(
+          status("Applied — the draft now carries a note that it contains AI-polished wording. Review every sentence before sending."),
+          beatFour(),
+        );
       });
       const keep = document.createElement("button");
       keep.type = "button";
