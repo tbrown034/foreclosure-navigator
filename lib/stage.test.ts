@@ -65,9 +65,9 @@ describe("sale-notice stage", () => {
     }
   });
 
-  it("short 21-day gap surfaces the discrepancy line", () => {
+  it("short 21-day gap surfaces the mis-entry-or-problem line", () => {
     const s = stageAssessment("sale", "2026-08-20", SALE, "2026-08-21")!;
-    expect(s.lines.join(" ")).toContain("short of the 21-day statutory minimum");
+    expect(s.lines.join(" ")).toContain("shorter than the 21-day statutory minimum");
   });
 });
 
@@ -88,7 +88,7 @@ describe("default-notice stage", () => {
 
   it("cure open: strongest-protections framing for loss mitigation, no sale invented", () => {
     const s = stageAssessment("default", "2026-08-09", null, "2026-08-11")!;
-    expect(s.lines.join(" ")).toContain("No sale is scheduled at this stage");
+    expect(s.lines.join(" ")).toContain("does not by itself schedule a sale");
     expect(s.recourses.find((r) => r.id === "loss-mitigation")!.label).toContain("Strongest");
     expect(s.salePassed).toBe(false);
   });

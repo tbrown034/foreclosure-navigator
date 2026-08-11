@@ -89,16 +89,16 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
     if (regXOpen) {
       const toMarker = daysBetween(today, c.regX);
       lines.push(
-        `${fmtShort(c.regX)} is 38 days before the printed sale date${toMarker === 0 ? " — that is today" : ` — ${toMarker} day${toMarker === 1 ? "" : "s"} away`}. Some federal protections depend on the servicer receiving a COMPLETE loss-mitigation application more than 37 days before the sale; completeness, timing and exceptions all matter.`,
+        `${fmtShort(c.regX)} is 38 days before the printed sale date${toMarker === 0 ? " — that is today" : ` — ${toMarker} day${toMarker === 1 ? "" : "s"} away`}. Some federal protections depend on the servicer receiving a COMPLETE loss-mitigation application more than 37 days before the sale; the servicer judges completeness, and timing and exceptions matter.`,
       );
     } else {
       lines.push(
-        `The more-than-37-days federal marker was ${fmtShort(c.regX)} and has passed. That does not by itself mean loss-mitigation materials cannot still be submitted or considered — other rules and exceptions may apply; the servicer and a lawyer can say what applies now.`,
+        `The 38-day marker — “more than 37 days before the sale” in the federal rule’s words — was ${fmtShort(c.regX)} and has passed. That does not by itself mean loss-mitigation materials cannot still be submitted or considered — other rules and exceptions may apply; the servicer and a lawyer can say what applies now.`,
       );
     }
     if (!c.meetsTwentyOneDayMinimum) {
       lines.push(
-        `The filing-to-sale gap computed above is short of the 21-day statutory minimum — that discrepancy is worth photographing and showing a lawyer promptly.`,
+        `Based on the dates entered, the filing-to-sale gap is shorter than the 21-day statutory minimum. That can mean a mis-entered date or a real problem — worth showing a lawyer promptly.`,
       );
     }
   }
@@ -110,7 +110,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       tier: "act-now",
       label: salePassed ? "Call promptly" : soon ? "Call today" : "Call early",
       note: salePassed
-        ? "Free legal aid can find out what actually happened and what applies now. Verified numbers in the kit below."
+        ? "Free legal aid may be able to find out what actually happened and what applies now. Verified numbers in the kit below."
         : "The earlier legal aid is in, the more they can do — sharing the sale date early helps intake understand urgency. Verified numbers below.",
       draft: null,
     },
@@ -151,10 +151,10 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
     {
       id: "sell",
       title: "Sell before the sale",
-      tier: salePassed ? "passed-marker" : soon ? "confirm" : "open",
-      label: salePassed ? "Printed date passed — verify sale status" : soon ? "Tight timeline" : "Time-dependent",
+      tier: salePassed ? "confirm" : soon ? "confirm" : "open",
+      label: salePassed ? "Depends what happened" : soon ? "Tight timeline" : "Time-dependent",
       note: salePassed
-        ? "Whether a pre-sale listing still fits depends on what actually happened to the sale — the county record and the servicer can say; a lawyer can advise."
+        ? "Whether a sale before the printed date is still relevant depends on whether that sale occurred, was postponed or was canceled — this tool cannot tell. The county record, the servicer and a lawyer can."
         : soon
           ? "Whether a private sale can close before the printed date is a question for an agent or buyer on day one — the window is tight."
           : "With equity, selling before the auction can preserve value — whether it fits depends on the equity, the loan and the goals.",
@@ -193,7 +193,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       `Texas's minimum 20-day right-to-cure period runs through ${fmtShort(c.cureEnd)}, counting the notice date as day one. Fully curing the stated default by the applicable deadline may prevent the lender from proceeding on that default — the exact amount and deadline come from the servicer.`,
     );
     lines.push(
-      "No sale is scheduled at this stage — a sale requires its own notice with its own date, at least 21 days out. A loss-mitigation application completed now, before any sale is scheduled, carries the strongest federal protections.",
+      "A notice of default does not by itself schedule a sale — a sale requires its own notice, filed and mailed at least 21 days before the date. If a notice of sale has already arrived, enter it above: the clock changes. A loss-mitigation application completed before any sale is scheduled may carry the strongest federal review protections — completeness is judged by the servicer, and exceptions apply.",
     );
   } else if (!beforeNotice) {
     lines.push(
@@ -215,7 +215,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       title: "Loss mitigation — apply in writing",
       tier: "act-now",
       label: "Strongest window",
-      note: "An application completed before any sale is scheduled carries the strongest federal review protections — the request letter below starts it.",
+      note: "An application completed before any sale is scheduled may carry the strongest federal review protections — completeness is judged by the servicer, and exceptions apply. The request letter below starts it.",
       draft: "hardship",
     },
     {
@@ -233,7 +233,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       title: "Check the county record",
       tier: "open",
       label: "Free, any time",
-      note: "No sale can be held without a notice of sale on file with the county clerk at least 21 days out — checking the record shows whether one exists.",
+      note: "The statute requires a notice of sale to be on file with the county clerk at least 21 days before a sale. Checking the record can show whether one is on file — the index can lag, so not finding one is not proof none was filed.",
       draft: null,
     },
     {
