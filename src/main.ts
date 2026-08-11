@@ -26,11 +26,6 @@ initStageSummary();
 initTourSteps();
 initCaseLookup();
 
-// The desk's way back up — one click returns to the chain.
-document.getElementById("backToChain")?.addEventListener("click", () => {
-  document.querySelector('section[data-tour="2"]')?.scrollIntoView({ block: "start" });
-});
-
 // "enter your own dates" opens the collapsed manual form.
 document.getElementById("openManual")?.addEventListener("click", () => {
   const manual = document.getElementById("manualEntry") as HTMLDetailsElement | null;

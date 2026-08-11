@@ -91,31 +91,28 @@ test.describe("reader flow", () => {
     // The rail is a scrollspy: the demo click lands at the chain section.
     await expect(page.locator(".step-item.is-current")).toContainText("2");
 
-    // A panel call button loads the legal-aid script in draft-and-call.
+    // The black button opens the legal-aid script INSIDE the row.
     await stage.getByRole("button", { name: "Get the call script for Free legal help" }).click();
-    await expect(page.locator("#docOut")).toContainText("CALL SCRIPT — free legal aid intake");
-    await expect(page.locator("#docOut")).toContainText("713-652-0077");
-    await expect(page.locator("#deskNote")).toBeVisible();
-    await expect(page.locator(".step-item.is-current")).toContainText("4");
+    const firstRow = stage.locator(".stage-row").first();
+    await expect(firstRow.locator("#docOut")).toContainText("CALL SCRIPT — free legal aid intake");
+    await expect(firstRow.locator("#docOut")).toContainText("713-652-0077");
+    await expect(firstRow.getByRole("button", { name: "Download this draft" })).toBeVisible();
 
     // "Tell me more" expands the kit INSIDE the row — verified numbers in
     // place, no second list (the standalone cards are hidden).
     await stage.getByRole("button", { name: "Tell me more about Free legal help" }).click();
-    const row = stage.locator(".stage-row").first();
-    await expect(row.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();
+    await expect(firstRow.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();
     await expect(page.locator("#actionCards")).toBeHidden();
 
     // The AI summary is offered, labeled, and optional (not called here).
     await expect(stage.locator(".ai-summary")).toContainText("AI summary — optional live model call");
     await expect(stage.locator(".ai-summary")).toContainText("code check rejects");
 
-    // The desk offers a way back up to the chain.
-    await expect(page.getByRole("button", { name: /Back to your deadline chain/ })).toBeVisible();
-
-    // The desk's service buttons work standalone: pick one, draft below.
-    await page.getByRole("button", { name: "Email: loss-mitigation request" }).click();
-    await expect(page.locator("#docOut")).toContainText("Loss Mitigation Department");
-    await expect(page.locator("#docOut")).toContainText("ATTACHMENT DRAFT: hardship narrative");
+    // The dock moves: the loss-mitigation row's Email button pulls it there.
+    await stage.getByRole("button", { name: "Draft the email for Loss mitigation — apply in writing" }).click();
+    const lmRow = stage.locator(".stage-row", { hasText: "Loss mitigation" });
+    await expect(lmRow.locator("#docOut")).toContainText("Loss Mitigation Department");
+    await expect(lmRow.locator("#docOut")).toContainText("ATTACHMENT DRAFT: hardship narrative");
 
     await page.getByRole("button", { name: "Enter dates manually" }).click();
     await expect(page.locator("#manualEntry")).toHaveJSProperty("open", true);

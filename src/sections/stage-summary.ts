@@ -33,21 +33,16 @@ function jumpTo(el: Element): void {
   setTimeout(() => el.classList.remove("flash-target"), 1800);
 }
 
-function draftButton(r: RecourseStatus): HTMLButtonElement | null {
+function draftButton(r: RecourseStatus, row: HTMLDivElement): HTMLButtonElement | null {
   if (!r.draft) return null;
   const service = r.draft;
   const b = document.createElement("button");
   b.type = "button";
   b.className = "abtn primary";
-  b.textContent = service === "legal" || service === "servicer" ? "Call — get the script ↓" : "Email — draft it ↓";
+  b.textContent = service === "legal" || service === "servicer" ? "Call — get the script" : "Email — draft it";
   b.setAttribute("aria-label", `${service === "legal" || service === "servicer" ? "Get the call script" : "Draft the email"} for ${r.title}`);
   b.addEventListener("click", () => {
-    document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service } }));
-    const note = byId<HTMLParagraphElement>("deskNote");
-    note.textContent = `Draft matched to “${r.title}” — assembled in code from your facts. Edit the facts below; nothing is sent anywhere.`;
-    note.hidden = false;
-    const desk = document.getElementById("docH")?.closest("section");
-    if (desk) jumpTo(desk);
+    document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service, host: row } }));
     document.dispatchEvent(new CustomEvent("fn:paperwork"));
   });
   return b;
@@ -207,7 +202,7 @@ export function initStageSummary(): void {
       note.textContent = r.note;
       const btns = document.createElement("div");
       btns.className = "btnrow";
-      const d = draftButton(r);
+      const d = draftButton(r, row);
       if (d) btns.appendChild(d);
       btns.appendChild(kitToggle(r, row));
       row.append(head, note, btns);

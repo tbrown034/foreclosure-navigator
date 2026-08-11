@@ -1031,3 +1031,11 @@ a.abtn[href^="tel:"]::before { content: "\260E  "; }
 
 /* The takeaway's source line: the fact the number derives from. */
 .takeaway-source { margin: 0 0 6px; font-size: 15px; color: var(--ink-2); }
+
+/* The movable draft dock inside a what-you-can-do row. */
+.draft-dock {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.draft-dock #docOut { margin-top: 10px; }

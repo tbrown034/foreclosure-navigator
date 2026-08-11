@@ -1,12 +1,12 @@
-/** Draft and call: pick who you need to reach, and the draft assembles in
- * code — no AI, no model call, nothing leaves the page. Empty by default;
- * a service button (or a "Draft the…" button in the what-you-can-do panel,
- * which dispatches fn:draft) loads the matching script or letter directly
- * below the buttons. */
+/** The draft dock: one shared, movable drafting panel that mounts INSIDE
+ * whichever what-you-can-do row asked for it. A row's "Call — get the
+ * script" / "Email — draft it" button dispatches fn:draft with the
+ * service and its host row; the dock (facts editor + the code-built
+ * draft + download) attaches there and rebuilds live as facts change.
+ * No AI, no model call, nothing leaves the page. */
 
 import type { ServiceId } from "../../lib/templates";
-import { SERVICES, buildServiceDraft, type ReaderGoal } from "../../lib/templates";
-import { byId } from "../format";
+import { buildServiceDraft, type ReaderGoal } from "../../lib/templates";
 import { currentSaleLine, onSaleInfoChange } from "../state";
 
 function blobDownload(data: string): void {
@@ -17,20 +17,63 @@ function blobDownload(data: string): void {
   URL.revokeObjectURL(a.href);
 }
 
+function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: string): HTMLElementTagNameMap[K] {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
 export function initDocumentDesk(): void {
-  const btnRow = byId<HTMLDivElement>("serviceBtns");
-  const area = byId<HTMLDivElement>("draftArea");
-  const outEl = byId<HTMLPreElement>("docOut");
-  const servicerEl = byId<HTMLInputElement>("gServicer");
-  const goalEl = byId<HTMLSelectElement>("gGoal");
-  const changeEl = byId<HTMLInputElement>("gChange");
+  // Build the dock once; it moves between rows.
+  const dock = el("div", "draft-dock");
+  dock.hidden = true;
+
+  const lede = el("p", "quiet-alts");
+  lede.textContent =
+    "Assembled in code from your facts, right here — no AI, and nothing you type leaves this page. A draft, not legal advice; this template has not been reviewed by Texas housing counsel.";
+
+  const facts = document.createElement("details");
+  facts.className = "sample-text";
+  facts.innerHTML =
+    "<summary>Facts used in this draft — edit any of them</summary>" +
+    '<label for="gServicer">Servicer / sender on your notice</label>' +
+    '<input type="text" id="gServicer" class="text-input" value="" placeholder="The sender named on your notice" />' +
+    '<label for="gGoal">What are you trying to do?</label>' +
+    '<select id="gGoal">' +
+    '<option value="keep">Keep the home (catch up or modify)</option>' +
+    '<option value="time">Buy time to sell it myself</option>' +
+    '<option value="understand">Understand what I received</option>' +
+    "</select>" +
+    '<label for="gChange">One fact in your own words (what happened / what changed)</label>' +
+    '<input type="text" id="gChange" class="text-input" value="" placeholder="One sentence, your words — or leave blank" />';
+
+  const out = el("pre");
+  out.id = "docOut";
+
+  const row = el("div", "btnrow");
+  const dl = el("button", undefined, "Download this draft");
+  dl.type = "button";
+  dl.id = "dlBtn";
+  dl.addEventListener("click", () => blobDownload(out.textContent ?? ""));
+  const close = el("button", "linklike", "Close draft");
+  close.type = "button";
+  close.addEventListener("click", () => {
+    dock.hidden = true;
+  });
+  row.append(dl, close);
+
+  dock.append(lede, facts, out, row);
 
   let current: ServiceId | null = null;
-  const buttons = new Map<ServiceId, HTMLButtonElement>();
+
+  const servicerEl = facts.querySelector<HTMLInputElement>("#gServicer")!;
+  const goalEl = facts.querySelector<HTMLSelectElement>("#gGoal")!;
+  const changeEl = facts.querySelector<HTMLInputElement>("#gChange")!;
 
   const rebuild = (): void => {
     if (!current) return;
-    outEl.textContent = buildServiceDraft(current, {
+    out.textContent = buildServiceDraft(current, {
       servicer: servicerEl.value,
       goal: goalEl.value as ReaderGoal,
       change: changeEl.value,
@@ -38,40 +81,18 @@ export function initDocumentDesk(): void {
     });
   };
 
-  const select = (id: ServiceId): void => {
-    current = id;
-    buttons.forEach((b, bid) => b.setAttribute("aria-pressed", String(bid === id)));
-    rebuild();
-    area.hidden = false;
-  };
-
-  SERVICES.forEach((s) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "abtn service-btn " + s.kind;
-    b.textContent = s.label;
-    b.setAttribute("aria-pressed", "false");
-    b.addEventListener("click", () => {
-      // A direct pick supersedes any "matched to" note a panel button left.
-      const note = document.getElementById("deskNote");
-      if (note) note.hidden = true;
-      select(s.id);
-      document.dispatchEvent(new CustomEvent("fn:paperwork"));
-    });
-    buttons.set(s.id, b);
-    btnRow.appendChild(b);
-  });
-
-  [servicerEl, goalEl, changeEl].forEach((el) => el.addEventListener("input", rebuild));
+  [servicerEl, goalEl, changeEl].forEach((e) => e.addEventListener("input", rebuild));
   onSaleInfoChange(rebuild);
 
-  // The what-you-can-do panel (and the demo beats) load a service remotely.
-  document.addEventListener("fn:draft", (e) => {
-    const id = (e as CustomEvent<{ service: ServiceId }>).detail.service;
-    if (SERVICES.some((s) => s.id === id)) select(id);
-  });
+  // Attached (hidden) from the start so #gServicer etc. are findable.
+  document.body.appendChild(dock);
 
-  byId<HTMLButtonElement>("dlBtn").addEventListener("click", () => {
-    blobDownload(outEl.textContent ?? "");
+  document.addEventListener("fn:draft", (e) => {
+    const detail = (e as CustomEvent<{ service: ServiceId; host?: HTMLElement }>).detail;
+    current = detail.service;
+    rebuild();
+    if (detail.host) detail.host.appendChild(dock);
+    dock.hidden = false;
+    dock.scrollIntoView({ block: "nearest" });
   });
 }
