@@ -22,13 +22,18 @@
     <p class="free-note">Deadlines, stage guidance and legal-aid referrals are always free. No account required for the answer.</p>
   </header>
 
-  <section aria-labelledby="calcH">
+  <div class="tour-grid">
+    <aside class="tour-rail">
     <ol class="steps" aria-label="Demo walkthrough">
       <li class="step-item is-current" data-step="1"><span>1 · Start with a notice</span><i></i></li>
       <li class="step-item" data-step="2"><span>2 · The deadline chain</span><i></i></li>
       <li class="step-item" data-step="3"><span>3 · AI reads it, checked</span><i></i></li>
       <li class="step-item" data-step="4"><span>4 · Paperwork &amp; calls</span><i></i></li>
     </ol>
+    </aside>
+    <div class="tour-main">
+
+  <section aria-labelledby="calcH">
     <h2 id="calcH" class="visually-hidden">Your deadline chain</h2>
     <div class="scenario-strip">
       <p class="scenario-label">Start with a notice — one click, no typing</p>
@@ -41,8 +46,11 @@
         <summary>The example notice, in full — a sanitized reconstruction of the public record</summary>
         <div data-sample-text="frcl-2026-2290"></div>
       </details>
-      <button type="button" class="abtn primary scenario-btn" data-scenario="frcl-2290" aria-pressed="false">Show this notice's deadlines &darr;</button>
-      <p class="quiet-alts">In production you would upload your own notice here. For the demo: use the example above, try <button type="button" class="linklike scenario-btn" data-scenario="hypothetical" aria-pressed="false">a hypothetical default notice</button>, or <button type="button" class="linklike" id="openManual">enter your own dates</button>.</p>
+      <div class="btnrow entry-actions">
+        <button type="button" class="abtn primary big scenario-btn" data-scenario="frcl-2290" aria-pressed="false">Upload a notice &mdash; sample used for demo &darr;</button>
+        <button type="button" class="abtn outline big" id="openManual">Enter dates manually</button>
+      </div>
+      <p class="quiet-alts">The sample is the real recorded instrument above, homeowner details excluded — or try <button type="button" class="linklike scenario-btn" data-scenario="hypothetical" aria-pressed="false">a hypothetical default notice</button>.</p>
       <button type="button" class="linklike scenario-btn" data-scenario="frcl-3493" aria-pressed="false" hidden>second real notice</button>
       <details class="sample-text" style="margin-top:10px">
         <summary>How this works, about these samples, and exactly what the AI step sends</summary>
@@ -76,7 +84,8 @@
   </section>
 
   <section aria-labelledby="docH">
-    <h2 id="docH">The document desk <span class="ai-badge" style="vertical-align:4px">Code-built drafts &middot; optional live AI polish</span></h2>
+    <h2 id="docH">The document desk</h2>
+    <p class="ai-badge" style="margin:2px 0 10px">Code-built drafts &middot; optional live AI polish</p>
     <p class="sub">The clock, turned into paperwork — drafted from your facts only. Drafts only, not legal advice; nothing is sent automatically, and these templates have not been reviewed by Texas housing counsel.</p>
     <div class="calc" style="margin-top:22px">
       <div class="panel">
@@ -136,7 +145,7 @@
     <div id="actionCards" style="display:flex;flex-direction:column;gap:12px"></div>
   </section>
 
-  <p class="quiet-alts" style="margin-top:60px">A working concept built in one afternoon — <a href="/more.html" style="color:var(--accent)">the full pitch, the tested evidence and the county data &rarr;</a></p>
+
 
   <section aria-labelledby="aiH">
     <details class="action newsroom" id="aiDetails">
@@ -188,6 +197,9 @@
       </div>
     </details>
   </section>
+
+    </div>
+  </div>
 
   <footer>
     Everything on this page was written by a person or computed in code, except the clearly labeled AI outputs: the extraction replay or live result, the polish comparison, and any polished wording you choose to apply (marked where it appears). General information about Texas law, not legal advice for any individual situation — only a lawyer can give that.<br>

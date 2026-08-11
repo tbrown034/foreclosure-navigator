@@ -84,7 +84,7 @@ export function initUploadDemo(): void {
     );
     const btn = el("button", "abtn ai");
     btn.type = "button";
-    btn.textContent = "Next: replay the recorded AI read of this notice →";
+    btn.textContent = "Next: replay the AI read of this notice →";
     btn.addEventListener("click", () => playRecorded(sampleId));
     const row = el("div", "btnrow");
     row.append(btn);
@@ -92,7 +92,7 @@ export function initUploadDemo(): void {
     const fine = el(
       "p",
       "ai-offer-fine",
-      "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a fresh live API run if you want to compare. ",
+      "Instant recorded run — nothing is sent anywhere. ",
     );
     const otherId = sampleId === "frcl-2026-2290" ? "frcl-3493" : "frcl-2290";
     const otherLink = el("button", "linklike");
@@ -119,7 +119,7 @@ export function initUploadDemo(): void {
         extracted: recorded.extracted,
         checks,
         allPass: checks.every((c) => c.pass),
-        meta: `Recorded run of ${recorded.model} at temperature 0 (${(recorded.ms / 1000).toFixed(1)}s, captured ${recorded.capturedOn}) — replayed verbatim with no API call. The 19 checks below just re-ran in your browser against this output.`,
+        meta: `Recorded ${recorded.model} run (temperature 0, captured ${recorded.capturedOn}), replayed verbatim — no API call. The 19 checks re-ran in your browser just now.`,
       },
       sampleId,
       "recorded",

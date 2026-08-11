@@ -808,3 +808,41 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 
 /* Author display rules must never defeat the hidden attribute. */
 [hidden] { display: none !important; }
+
+/* ---- Sticky step rail (left column on wide screens) ---- */
+.tour-grid { display: grid; grid-template-columns: 185px minmax(0, 1fr); gap: 40px; align-items: start; }
+.tour-main { min-width: 0; }
+.tour-rail { position: sticky; top: 24px; }
+.tour-rail .steps { display: flex; flex-direction: column; gap: 16px; margin: 0; }
+.tour-rail .step-item { border-left: 3px solid var(--line); padding-left: 12px; }
+.tour-rail .step-item span { padding-bottom: 0; font-size: 13px; }
+.tour-rail .step-item i { display: none; }
+.tour-rail .step-item.is-current { border-left-color: var(--accent); }
+.tour-rail .step-item.is-done { border-left-color: var(--ok); }
+@media (max-width: 900px) {
+  .tour-grid { display: block; }
+  .tour-rail { position: static; margin-bottom: 24px; }
+  .tour-rail .steps { flex-direction: row; flex-wrap: wrap; gap: 12px; }
+  .tour-rail .step-item { border-left: none; border-top: 3px solid var(--line); padding: 6px 0 0; flex: 1 1 40%; }
+  .tour-rail .step-item.is-current { border-top-color: var(--accent); }
+  .tour-rail .step-item.is-done { border-top-color: var(--ok); }
+}
+
+/* Entry buttons: product-sized, sentence case. */
+.minimal .abtn.big {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 15px;
+  font-weight: 650;
+  padding: 13px 22px;
+  border-radius: 6px;
+}
+.minimal .abtn.outline {
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+}
+.entry-actions { gap: 10px; }
+
+/* The manual form is driven by the Enter-dates-manually button. */
+#manualEntry > summary { display: none; }
