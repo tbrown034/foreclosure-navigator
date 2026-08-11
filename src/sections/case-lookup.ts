@@ -39,12 +39,15 @@ async function loadIndex(): Promise<FrclIndex | null> {
   }
 }
 
-/** Accepts "FRCL-2026-1234", "2026-1234", "1234", with any casing/spacing. */
+/** Accepts exactly "FRCL-2026-1234", "2026-1234" or "1234" (any casing,
+ * surrounding whitespace ok). Anything else — wrong years, extra digits,
+ * embedded text — is rejected rather than guessed, so a typo can never
+ * surface the wrong case's deadlines. */
 export function normalizeDocId(raw: string): string | null {
-  const digits = raw.toUpperCase().replace(/[^0-9-]/g, "").replace(/^-+|-+$/g, "");
-  const m = digits.match(/(?:2026-)?(\d{1,5})$/);
+  const cleaned = raw.trim().toUpperCase().replace(/\s+/g, "");
+  const m = cleaned.match(/^(?:FRCL-?)?(?:2026-?)?(\d{1,4})$/);
   if (!m) return null;
-  return `FRCL-2026-${m[1]}`;
+  return `FRCL-2026-${Number(m[1])}`;
 }
 
 function applyFiling(f: Filing): void {
@@ -129,7 +132,18 @@ export function initCaseLookup(): void {
       slot.replaceChildren();
       return;
     }
-    const f = JSON.parse(raw) as Filing;
+    let f: Filing;
+    try {
+      f = JSON.parse(raw) as Filing;
+      if (typeof f.docId !== "string" || !/^FRCL-2026-\d{1,4}$/.test(f.docId) ||
+          !/^2026-\d{2}-\d{2}$/.test(f.saleDate ?? "") || !/^2026-\d{2}-\d{2}$/.test(f.fileDate ?? "")) {
+        throw new Error("malformed");
+      }
+    } catch {
+      localStorage.removeItem(SAVE_KEY);
+      slot.hidden = true;
+      return;
+    }
     const sched = reminderSchedule(f.saleDate)
       .map((r) => `<li>${r.date} — ${r.label}</li>`)
       .join("");

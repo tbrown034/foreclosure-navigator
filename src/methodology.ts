@@ -13,7 +13,7 @@ interface BenchmarkSummary {
   documents: number;
   sale_date_exact_match: number;
   county_match: number;
-  no_privacy_fields: number;
+  no_prohibited_keys: number;
   flagged_for_human_review: string[];
   mean_latency_ms: number;
   est_cost_usd: number;
@@ -124,7 +124,7 @@ function renderBenchmark(data: BenchmarkData): void {
 
   byId<HTMLParagraphElement>("benchmarkSummary").textContent =
     `${summary.documents} documents · ${summary.sale_date_exact_match}/${summary.documents} exact sale-date match (${percentage}%) · ` +
-    `county ${summary.county_match}/${summary.documents} · privacy-clean ${summary.no_privacy_fields}/${summary.documents} · ` +
+    `county ${summary.county_match}/${summary.documents} · privacy-clean ${summary.no_prohibited_keys}/${summary.documents} · ` +
     `mean ${formatSeconds(summary.mean_latency_ms)} · total cost $${summary.est_cost_usd.toFixed(2)} · ` +
     `model ${summary.model} at temperature ${summary.temperature} · run ${formatRunDate(summary.ranAt)}`;
 }
@@ -166,9 +166,9 @@ async function renderWeekBars(): Promise<void> {
     const idx = (await resp.json()) as { filings: Array<{ fileDate: string }> };
     const weeks = new Map<string, number>();
     for (const f of idx.filings) {
-      const d = new Date(f.fileDate + "T12:00:00");
+      const d = new Date(f.fileDate + "T00:00:00Z");
       const monday = new Date(d);
-      monday.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+      monday.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
       const key = monday.toISOString().slice(0, 10);
       weeks.set(key, (weeks.get(key) ?? 0) + 1);
     }
@@ -179,7 +179,7 @@ async function renderWeekBars(): Promise<void> {
       row.className = "bar";
       const label = document.createElement("span");
       label.className = "zip";
-      label.textContent = new Date(week + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      label.textContent = new Date(week + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric" });
       const track = document.createElement("div");
       track.className = "track";
       const fill = document.createElement("div");

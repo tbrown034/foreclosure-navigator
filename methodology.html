@@ -9,7 +9,7 @@
 <body>
 
 <main class="wrap">
-  <div class="demo-banner">Concept mockup · demo data only · not legal advice · all deadlines must be verified against the recorded notice</div>
+  <div class="demo-banner">Concept demo · real county index (Aug 10 snapshot) with labeled demo elements · not legal advice · verify all deadlines against the recorded notice</div>
 
   <p style="margin:14px 0 0"><a class="abtn ghost" href="/">&larr; Back to the tool</a></p>
 
@@ -34,7 +34,7 @@
 
   <section id="benchmark" aria-labelledby="benchmarkH">
     <h2 id="benchmarkH">The benchmark — AI read 29 real notices; code checked every one</h2>
-    <p class="sub">The two-document pilot is now a measured benchmark. On Aug 10, 2026, the same extractor the demo uses — claude-haiku-4-5, fixed schema, temperature 0 — read 29 real scanned notices sampled across the Clerk's 686-filing September index, and code verified every extraction against the county's own record. The documents never enter this repository; only non-personal fields (dates, county, professional parties) are stored. Two documents failed a check and were flagged for human review — nothing is computed from them, which is the architecture's point.</p>
+    <p class="sub">The two-document pilot is now a measured benchmark. On Aug 10, 2026, the same extractor the demo uses — claude-haiku-4-5, fixed schema, temperature 0 — read 29 real scanned notices sampled across the Clerk's 686-filing September index, and code verified every extraction against the county's own record. The full documents were transmitted to Anthropic for extraction under the provider's standard API data practices; they never enter this repository, and only the measured non-personal fields (dates, county, confidence, timing, verdicts) are stored. Two documents failed a check and were flagged for human review — nothing is computed from them, which is the architecture's point.</p>
 
     <div id="benchmarkStats" class="cards" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" aria-live="polite">
       <p class="sub">Loading benchmark summary…</p>
@@ -157,24 +157,19 @@
   </section>
 
   <section aria-labelledby="dataH">
-    <h2 id="dataH">The county picture <span class="chip past" style="vertical-align:middle">demo data</span></h2>
-    <p class="sub">The accountability layer behind the reader tool: every posted notice, every filer, every outcome — the public record, made legible. Numbers below are placeholders for the demo.</p>
+    <h2 id="dataH">The county picture <span class="chip window" style="vertical-align:middle">real index snapshot</span></h2>
+    <p class="sub">The accountability layer behind the reader tool. The chart below is the real public record — every posting for the Sept 1, 2026 sale, from the Clerk's index as captured Aug 10, 2026. Filing counts are all this metadata-only index can show; the fuller questions below need the production layer.</p>
     <div class="mockrow">
       <div class="panel">
         <h3 style="margin:0 0 2px;font-size:16px">Filings by week for the Sept 1 sale <span class="chip window">real index — 686 filings</span></h3>
         <p style="margin:4px 0 8px;font-size:13px;color:var(--ink-2)">Every recorded posting for the September 1, 2026 auction, counted by filing week from the Clerk's public index (as of Aug 10).</p>
-        <div class="bars" id="weekBars"></div></div><span class="v">148</span></div>
-          <div class="bar"><span class="zip">77084</span><div class="track"><div class="fill" style="width:73%"></div></div><span class="v">123</span></div>
-          <div class="bar"><span class="zip">77489</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="v">108</span></div>
-          <div class="bar"><span class="zip">77373</span><div class="track"><div class="fill" style="width:55%"></div></div><span class="v">92</span></div>
-          <div class="bar"><span class="zip">77090</span><div class="track"><div class="fill" style="width:47%"></div></div><span class="v">79</span></div>
-        </div>
+        <div class="bars" id="weekBars"></div>
       </div>
       <div class="panel">
         <h3 style="margin:0 0 2px;font-size:16px">Upcoming auction days <span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)">computed live</span></h3>
         <p style="margin:4px 0 8px;font-size:13px;color:var(--ink-2)">Mortgage trustee sales under §51.002 generally occur on the first Tuesday (first Wednesday when that Tuesday is Jan 1 or July 4), 10 a.m.–4 p.m.; in Harris County, the Bayou City Event Center, 9401 Knight Rd.</p>
         <div id="auctionCal" style="display:flex;gap:8px;flex-wrap:wrap"></div>
-        <h3 style="margin:16px 0 2px;font-size:16px">Questions this layer can answer</h3>
+        <h3 style="margin:16px 0 2px;font-size:16px">Questions a production version of this layer could answer</h3>
         <ul style="margin:8px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2)">
           <li>Which servicers and trustees post the most sales — and where?</li>
           <li>How many postings end in an actual sale vs. get pulled?</li>

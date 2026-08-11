@@ -8,7 +8,6 @@
   "errors": 0,
   "sale_date_exact_match": 27,
   "county_match": 29,
-  "no_privacy_fields": 29,
   "all_checks_pass": 27,
   "flagged_for_human_review": [
    "FRCL-2026-4223",
@@ -19,7 +18,8 @@
    "in": 106231,
    "out": 9243
   },
-  "est_cost_usd": 0.1524
+  "est_cost_usd": 0.1524,
+  "no_prohibited_keys": 29
  },
  "results": [
   {
@@ -30,22 +30,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Auction.com, LLC",
-    "lender_or_mortgagee": "BLACK, MANN & GRAHAM, L.L.P.",
-    "servicer_if_stated": "Lakeview Loan Servicing, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 152,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3464,
    "tokens": {
@@ -61,22 +57,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale and Appointment of Substitute Trustee",
     "sale_date": "2026-01-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Cail Meyers, Leb Kemp, Traci Yeaman, Israel Curtis, John Sisk, Clay Golden, Dana Demeritt, Joshua Sanders, Cary Coughlan, Wesley Fowler-Williams, Ramuro Cuevas, Matthew Hansen, Daniel Hart, Auction.com LLC, Jeff Leva, Sandy Designeris, Patricia Poston, Megan L Randles, Robbie Murphy, Wayne Daughtrey, Steve Leva, Agency Sales and Posting LLC",
-    "lender_or_mortgagee": "PennyMac Loan Services, LLC",
-    "servicer_if_stated": "PennyMac Loan Services, LLC",
     "confidence_sale_date": 0.85
    },
    "checks": {
     "sale_date_matches_index": false,
     "sale_is_first_tuesday": false,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": -165,
     "gap_meets_21_day_minimum": false,
-    "all_pass": false
+    "all_pass": false,
+    "no_prohibited_keys": true
    },
    "latency_ms": 5125,
    "tokens": {
@@ -92,22 +84,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Appointment of Substitute Trustee and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Nestor Solutions, LLC, Auction.com, LLC, Xome Inc., Tejas Corporate Services, LLC, Abstracts of Texas, LLC, Resolve Trustee Services, LLC, or UTS-DX LLC",
-    "lender_or_mortgagee": "Mortgage Electronic Registration Systems, Inc., as Beneficiary, as nominee for Freedom Mortgage Corporation, its successors and assigns",
-    "servicer_if_stated": "Freedom Mortgage Corporation",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 75,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4600,
    "tokens": {
@@ -123,22 +111,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "XOME INC, TEJAS CORPORATE SERVICES LLC, NFPDS-TX LLC, AGENCY SALES AND POSTING, LLC, ALDRIDGE PITE, LLP",
-    "lender_or_mortgagee": "MORTGAGE ELECTRONIC REGISTRATION SYSTEMS, INC, AS BENEFICIARY, AS NOMINEE FOR GOLD STAR MORTGAGE FINANCIAL GROUP, CORPORATION, ITS SUCCESSORS AND ASSIGNS",
-    "servicer_if_stated": "PennyMac Loan Services, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 68,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4222,
    "tokens": {
@@ -154,22 +138,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Auction.com LLC",
-    "lender_or_mortgagee": "MORTGAGE ELECTRONIC REGISTRATION SYSTEMS, INC., AS BENEFICIARY, AS NOMINEE FOR NETWORK FUNDING, L.P., ITS SUCCESSORS AND ASSIGNS",
-    "servicer_if_stated": "NEWREZ LLC, D/B/A SHELLPOINT MORTGAGE SERVICING",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 68,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3710,
    "tokens": {
@@ -185,22 +165,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Appointment of Substitute Trustee and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County",
-    "trustee_or_substitute": "Nestor Solutions, LLC, Xome Inc., Tejas Corporation Services, LLC, NFPDS-TX LLC, Agency Sales and Posting LLC, Abstracts/Trustees of Texas, LLC, Resolve Trustee Services, LLC",
-    "lender_or_mortgagee": "Mortgage Electronic Registration Systems, Inc., as Beneficiary, as nominee for Freedom Mortgage Corporation, its successors and assigns",
-    "servicer_if_stated": "Freedom Mortgage Corporation",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 63,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4540,
    "tokens": {
@@ -216,22 +192,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale and Appointment of Substitute Trustee",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Carl Meyers, Leb Kemp, Traci Yeaman, Israel Curtis, John Sisk, Clay Golden, Dana Derden, Joshua Sanders, Cary Corinthian, Wesley Fowler-Williams, Ramiro Cuevas, Matthew Hansen, Daniel Hart, Auction com LLC, Jeff Leva, Sandy Dastgems, Patricia Poston, Megan L. Randle, Ebbie Murphy, Wayne Daughtrey, Steve Leva, Agency Sales and Posting LLC",
-    "lender_or_mortgagee": "Rocket Mortgage, LLC",
-    "servicer_if_stated": "Rocket Mortgage, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 61,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4773,
    "tokens": {
@@ -247,22 +219,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Appointment of Substitute Trustee and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Nestor Solutions, LLC, Auction.com, LLC, Xome Inc., Tejas Corporate Services, LLC, NFPDS-TX LLC, Agency Sales and Posting LLC, Abstracts/Trustees of Texas, LLC, Resolve Trustee Services, LLC",
-    "lender_or_mortgagee": "Mortgage Electronic Registration Systems, Inc., as Beneficiary, as nominee for InterLinc Mortgage Services, LLC, its successors and assigns",
-    "servicer_if_stated": "Freedom Mortgage Corporation",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 56,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 5033,
    "tokens": {
@@ -278,22 +246,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Trustee's Sale and Appointment of Substitute Trustee",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Jeff Leva, Sandy Dasigenis, Patricia Poston, Megan L. Randle, Ebbie Murphy, Wayne Daughtrey, Steve Leva, Auction.com, LLC, or Codilis & Moody, P.C.",
-    "lender_or_mortgagee": "PNC Bank, N.A.",
-    "servicer_if_stated": "Mortgage Electronic Registration Systems, Inc.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 54,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4102,
    "tokens": {
@@ -309,22 +273,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Acceleration and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Auction.com, LLC, and Padget Law Group",
-    "lender_or_mortgagee": "American Financial Resources, Inc.",
-    "servicer_if_stated": "Serbank, N.A.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 54,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3825,
    "tokens": {
@@ -340,22 +300,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County",
-    "trustee_or_substitute": "ANTHONY O. OLAKAMPO; Brandon Wolf, Attorney at Law; Keller Mackie, Attorney at Law; Michael Ziente, Attorney at Law; Chelsea Schmader, Attorney at Law; Ester Gonzalez, Attorney at Law; Sheridan Stills, Attorney at Law; David Ollis, Attorney at Law",
-    "lender_or_mortgagee": "NEW AMERICAN FUNDING, LLC FKA BROKER SOLUTIONS INC. DBA NEW AMERICAN LENDING",
-    "servicer_if_stated": "BROKER SOLUTIONS INC. DBA NEW AMERICAN FUNDING, LLC FKA BROKER SOLUTIONS INC.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 49,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3664,
    "tokens": {
@@ -371,22 +327,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee Sale",
     "sale_date": "2026-09-11",
     "county": "Harris",
-    "trustee_or_substitute": "Patricia Patton, Cole Patton, Anne Stout, Thury Frazier, McCarthy & Holthus, LLP",
-    "lender_or_mortgagee": "Mortgage Electronic Registration Systems, Inc. ('MERS') solely as a nominee for Fairway Independent Mortgage Corporation, its successors and assigns",
-    "servicer_if_stated": "Lakeview Loan Servicing, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": false,
     "sale_is_first_tuesday": false,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 57,
     "gap_meets_21_day_minimum": true,
-    "all_pass": false
+    "all_pass": false,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3638,
    "tokens": {
@@ -402,22 +354,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "TOLESOAZ Corp dba Total Lender Solutions, an AZ Corp, Randy S. Newman and Abstracts/Trustees Of Texas, LLC",
-    "lender_or_mortgagee": "Equitable Enterprises, Inc., a Nevada Corporation, as to 58.18% interest and Equitable Industries LLC, A Nevada Limited Liability Company, as to 41.82% interest",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 42,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4581,
    "tokens": {
@@ -433,22 +381,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "HARRIS",
-    "trustee_or_substitute": "Steve Leva, Sandy Dasigenis, Jeff Leva",
-    "lender_or_mortgagee": "GLORIA CAGE",
-    "servicer_if_stated": "Mortgage Servicer: Specialized Portfolio Servicing, Inc.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 40,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4996,
    "tokens": {
@@ -464,22 +408,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "AYT Title Services, LLC",
-    "lender_or_mortgagee": "DEUTSCHE BANK NATIONAL TRUST COMPANY, AS TRUSTEE FOR SOUNDVIEW HOME LOAN TRUST 2006-OPT2, ASSET-BACKED CERTIFICATES, SERIES 2006-OPT2",
-    "servicer_if_stated": "Texas Property Code § 51.0025",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 40,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3379,
    "tokens": {
@@ -495,22 +435,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale and Appointment of Substitute Trustee",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Carl Meyers, Leb Kemp, Traci Yeaman, Israel Curtis, John Sisk, Clay Golden, Dana Dennen, Joshua Sanders, Cary Coreablum, Wesley Fowler-Williams, Ramiro Cuevas, Matthew Hansen, Daniel Hart, Jeff Leva, Sandy Desigonia, Patricia Poston, Megan L Rendle, Ethie Murphy, Wayne Daughtrey, Steve Leva, Agency Sales and Posting LLC",
-    "lender_or_mortgagee": "ROCKET MORTGAGE, LLC",
-    "servicer_if_stated": "Rocket Mortgage, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 40,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 5445,
    "tokens": {
@@ -526,22 +462,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Appointment of Substitute Trustee and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Nestor Solutions, LLC, Auction.com, LLC, Xome Inc., Teja Corporate Services, LLC, NPDS-TX LLC, Agency Sales and Posting LLC, Resolve Trustee Services, LLC",
-    "lender_or_mortgagee": "Mortgage Electronic Registration Systems, Inc., as Beneficiary, as nominee for Primary Residential Mortgage, Inc., its successors and assigns",
-    "servicer_if_stated": "Freedom Mortgage Corporation",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 39,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4174,
    "tokens": {
@@ -557,22 +489,18 @@
     "pages": 2
    },
    "extracted": {
-    "notice_type": "Notice of (Substitute) Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Agency Sales and Posting LLC, AUCTION.COM LLC, XOME Inc and Tejas Corporate Services LLC, or Abstracts/Trustees of Texas, LLC",
-    "lender_or_mortgagee": "Inocencio Ortiz and Maria De Los Angeles Ortiz",
-    "servicer_if_stated": "Wells Fargo Bank, N.A.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 33,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3840,
    "tokens": {
@@ -588,22 +516,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Bennett M Wyse, Ted Gambordella, Andrew Bui, ServiceLink Agency Sales and Posting, LLC, Jeff Leva, Sandy Dasigenis, Patricia Poston, Megan L Randle, Ebbie Murphy, Wayne Daughtrey, and/or Steve Leva",
-    "lender_or_mortgagee": "M R Caveneo, LTD",
-    "servicer_if_stated": "Conrad Properties, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 33,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4165,
    "tokens": {
@@ -619,22 +543,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Brandon Wolf, Attorney at Law; L. Keller Mackle, Attorney at Law; Michael Zientz, Attorney at Law; Chelsea Schneider, Attorney at Law; Ester Gonzales, Attorney at Law; Sheridan Stills, Attorney at Law",
-    "lender_or_mortgagee": "U.S. Bank Trust Company, National Association, as Trustee, as successor-in-interest to LandAmerica Mortgage Trust 2005-HEB, Asset-Backed Certificates Series 2005-HEB",
-    "servicer_if_stated": "SELECT PORTFOLIO SERVICING, INC.",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 33,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3925,
    "tokens": {
@@ -650,22 +570,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Acceleration and Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Tejas Corporate Services, LLC, and Padgett Law Group",
-    "lender_or_mortgagee": "U.S. Bank Trust Company, National Association, as Indenture Trustee on behalf of and with respect to Barclays Mortgage Trust 2022-RPL1, Mortgage-Backed Securities, Series 2022-RPL1",
-    "servicer_if_stated": "Shellpoint Mortgage Servicing",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 33,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3714,
    "tokens": {
@@ -681,22 +597,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Paul E. Nunu",
-    "lender_or_mortgagee": "BRAEBURN TERRACE OWNERS ASSOCIATION, INC.",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 27,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 2767,
    "tokens": {
@@ -712,22 +624,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County",
-    "trustee_or_substitute": "Patricia Poston, Chris Poston, Amar Sood, Sandy Dasigenis, Jeff Leva, Steve Leva, Michele Sanders, Cherie Maples",
-    "lender_or_mortgagee": "The Douglas Rogers Group, L.L.C. d/b/a Core Commercial Capital, a/an New Jersey Limited Liability Company",
-    "servicer_if_stated": "PHH Mortgage Services/ Unify Mortgage",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 26,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4413,
    "tokens": {
@@ -743,22 +651,18 @@
     "pages": 4
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Amar Sood, Patricia Poston, David Poston, Nick Poston, Chris Poston, Sandy Dasigenis, Jeff Leva, Steve Leva, and Nicole Durrett",
-    "lender_or_mortgagee": "Prosperity Bank, successor in interest to Stellar Bank",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 26,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3962,
    "tokens": {
@@ -774,22 +678,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County",
-    "trustee_or_substitute": "Kristi A. Slaughter",
-    "lender_or_mortgagee": null,
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 25,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 2046,
    "tokens": {
@@ -805,22 +705,18 @@
     "pages": 3
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Bruce M. Badger, Substitute Trustee",
-    "lender_or_mortgagee": "Gateway, Mortgage Group, A Division of Gateway First Bank",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 22,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 2718,
    "tokens": {
@@ -836,22 +732,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County, Texas",
-    "trustee_or_substitute": "Terry H. Sears, Sarah B. Gerdes, Samantha Sears and Chanta'l Lillie, of Sears, Bennett & Gerdes, LLP",
-    "lender_or_mortgagee": "RISE CONDOMINIUM ASSOCIATION, INC.",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 22,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 4092,
    "tokens": {
@@ -867,22 +759,18 @@
     "pages": 4
    },
    "extracted": {
-    "notice_type": "Notice of Substitute Trustee's Sale",
     "sale_date": "2026-09-01",
     "county": "Harris",
-    "trustee_or_substitute": "Robert J. Adam, Stephen W. Bing, Leigh Ann Thompson, Philip D. Conway, or Abstracts/TTBS, LLC",
-    "lender_or_mortgagee": "Norkim, Ltd.",
-    "servicer_if_stated": null,
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 22,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3866,
    "tokens": {
@@ -898,22 +786,18 @@
     "pages": 1
    },
    "extracted": {
-    "notice_type": "Notice of Foreclosure Sale",
     "sale_date": "2026-09-01",
     "county": "Harris County",
-    "trustee_or_substitute": "PATRICIA POSTON, CHRIS POSTON, AMAR SOOD, SANDY DASIGENIS, JEFF LEVA, STEVE LEVA, STACEY GARZA DE LEON, RAUSHAN GRIFFIN, SARA A. MORTON, HALEY SHEPPARD, AND/OR BRANCH M. SHEPPARD",
-    "lender_or_mortgagee": "REAL AMERICAN REAL ESTATE, LLC",
-    "servicer_if_stated": "REAL AMERICAN REAL ESTATE, LLC",
     "confidence_sale_date": 0.95
    },
    "checks": {
     "sale_date_matches_index": true,
     "sale_is_first_tuesday": true,
     "county_matches": true,
-    "no_privacy_fields": true,
     "filing_gap_days": 22,
     "gap_meets_21_day_minimum": true,
-    "all_pass": true
+    "all_pass": true,
+    "no_prohibited_keys": true
    },
    "latency_ms": 3227,
    "tokens": {
@@ -921,5 +805,6 @@
     "out": 327
    }
   }
- ]
+ ],
+ "note": "Persisted fields are limited to what the benchmark measures: dates, county, confidence, timing, and check results. Party names and free text from model output are not persisted. Source PDFs were transmitted to Anthropic for extraction under the provider's standard API data practices and are not stored in this repository."
 }

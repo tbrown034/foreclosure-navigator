@@ -51,7 +51,7 @@ test.describe("reader flow", () => {
     const errors = trackRuntimeErrors(page);
 
     await page.goto("/");
-    await page.getByLabel("File number from your notice").fill("FRCL-2026-99999");
+    await page.getByLabel("File number from your notice").fill("FRCL-2026-9999");
     await page.getByRole("button", { name: "Find my case" }).click();
 
     await expect(page.locator("#lookupResult")).toContainText("not in this index of 686 filings");

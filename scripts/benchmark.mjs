@@ -97,7 +97,7 @@ function verify(extracted, official) {
     sale_date_matches_index: saleMatch,
     sale_is_first_tuesday: tuesday,
     county_matches: countyMatch,
-    no_privacy_fields: noPrivacy,
+    no_prohibited_keys: noPrivacy,
     filing_gap_days: Number.isNaN(gapDays) ? null : gapDays,
     gap_meets_21_day_minimum: !Number.isNaN(gapDays) && gapDays >= 21,
     all_pass: saleMatch && tuesday && countyMatch && noPrivacy && gapDays >= 21,
@@ -128,13 +128,11 @@ for (const file of files) {
     results.push({
       docId,
       official: { saleDate: official.saleDate, fileDate: official.fileDate, pages: official.pages },
+      // Persist ONLY what the benchmark measures — no free-text model
+      // output (party names could theoretically carry personal data).
       extracted: {
-        notice_type: data.notice_type ?? null,
         sale_date: data.sale_date ?? null,
         county: data.county ?? null,
-        trustee_or_substitute: data.trustee_or_substitute ?? null,
-        lender_or_mortgagee: data.lender_or_mortgagee ?? null,
-        servicer_if_stated: data.servicer_if_stated ?? null,
         confidence_sale_date: data.confidence?.sale_date ?? null,
       },
       checks,
@@ -159,7 +157,7 @@ const summary = {
   errors: results.length - ok.length,
   sale_date_exact_match: ok.filter((r) => r.checks.sale_date_matches_index).length,
   county_match: ok.filter((r) => r.checks.county_matches).length,
-  no_privacy_fields: ok.filter((r) => r.checks.no_privacy_fields).length,
+  no_prohibited_keys: ok.filter((r) => r.checks.no_prohibited_keys).length,
   all_checks_pass: ok.filter((r) => r.checks.all_pass).length,
   flagged_for_human_review: ok.filter((r) => !r.checks.all_pass).map((r) => r.docId),
   mean_latency_ms: Math.round(ok.reduce((s, r) => s + r.latency_ms, 0) / (ok.length || 1)),
