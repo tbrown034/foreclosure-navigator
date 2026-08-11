@@ -9,8 +9,11 @@
  * page says so where it appears.
  */
 
+import { normalizeDocId } from "../../lib/lookup";
 import { byId } from "../format";
 import { focusUrgency } from "./focus-urgency";
+
+export { normalizeDocId };
 
 interface Filing {
   docId: string;
@@ -37,17 +40,6 @@ async function loadIndex(): Promise<FrclIndex | null> {
   } catch {
     return null;
   }
-}
-
-/** Accepts exactly "FRCL-2026-1234", "2026-1234" or "1234" (any casing,
- * surrounding whitespace ok). Anything else — wrong years, extra digits,
- * embedded text — is rejected rather than guessed, so a typo can never
- * surface the wrong case's deadlines. */
-export function normalizeDocId(raw: string): string | null {
-  const cleaned = raw.trim().toUpperCase().replace(/\s+/g, "");
-  const m = cleaned.match(/^(?:FRCL-?)?(?:2026-?)?(\d{1,4})$/);
-  if (!m) return null;
-  return `FRCL-2026-${Number(m[1])}`;
 }
 
 /** Instruments we hold recorded temperature-0 model runs for — looking

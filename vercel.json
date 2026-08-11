@@ -3,6 +3,9 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "functions": {
+    "api/extract.ts": { "maxDuration": 60 }
+  },
   "redirects": [
     { "source": "/more", "destination": "/methodology", "permanent": true }
   ],

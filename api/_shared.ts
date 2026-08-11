@@ -57,16 +57,28 @@ export function clientIp(req: VercelRequest): string {
 }
 
 /** Call the Anthropic Messages API and return the concatenated text output
- * (with any markdown fence stripped), or null on failure or timeout. */
+ * (with any markdown fence stripped), or null on failure or timeout. When
+ * `pdfBase64` is set the document is attached as a document block ahead of
+ * the prompt text. */
 export async function callAnthropic(opts: {
   apiKey: string;
   model: string;
   maxTokens: number;
   prompt: string;
+  pdfBase64?: string;
   timeoutMs?: number;
   /** 0 for extraction (reproducibility matters more than variety). */
   temperature?: number;
 }): Promise<string | null> {
+  const content: unknown = opts.pdfBase64
+    ? [
+        {
+          type: "document",
+          source: { type: "base64", media_type: "application/pdf", data: opts.pdfBase64 },
+        },
+        { type: "text", text: opts.prompt },
+      ]
+    : opts.prompt;
   try {
     const resp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -79,7 +91,7 @@ export async function callAnthropic(opts: {
         model: opts.model,
         max_tokens: opts.maxTokens,
         ...(opts.temperature !== undefined ? { temperature: opts.temperature } : {}),
-        messages: [{ role: "user", content: opts.prompt }],
+        messages: [{ role: "user", content }],
       }),
       signal: AbortSignal.timeout(opts.timeoutMs ?? 25_000),
     });

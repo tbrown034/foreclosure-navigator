@@ -15,6 +15,7 @@ import { initCaseLookup } from "./sections/case-lookup";
 import { initStageSummary } from "./sections/stage-summary";
 import { initTourSteps } from "./sections/tour-steps";
 import { initUploadDemo } from "./sections/upload-demo";
+import { initUploadDoor } from "./sections/upload-door";
 
 initDeadlineChain();
 initActionKits();
@@ -22,6 +23,7 @@ initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
+initUploadDoor();
 initStageSummary();
 initTourSteps();
 initCaseLookup();

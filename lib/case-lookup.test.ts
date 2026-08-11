@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeDocId } from "../src/sections/case-lookup";
+import { normalizeDocId } from "./lookup";
 
 describe("normalizeDocId — anchored, never guesses", () => {
   it("accepts the three exact forms", () => {
