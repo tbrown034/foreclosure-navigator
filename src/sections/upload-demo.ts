@@ -1,30 +1,27 @@
 /**
  * Beat two of the guided tour: after a real-notice scenario computes the
- * chain, ONE offer appears with it — watch AI read the same document,
- * live. No parallel entry point, no decision: the deterministic chain
- * comes first, the model reads second, and the checks judge it in front
- * of the visitor.
+ * chain, ONE offer appears with it — watch AI read the same document.
  *
- * The samples are built client- and server-side from the same module
- * (lib/sample-notices.ts), so the text shown to the reader is exactly the
- * text sent to the model. The chain is never computed from model output
- * here — the scenario already filled it from the Clerk's public dates,
- * and check #1 verifies the model's sale date against that same record.
+ * The default path REPLAYS the recorded temperature-0 run (verbatim model
+ * output, no API call, no quota) and re-runs all 19 deterministic checks
+ * in the visitor's browser at view time, using the same
+ * lib/extraction-checks.ts code the server runs. The one choice the page
+ * offers is replay vs. live: a quiet "run it live" link makes the real
+ * API call. Labels never blur which one the visitor is looking at.
  */
 
 import type { Check, ExtractedNotice } from "../../lib/extraction-checks";
+import { validateExtraction, validateFidelity } from "../../lib/extraction-checks";
+import { getRecordedExtraction } from "../../lib/recorded-extractions";
 import { SAMPLE_NOTICES, getSampleNotice } from "../../lib/sample-notices";
 import { byId } from "../format";
 
-interface ExtractResponse {
-  sample: string;
+interface ExtractResult {
   basedOn: string;
   extracted: ExtractedNotice;
-  clerk: { fileDate: string; saleDate: string };
   checks: Check[];
   allPass: boolean;
-  model: string;
-  ms: number;
+  meta: string;
 }
 
 const FIELD_LABELS: Array<[keyof ExtractedNotice, string]> = [
@@ -82,13 +79,13 @@ export function initUploadDemo(): void {
       el(
         "p",
         "ai-offer-lede",
-        `That chain was computed in code from the Clerk's public record of ${sample.basedOn}. In production, AI would read the notice itself — watch it happen, live, with every check run in code:`,
+        `That chain was computed in code from the Clerk's public record of ${sample.basedOn}. In production, AI would read the notice itself — see what that looks like:`,
       ),
     );
     const btn = el("button", "abtn ai");
     btn.type = "button";
     btn.textContent = "Next: watch AI read this notice →";
-    btn.addEventListener("click", () => void runExtraction(sampleId, btn));
+    btn.addEventListener("click", () => playRecorded(sampleId));
     const row = el("div", "btnrow");
     row.append(btn);
     box.append(row);
@@ -96,20 +93,37 @@ export function initUploadDemo(): void {
       el(
         "p",
         "ai-offer-fine",
-        "Optional. Sends the sanitized sample's text (nothing of yours) to Claude Haiku — full disclosure under “About these samples” above.",
+        "Replays the recorded model run — instant, nothing is sent anywhere. The result offers a live API call if you want proof.",
       ),
     );
     offer.append(box);
     offer.hidden = false;
   }
 
-  async function runExtraction(sampleId: string, btn: HTMLButtonElement): Promise<void> {
+  function playRecorded(sampleId: string): void {
+    const sample = getSampleNotice(sampleId);
+    const recorded = getRecordedExtraction(sampleId);
+    if (!sample || !recorded) return;
+    const data = recorded.extracted as unknown as Record<string, unknown>;
+    const checks = [...validateExtraction(data, sample.clerk), ...validateFidelity(data, sample.expected)];
+    renderResult(
+      {
+        basedOn: sample.basedOn,
+        extracted: recorded.extracted,
+        checks,
+        allPass: checks.every((c) => c.pass),
+        meta: `Recorded run of ${recorded.model} at temperature 0 (${(recorded.ms / 1000).toFixed(1)}s, captured ${recorded.capturedOn}) — replayed verbatim with no API call. The 19 checks below just re-ran in your browser against this output.`,
+      },
+      sampleId,
+      "recorded",
+    );
+  }
+
+  async function runLive(sampleId: string, trigger: HTMLElement): Promise<void> {
     if (busy) return;
     busy = true;
-    btn.disabled = true;
-    const was = btn.textContent;
-    btn.textContent = "Reading the document…";
-    showResult(statusLine("Sending the sample's text to the model — the fixed schema and the checks run next."));
+    const status = statusLine("Calling the live API — the model is reading the document now…");
+    trigger.replaceWith(status);
     try {
       const resp = await fetch("/api/extract", {
         method: "POST",
@@ -117,43 +131,48 @@ export function initUploadDemo(): void {
         body: JSON.stringify({ sample: sampleId }),
       });
       if (resp.status === 429) {
-        showResult(
-          statusLine(
-            "Demo quota reached — the chain above is deterministic and unaffected. The recorded results of the Aug 10 pilot on the real instruments are on the evidence page (/more).",
-          ),
-        );
+        status.textContent =
+          "Live-demo quota reached for now — the recorded run above is the same temperature-0 output, and the chain never depended on either.";
         return;
       }
       if (!resp.ok) {
         const body = (await resp.json().catch(() => null)) as { error?: string } | null;
-        showResult(
-          statusLine(
-            (body?.error ?? "The extraction endpoint is unavailable right now") +
-              " — the chain above is deterministic and unaffected.",
-          ),
-        );
+        status.textContent =
+          (body?.error ?? "The live endpoint is unavailable right now") +
+          " — the recorded run above stands, and the chain never depended on either.";
         return;
       }
-      renderResult((await resp.json()) as ExtractResponse);
+      const live = (await resp.json()) as {
+        basedOn: string;
+        extracted: ExtractedNotice;
+        checks: Check[];
+        allPass: boolean;
+        model: string;
+        ms: number;
+      };
+      renderResult(
+        {
+          basedOn: live.basedOn,
+          extracted: live.extracted,
+          checks: live.checks,
+          allPass: live.allPass,
+          meta: `Extracted LIVE by ${live.model} just now, in ${(live.ms / 1000).toFixed(1)}s — checks run server-side in code, after the model.`,
+        },
+        sampleId,
+        "live",
+      );
     } catch {
-      showResult(statusLine("The extraction endpoint is unavailable right now — the chain above is deterministic and unaffected."));
+      status.textContent =
+        "The live endpoint is unavailable right now — the recorded run above stands, and the chain never depended on either.";
     } finally {
       busy = false;
-      btn.disabled = false;
-      btn.textContent = was;
     }
   }
 
-  function renderResult(data: ExtractResponse): void {
+  function renderResult(data: ExtractResult, sampleId: string, mode: "recorded" | "live"): void {
     const nodes: HTMLElement[] = [];
 
-    nodes.push(
-      el(
-        "p",
-        "extract-meta",
-        `Extracted by ${data.model} in ${(data.ms / 1000).toFixed(1)}s — sanitized sample based on ${data.basedOn}. Unknowns stay UNKNOWN; the model never guesses.`,
-      ),
-    );
+    nodes.push(el("p", "extract-meta", data.meta));
 
     const wrap = el("div", "extract-table-wrap");
     const table = el("table", "ledger");
@@ -180,7 +199,7 @@ export function initUploadDemo(): void {
     wrap.appendChild(table);
     nodes.push(wrap);
 
-    nodes.push(el("h4", undefined, "Checks run in code, after the model"));
+    nodes.push(el("h4", undefined, mode === "recorded" ? "Checks re-run in your browser, just now" : "Checks run in code, after the model"));
     const ul = el("ul", "extract-checks");
     data.checks.forEach((c) => {
       const li = el("li");
@@ -193,7 +212,7 @@ export function initUploadDemo(): void {
     if (data.allPass) {
       nodes.push(
         statusLine(
-          "Same record, two readers: the chain above was computed in code from the Clerk's public dates. The model just read the document text — and check #1 confirms its sale date matches the record the chain used.",
+          "Same record, two readers: the chain above was computed in code from the Clerk's public dates. The model read the document text — and check #1 confirms its sale date matches the record the chain used.",
         ),
       );
     } else {
@@ -205,7 +224,18 @@ export function initUploadDemo(): void {
       );
     }
 
-    // Beat three: keep the thread moving into the document desk.
+    // The one allowed choice: replay (default, already shown) vs live proof.
+    if (mode === "recorded") {
+      const liveP = el("p", "ai-offer-fine");
+      const liveLink = el("button", "linklike");
+      liveLink.type = "button";
+      liveLink.textContent = "Don't take the recording's word for it — run this live against the API right now →";
+      liveLink.addEventListener("click", () => void runLive(sampleId, liveP));
+      liveP.append(liveLink);
+      nodes.push(liveP);
+    }
+
+    // Keep the thread moving into the document desk.
     const nextRow = el("div", "btnrow");
     const next = el("button", "abtn");
     next.type = "button";
