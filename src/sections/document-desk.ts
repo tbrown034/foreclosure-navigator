@@ -52,6 +52,9 @@ export function initDocumentDesk(): void {
     b.textContent = s.label;
     b.setAttribute("aria-pressed", "false");
     b.addEventListener("click", () => {
+      // A direct pick supersedes any "matched to" note a panel button left.
+      const note = document.getElementById("deskNote");
+      if (note) note.hidden = true;
       select(s.id);
       document.dispatchEvent(new CustomEvent("fn:paperwork"));
     });

@@ -92,14 +92,14 @@ test.describe("reader flow", () => {
     await expect(page.locator(".step-item.is-current")).toContainText("2");
 
     // A panel call button loads the legal-aid script in draft-and-call.
-    await stage.getByRole("button", { name: "Call — get the script" }).first().click();
+    await stage.getByRole("button", { name: "Get the call script for Free legal help" }).click();
     await expect(page.locator("#docOut")).toContainText("CALL SCRIPT — free legal aid intake");
     await expect(page.locator("#docOut")).toContainText("713-652-0077");
     await expect(page.locator("#deskNote")).toBeVisible();
     await expect(page.locator(".step-item.is-current")).toContainText("4");
 
     // "Tell me more" opens the matching kit with the verified numbers.
-    await stage.getByRole("button", { name: "Tell me more" }).first().click();
+    await stage.getByRole("button", { name: "Tell me more about Free legal help" }).click();
     const legalKit = page.locator('details.action[data-kit="legal-help"]');
     await expect(legalKit).toHaveJSProperty("open", true);
     await expect(legalKit.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();

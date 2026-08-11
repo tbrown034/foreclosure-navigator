@@ -29,6 +29,8 @@ export function initTourSteps(): void {
       const n = Number(li.dataset.step);
       li.classList.toggle("is-done", n < current);
       li.classList.toggle("is-current", n === current);
+      if (n === current) li.setAttribute("aria-current", "step");
+      else li.removeAttribute("aria-current");
     });
   };
 
@@ -50,8 +52,7 @@ export function initTourSteps(): void {
   );
 
   items.forEach((li) => {
-    li.style.cursor = "pointer";
-    li.addEventListener("click", () => {
+    li.querySelector("button")?.addEventListener("click", () => {
       sectionFor(Number(li.dataset.step))?.scrollIntoView({ block: "start" });
       update();
     });

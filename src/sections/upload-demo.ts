@@ -15,7 +15,6 @@ import { validateExtraction, validateFidelity } from "../../lib/extraction-check
 import { getRecordedExtraction } from "../../lib/recorded-extractions";
 import { SAMPLE_NOTICES, getSampleNotice } from "../../lib/sample-notices";
 import { byId } from "../format";
-import { SAMPLE_WORDS } from "./sample-scenarios";
 
 interface ExtractResult {
   basedOn: string;
@@ -56,7 +55,11 @@ export function initUploadDemo(): void {
   const offer = byId<HTMLDivElement>("aiOffer");
   const result = byId<HTMLDivElement>("extractResult");
   let currentSample: string | null = null;
+  let currentViaUpload = false;
   let busy = false;
+  // A live call answering after the reader switched cases must not render
+  // under the new chain — every fn:scenario invalidates pending responses.
+  let scenarioSeq = 0;
 
   const showResult = (...nodes: HTMLElement[]): void => {
     result.replaceChildren(...nodes);
@@ -121,6 +124,7 @@ export function initUploadDemo(): void {
   async function runLive(sampleId: string, trigger: HTMLElement): Promise<void> {
     if (busy) return;
     busy = true;
+    const seq = scenarioSeq;
     const status = statusLine("Calling the live API — the model is reading the document now…");
     trigger.replaceWith(status);
     try {
@@ -129,6 +133,7 @@ export function initUploadDemo(): void {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ sample: sampleId }),
       });
+      if (seq !== scenarioSeq) return; // the reader moved on — drop it
       if (resp.status === 429) {
         status.textContent =
           "Live-demo quota reached for now — the recorded run above used the same sample and temperature-zero settings, and the chain never depended on either.";
@@ -256,18 +261,9 @@ export function initUploadDemo(): void {
     const nextRow = el("div", "btnrow");
     const next = el("button", "abtn");
     next.type = "button";
-    next.textContent = "Next: draft the loss-mitigation email ↓";
+    next.textContent = "Next: see what you can do now ↓";
     next.addEventListener("click", () => {
-      const changeEl = byId<HTMLInputElement>("gChange");
-      changeEl.value = SAMPLE_WORDS;
-      changeEl.dispatchEvent(new Event("input"));
-      document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service: "lossmit" } }));
-      document.dispatchEvent(new CustomEvent("fn:paperwork"));
-      const note = byId<HTMLParagraphElement>("deskNote");
-      note.textContent =
-        "Demo sample facts loaded — a test hardship sentence in the reader's words. Edit any of them.";
-      note.hidden = false;
-      byId<HTMLElement>("docH").scrollIntoView({ block: "start" });
+      document.querySelector('section[data-tour="3"]')?.scrollIntoView({ block: "start" });
     });
     nextRow.append(next);
     nodes.push(nextRow);
@@ -280,10 +276,13 @@ export function initUploadDemo(): void {
   document.addEventListener("fn:scenario", (e) => {
     const detail = (e as CustomEvent<{ sampleId: string | null; viaUpload?: boolean }>).detail;
     const sampleId = detail.sampleId;
-    if (sampleId === currentSample && sampleId !== null) return;
+    const viaUpload = detail.viaUpload === true;
+    scenarioSeq++;
+    if (sampleId === currentSample && sampleId !== null && viaUpload === currentViaUpload) return;
     currentSample = sampleId;
+    currentViaUpload = viaUpload;
     clearAll();
-    if (sampleId) renderOffer(sampleId, detail.viaUpload === true);
+    if (sampleId) renderOffer(sampleId, viaUpload);
   });
 
   // "The exact text that gets sent" — the same module the server reads.

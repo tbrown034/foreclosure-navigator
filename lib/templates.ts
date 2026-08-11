@@ -98,12 +98,12 @@ export function buildDocument(type: DocumentType, f: DocumentFacts): string {
 /** Call script for free legal aid intake — the verified contacts only. */
 export function legalAidScript(f: DocumentFacts): string {
   return `CALL SCRIPT — free legal aid intake
-Lone Star Legal Aid: 713-652-0077 (toll-free 800-733-8394) · Houston Volunteer Lawyers: 713-228-0735
-Online: lonestarlegal.org · legalhelphouston.org
+Lone Star Legal Aid: 713-652-0077 (toll-free 800-733-8394) · online application: lonestarlegal.org
+Houston Volunteer Lawyers — LegalLine questions: 713-228-0735 · intake questionnaire: legalhelphouston.org
 
 1. "I'm a homeowner in Harris County and I received a foreclosure notice."
 2. Say which notice you got (default or trustee sale) and the date printed on it.
-3. The sale-clock reference: ${f.saleLine} — sharing it early helps intake understand urgency.
+3. If your notice states a sale date, share it early — it helps intake understand urgency. Computed reference: ${f.saleLine}.
 4. Have household size and rough monthly income ready — eligibility is income-based and determined by the provider.
 5. Ask: "What documents should I gather before our first meeting?"
 

@@ -935,3 +935,12 @@ a { color: var(--accent); }
   color: var(--surface);
   border-color: var(--ink);
 }
+
+/* Rail steps are real buttons (keyboard + AT reachable), styled as text. */
+.step-link {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+.step-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

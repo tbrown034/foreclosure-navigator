@@ -39,6 +39,7 @@ function draftButton(r: RecourseStatus): HTMLButtonElement | null {
   b.type = "button";
   b.className = "abtn";
   b.textContent = service === "legal" || service === "servicer" ? "Call — get the script" : "Email — draft it";
+  b.setAttribute("aria-label", `${service === "legal" || service === "servicer" ? "Get the call script" : "Draft the email"} for ${r.title}`);
   b.addEventListener("click", () => {
     document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service } }));
     const note = byId<HTMLParagraphElement>("deskNote");
@@ -56,6 +57,7 @@ function kitButton(r: RecourseStatus): HTMLButtonElement {
   b.type = "button";
   b.className = "abtn ghost";
   b.textContent = "Tell me more";
+  b.setAttribute("aria-label", `Tell me more about ${r.title}`);
   b.addEventListener("click", () => {
     const kit = document.querySelector<HTMLDetailsElement>(`details.action[data-kit="${r.id}"]`);
     if (kit) {

@@ -39,10 +39,6 @@ const SCENARIOS: Record<string, Scenario> = {
   },
 };
 
-/** The reader's-words test sentence from the hardship-polish exhibit. */
-export const SAMPLE_WORDS =
-  "i got behind becuase my hours got cut at the plant in june, my wife had surgery in july so we had them bills to, im back to full time since august 3 and can pay the regular payment again but not the whole missed amount at once";
-
 function applyScenario(s: Scenario): void {
   const typeEl = byId<HTMLSelectElement>("noticeType");
   const dateEl = byId<HTMLInputElement>("noticeDate");

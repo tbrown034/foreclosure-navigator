@@ -63,7 +63,7 @@ const KITS: Kit[] = [
       const row = el("div", "btnrow");
       row.appendChild(el("a", "abtn", "Lone Star Legal Aid: 713-652-0077")).href = "tel:+17136520077";
       row.appendChild(el("a", "abtn", "LSLA toll-free: 800-733-8394")).href = "tel:+18007338394";
-      row.appendChild(el("a", "abtn", "Houston Volunteer Lawyers: 713-228-0735")).href = "tel:+17132280735";
+      row.appendChild(el("a", "abtn", "HVL LegalLine questions: 713-228-0735")).href = "tel:+17132280735";
       kit.appendChild(row);
       kit.appendChild(el("h4", null, "Information that may help when you call"));
       kit.appendChild(
@@ -73,7 +73,7 @@ const KITS: Kit[] = [
           `
         <li>"I'm a homeowner in Harris County and I received a foreclosure notice."</li>
         <li>Which notice you got (default or trustee sale) and the date printed on it.</li>
-        <li>The sale date: <strong>${saleDateText()}</strong> — sharing it early helps intake understand urgency.</li>
+        <li>If your notice states a sale date, share it early — it helps intake understand urgency. Computed reference: <strong>${saleDateText()}</strong>.</li>
         <li>Household size and rough monthly income — eligibility is income-based and determined by the provider.</li>
         <li>Ask: "What documents should I gather before our first meeting?"</li>`,
         ),
@@ -109,7 +109,7 @@ const KITS: Kit[] = [
           `
         <li>One common option: certified mail with return receipt, keeping a copy of everything sent. A delivery receipt documents arrival — not the package's contents, and not whether the servicer considers an application complete.</li>
         <li>The SERVICER judges completeness: send every item they list, keep copies of everything.</li>
-        <li>Use the document desk below to build the cover letter and enclosure index for the application itself.</li>`,
+        <li>The draft-and-call section below builds the request letter, with a hardship-narrative attachment draft in your own words.</li>`,
         ),
       );
     },
