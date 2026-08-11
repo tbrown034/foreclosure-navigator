@@ -121,7 +121,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       label: salePassed
         ? "Ask what applies"
         : regXOpen
-          ? `38-day marker: ${fmtShort(c.regX)}`
+          ? `Apply by ${fmtShort(c.regX)} (38-day marker)`
           : "Marker passed — still worth asking",
       note: salePassed
         ? "After a sale date passes, whether review options remain is a servicer-and-lawyer question — worth asking in writing."

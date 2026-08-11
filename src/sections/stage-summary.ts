@@ -100,7 +100,7 @@ export function initStageSummary(): void {
 
     const listLabel = document.createElement("p");
     listLabel.className = "stage-list-label";
-    listLabel.textContent = "Questions and draft tools matched to this timeline — ordered by what the clock says, nothing removed:";
+    listLabel.textContent = "What you can do now — ordered by your clock. Nothing is removed:";
     panel.appendChild(listLabel);
 
     const list = document.createElement("div");

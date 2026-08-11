@@ -881,9 +881,12 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
   border-left-width: 3px;
   padding: 10px 14px 12px;
 }
-.stage-row.deadline { border-left-color: var(--alarm); }
-.stage-row.window { border-left-color: var(--ok); }
-.stage-row.past { border-left-color: var(--ink-3); opacity: .82; }
+.stage-row.deadline { border-left-color: var(--ink); }
+.stage-row.window { border-left-color: var(--ink-3); }
+.stage-row.past { border-left-color: var(--line); opacity: .82; }
+/* Chips inside the list stay monochrome — color read as a good/bad
+ * verdict on the option, which is exactly what this panel must not do. */
+.stage-row .chip { background: var(--line); color: var(--ink-2); }
 .stage-row-head {
   display: flex;
   align-items: baseline;
