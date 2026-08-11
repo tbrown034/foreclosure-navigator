@@ -21,12 +21,3 @@ initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
-
-// The masthead link targets the seam map, which lives inside a collapsed
-// newsroom layer — open it when the link is used.
-document.querySelectorAll<HTMLAnchorElement>('a[href="#aiH"]').forEach((a) =>
-  a.addEventListener("click", () => {
-    const details = document.getElementById("aiDetails") as HTMLDetailsElement | null;
-    if (details) details.open = true;
-  }),
-);
