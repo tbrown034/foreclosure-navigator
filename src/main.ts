@@ -20,6 +20,15 @@ initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
 
+// "Read the notice" opens the example document.
+document.getElementById("viewExample")?.addEventListener("click", () => {
+  const doc = document.getElementById("exampleDoc") as HTMLDetailsElement | null;
+  if (doc) {
+    doc.open = !doc.open;
+    if (doc.open) doc.scrollIntoView({ block: "nearest" });
+  }
+});
+
 // "enter your own dates" opens the collapsed manual form.
 document.getElementById("openManual")?.addEventListener("click", () => {
   const manual = document.getElementById("manualEntry") as HTMLDetailsElement | null;

@@ -704,3 +704,41 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
   }
 }
 .minimal footer { font-family: var(--sans); }
+
+/* The example notice as a visible document artifact. */
+.notice-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 4px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.notice-file-icon {
+  width: 14px;
+  height: 17px;
+  border: 1.5px solid var(--ink-2);
+  border-radius: 1px;
+  position: relative;
+  flex: none;
+}
+.notice-file-icon::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  right: 2px;
+  height: 1.5px;
+  background: var(--ink-2);
+  box-shadow: 0 3px 0 var(--ink-2), 0 6px 0 var(--ink-2);
+}
+.notice-file-name { font-weight: 650; }
+/* Scroll is the feedback; no blue ring or flash on the answer. */
+.minimal #urgency:focus-visible { outline: none; }
+.minimal .urgency-flash { animation: none; }
+
+/* The example-notice details is driven by the 'Read the notice' link. */
+#exampleDoc > summary { display: none; }
+#exampleDoc .tpl { margin-top: 4px; }

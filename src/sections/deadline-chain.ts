@@ -39,7 +39,7 @@ function defaultRows(noticeIso: string, today: Date): { rows: ChainRow[]; sale: 
     },
     {
       date: c.cureEnd,
-      what: "Last day to cure: pay the stated missed amount (not the whole loan) and the process must stop.",
+      what: "Last day to cure: under the statute, paying the stated missed amount (not the whole loan) requires the process to stop — the exact figure must come from the servicer in writing.",
       cite: "Day 20 of the statutory window",
       cls: c.cureEnd < today ? "deadline" : "window",
       label: c.cureEnd < today ? "Passed" : "Open",

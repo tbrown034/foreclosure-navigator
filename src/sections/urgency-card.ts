@@ -26,7 +26,7 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
     '">' +
     (verified ? "From your notice" : "Projected minimum") +
     "</span></div>" +
-    '<p style="margin:4px 0 0;font-size:12.5px;color:var(--ink-2)">Safest next step today: call free legal aid (the calls section at the bottom of this page) and request your servicer’s requirements in writing.</p>' +
+    '<p style="margin:4px 0 0;font-size:12.5px;color:var(--ink-2)">A free first step many take: calling legal aid (the numbers are at the bottom of this page) and requesting the servicer’s requirements in writing.</p>' +
     "</div>";
 }
 
