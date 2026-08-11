@@ -133,16 +133,6 @@ export function initCaseLookup(): void {
     input.value = docId;
     void find(viaUpload);
   };
-  // The demo case: a real filing that also carries a recorded model run,
-  // so the guided AI beat follows the chain.
-  document.getElementById("demoCase")?.addEventListener("click", () => {
-    input.value = "FRCL-2026-2290";
-    void find().then(() => {
-      // Make sure a scared reader can't mistake the demo for their case.
-      const first = out.querySelector("p");
-      first?.insertAdjacentText("afterbegin", "Demo case (a real recorded filing, not yours): ");
-    });
-  });
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") void find();
   });

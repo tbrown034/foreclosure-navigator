@@ -205,6 +205,11 @@ export function initUploadDoor(): void {
 
   const wireSample = (btnId: string, path: string, label: string): void => {
     document.getElementById(btnId)?.addEventListener("click", async () => {
+      // The status line lives in the upload panel — make sure it's visible.
+      if (panel.hidden) {
+        panel.hidden = false;
+        doorBtn.setAttribute("aria-expanded", "true");
+      }
       try {
         const resp = await fetch(path);
         if (!resp.ok) throw new Error(String(resp.status));
@@ -216,4 +221,7 @@ export function initUploadDoor(): void {
   };
   wireSample("trySampleA", "/samples/sample-notice-a.pdf", "fictional sample A");
   wireSample("trySampleB", "/samples/sample-notice-b.pdf", "fictional sample B");
+  // The demo strip runs the same fictional cases through the same door.
+  wireSample("demoA", "/samples/sample-notice-a.pdf", "fictional case A");
+  wireSample("demoB", "/samples/sample-notice-b.pdf", "fictional case B");
 }

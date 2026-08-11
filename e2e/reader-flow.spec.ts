@@ -79,7 +79,14 @@ test.describe("reader flow", () => {
     const errors = trackRuntimeErrors(page);
 
     await page.goto("/");
-    await page.getByRole("button", { name: /See a demo case/ }).click();
+    // The demo strip offers the two fictional cases (live-AI; not run here).
+    await expect(page.locator(".demo-strip")).toContainText("Demo");
+    await expect(page.getByRole("button", { name: /Fictional case A/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Fictional case B/ })).toBeVisible();
+
+    // Drive the chain through the API-free typed lookup instead.
+    await page.getByLabel("File number from your notice").fill("FRCL-2026-2290");
+    await page.getByRole("button", { name: "Find my case" }).click();
 
     await expect(page.locator("#chain > li")).toHaveCount(4);
 
