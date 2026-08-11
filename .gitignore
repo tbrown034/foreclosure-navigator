@@ -6,3 +6,5 @@ docs/
 .vercel/
 .vercel
 data-local/
+playwright-report/
+test-results/
