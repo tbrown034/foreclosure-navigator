@@ -28,8 +28,8 @@ export interface RecourseStatus {
   label: string;
   /** One reader-facing sentence: what this is worth right now, honestly. */
   note: string;
-  /** Which document-desk draft this recourse maps to, if any. */
-  draft: "script" | "hardship" | null;
+  /** Which draft-and-call service this recourse maps to, if any. */
+  draft: "legal" | "servicer" | "lossmit" | "reinstate" | null;
 }
 
 export interface StageAssessment {
@@ -112,7 +112,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       note: salePassed
         ? "Free legal aid may be able to find out what actually happened and what applies now. Verified numbers in the kit below."
         : "The earlier legal aid is in, the more they can do — sharing the sale date early helps intake understand urgency. Verified numbers below.",
-      draft: null,
+      draft: "legal",
     },
     {
       id: "loss-mitigation",
@@ -128,7 +128,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
         : regXOpen
           ? "A complete application received more than 37 days before the sale may restrict the servicer from moving forward while it is reviewed — exceptions apply. The request letter below starts it."
           : "The 38-day marker has passed — that does not by itself mean materials cannot still be submitted or considered; protections differ, and the servicer and a lawyer can say what applies now.",
-      draft: "hardship",
+      draft: "lossmit",
     },
     {
       id: "check-filing",
@@ -146,7 +146,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
       note: salePassed
         ? "Whether reinstatement or payoff remains possible after the printed date is a servicer question — this tool cannot determine it. Request current figures in writing."
         : "The exact amounts and the contractual cutoff come from the servicer, not the statute — request both quotes in writing early; delivery takes time.",
-      draft: "script",
+      draft: "reinstate",
     },
     {
       id: "sell",
@@ -208,7 +208,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       tier: "act-now",
       label: "Call early",
       note: "This is the stage where legal aid has the most room to work. Verified numbers in the kit below.",
-      draft: null,
+      draft: "legal",
     },
     {
       id: "loss-mitigation",
@@ -216,7 +216,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       tier: "act-now",
       label: "Strongest window",
       note: "An application completed before any sale is scheduled may carry the strongest federal review protections — completeness is judged by the servicer, and exceptions apply. The request letter below starts it.",
-      draft: "hardship",
+      draft: "lossmit",
     },
     {
       id: "reinstate",
@@ -226,7 +226,7 @@ function defaultStage(noticeIso: string, today: Date): StageAssessment {
       note: cureOpen
         ? "Curing the stated default within the window may stop this process on that default — get the exact amount and deadline from the servicer in writing."
         : "The statutory minimum has ended, but the operative cutoff lives in your loan documents — confirm it with the servicer or a lawyer rather than assuming either way.",
-      draft: "script",
+      draft: "servicer",
     },
     {
       id: "check-filing",

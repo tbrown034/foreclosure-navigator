@@ -926,3 +926,12 @@ a { color: var(--accent); }
 
 /* A chain date behind today is visibly behind: struck and dimmed. */
 .rail .date.date-passed { text-decoration: line-through; color: var(--ink-3); }
+
+/* Draft-and-call service buttons: the chooser IS the interface. Selected
+ * state is an ink fill, monochrome like the rest of the page. */
+.service-btn { font-weight: 650; }
+.service-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}

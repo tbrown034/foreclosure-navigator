@@ -95,6 +95,44 @@ export function buildDocument(type: DocumentType, f: DocumentFacts): string {
   return hardshipNarrative(f);
 }
 
+/** Call script for free legal aid intake — the verified contacts only. */
+export function legalAidScript(f: DocumentFacts): string {
+  return `CALL SCRIPT — free legal aid intake
+Lone Star Legal Aid: 713-652-0077 (toll-free 800-733-8394) · Houston Volunteer Lawyers: 713-228-0735
+Online: lonestarlegal.org · legalhelphouston.org
+
+1. "I'm a homeowner in Harris County and I received a foreclosure notice."
+2. Say which notice you got (default or trustee sale) and the date printed on it.
+3. The sale-clock reference: ${f.saleLine} — sharing it early helps intake understand urgency.
+4. Have household size and rough monthly income ready — eligibility is income-based and determined by the provider.
+5. Ask: "What documents should I gather before our first meeting?"
+
+One fact to state, in your words: "${readerFact(f)}"
+General legal information, not legal advice, and not a substitute for advice from a Texas-licensed attorney about your situation.`;
+}
+
+/** The draft-and-call services: who the reader needs to reach, and the
+ * code-built draft for each. No model call anywhere in this module. */
+export type ServiceId = "legal" | "servicer" | "lossmit" | "reinstate";
+
+export const SERVICES: Array<{ id: ServiceId; kind: "call" | "email"; label: string }> = [
+  { id: "legal", kind: "call", label: "Call free legal aid" },
+  { id: "servicer", kind: "call", label: "Call your servicer" },
+  { id: "lossmit", kind: "email", label: "Email: loss-mitigation request" },
+  { id: "reinstate", kind: "email", label: "Email: reinstatement and payoff quotes" },
+];
+
+export function buildServiceDraft(id: ServiceId, f: DocumentFacts): string {
+  if (id === "legal") return legalAidScript(f);
+  if (id === "servicer") return callScript(f);
+  if (id === "reinstate") return REINSTATEMENT_DEMAND_LETTER;
+  return (
+    LOSS_MITIGATION_LETTER +
+    "\n\n--- ATTACHMENT DRAFT: hardship narrative ---\n\n" +
+    hardshipNarrative(f)
+  );
+}
+
 /** The loss-mitigation request letter from the action kits (fill-the-brackets,
  * send certified mail). */
 export const LOSS_MITIGATION_LETTER = `[YOUR NAME]

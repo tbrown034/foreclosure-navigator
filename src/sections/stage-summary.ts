@@ -34,15 +34,13 @@ function jumpTo(el: Element): void {
 
 function draftButton(r: RecourseStatus): HTMLButtonElement | null {
   if (!r.draft) return null;
+  const service = r.draft;
   const b = document.createElement("button");
   b.type = "button";
-  b.className = "abtn ghost";
-  b.textContent = r.draft === "script" ? "Draft the call" : "Draft the request attachment";
-  const draft = r.draft;
+  b.className = "abtn";
+  b.textContent = service === "legal" || service === "servicer" ? "Call — get the script" : "Email — draft it";
   b.addEventListener("click", () => {
-    const typeEl = byId<HTMLSelectElement>("docType");
-    typeEl.value = draft;
-    typeEl.dispatchEvent(new Event("input"));
+    document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service } }));
     const note = byId<HTMLParagraphElement>("deskNote");
     note.textContent = `Draft matched to “${r.title}” — assembled in code from your facts. Edit the facts below; nothing is sent anywhere.`;
     note.hidden = false;
@@ -57,7 +55,7 @@ function kitButton(r: RecourseStatus): HTMLButtonElement {
   const b = document.createElement("button");
   b.type = "button";
   b.className = "abtn ghost";
-  b.textContent = "Open the kit";
+  b.textContent = "Tell me more";
   b.addEventListener("click", () => {
     const kit = document.querySelector<HTMLDetailsElement>(`details.action[data-kit="${r.id}"]`);
     if (kit) {
@@ -71,17 +69,19 @@ function kitButton(r: RecourseStatus): HTMLButtonElement {
 export function initStageSummary(): void {
   const panel = byId<HTMLDivElement>("stagePanel");
 
+  const emptyHint = (): HTMLParagraphElement => {
+    const p = document.createElement("p");
+    p.className = "quiet-alts";
+    p.textContent =
+      "Load a notice above and this list personalizes to your dates — which windows are open, what deserves attention first. The kits below work either way.";
+    return p;
+  };
+
   function render(): void {
     const info = getStageInfo();
-    if (!info) {
-      panel.hidden = true;
-      panel.replaceChildren();
-      return;
-    }
-    const s = stageAssessment(info.kind, info.noticeIso, info.printedSaleIso, todayIso());
+    const s = info ? stageAssessment(info.kind, info.noticeIso, info.printedSaleIso, todayIso()) : null;
     if (!s) {
-      panel.hidden = true;
-      panel.replaceChildren();
+      panel.replaceChildren(emptyHint());
       return;
     }
 
@@ -100,7 +100,7 @@ export function initStageSummary(): void {
 
     const listLabel = document.createElement("p");
     listLabel.className = "stage-list-label";
-    listLabel.textContent = "What you can do now — ordered by your clock. Nothing is removed:";
+    listLabel.textContent = "Ordered by your clock — nothing is removed:";
     panel.appendChild(listLabel);
 
     const list = document.createElement("div");
@@ -134,7 +134,6 @@ export function initStageSummary(): void {
       "Computed in code from the dates above — no AI. General legal information, not legal advice; windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
     panel.appendChild(foot);
 
-    panel.hidden = false;
     document.dispatchEvent(new CustomEvent("fn:stage"));
   }
 

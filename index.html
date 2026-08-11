@@ -29,12 +29,13 @@
       <li class="step-item" data-step="2"><span>2 &middot; See the deadline chain</span><i></i></li>
       <li class="step-item" data-step="3"><span>3 &middot; What you can do now</span><i></i></li>
       <li class="step-item" data-step="4"><span>4 &middot; Draft and call</span><i></i></li>
+      <li class="step-item" data-step="5"><span>5 &middot; How this works</span><i></i></li>
     </ol>
     </aside>
     <div class="tour-main">
 
-  <section aria-labelledby="calcH">
-    <h2 id="calcH" class="visually-hidden">Your deadline chain</h2>
+  <section aria-labelledby="startH" data-tour="1">
+    <h2 id="startH">Start with a notice</h2>
     <div class="scenario-strip">
       <p class="scenario-label">Have a foreclosure notice? Find your case, or let the tool read it</p>
       <div class="btnrow entry-actions" style="align-items:stretch">
@@ -78,82 +79,56 @@
         </div>
       </details>
     </div>
-    <div id="urgency" role="status" style="margin:26px 0 18px"></div>
+  </section>
+
+  <section aria-labelledby="chainH" data-tour="2">
+    <h2 id="chainH">See the deadline chain</h2>
+    <div id="urgency" role="status" style="margin:18px 0 18px"></div>
     <ol class="rail" id="chain"></ol>
-    <div id="stagePanel" hidden class="stage-panel" aria-live="polite"></div>
     <div id="aiOffer" hidden></div>
     <div id="extractResult" hidden></div>
   </section>
 
-  <section aria-labelledby="docH">
+  <section aria-labelledby="whatH" data-tour="3">
+    <h2 id="whatH">What you can do now</h2>
+    <div id="stagePanel" class="stage-panel" aria-live="polite"></div>
+    <div id="actionCards" style="display:flex;flex-direction:column;gap:12px;margin-top:16px"></div>
+  </section>
+
+  <section aria-labelledby="docH" data-tour="4">
     <h2 id="docH">Draft and call</h2>
-    <p class="ai-badge" style="margin:2px 0 10px">Code-built drafts &middot; optional live AI polish</p>
-    <p class="sub">The clock, turned into paperwork — drafted from your facts only. Drafts only, not legal advice; nothing is sent automatically, and these templates have not been reviewed by Texas housing counsel.</p>
-    <div class="calc" style="margin-top:22px">
-      <div class="panel">
-        
-        <p id="deskNote" class="quiet-alts" hidden style="margin:0 0 8px"></p>
-        <details class="sample-text" id="deskFacts">
-          <summary>Facts used in this draft — edit any of them</summary>
-          <label for="docType">Document</label>
-          <select id="docType">
-            <option value="script">Servicer call script</option>
-            <option value="brief">Notice-to-Action Brief</option>
-            <option value="hardship">Hardship narrative</option>
-          </select>
-          <label for="gServicer">Servicer / sender on your notice</label>
-          <input type="text" id="gServicer" class="text-input" value="" placeholder="The sender named on your notice" />
-          <label for="gGoal">What are you trying to do?</label>
-          <select id="gGoal">
-            <option value="keep">Keep the home (catch up or modify)</option>
-            <option value="time">Buy time to sell it myself</option>
-            <option value="understand">Understand what I received</option>
-          </select>
-          <label for="gChange">One fact in your own words (what happened / what changed)</label>
-          <input type="text" id="gChange" class="text-input" value="" placeholder="One sentence, your words — or leave blank" />
-        </details>
-        <details class="sample-text" style="margin-top:12px">
-          <summary>How this works — your words, assembled in code</summary>
-          <div class="code-note" style="border-top:none;padding-top:6px">
-            Template language written for attorney review (not yet reviewed — the trust receipt says so) with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page unless you click the optional AI polish below. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.
-          </div>
-        </details>
-        <div class="polish-box">
-          <div class="btnrow" style="align-items:center">
-            <button id="sampleWordsBtn" type="button" class="abtn ghost" hidden>Load sample words</button>
-            <button id="polishBtn" type="button" class="abtn ghost">Optional: polish my sentence with AI</button>
-            <span class="ai-badge">Live model call — optional</span>
-          </div>
-          <details class="sample-text" style="margin-top:8px">
-            <summary>What gets sent, and what the guard checks</summary>
-            <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server — Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions, and this demo itself stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects output containing guarded tokens you didn't type — digits, written numbers (zero through ninety, dozen, hundred through trillion), month names, percent and money words. It is a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
-          </details>
-          <div id="polishResult" hidden></div>
-        </div>
-      </div>
-      <div class="panel">
-        <pre id="docOut"></pre>
-        <div class="btnrow" style="margin-top:14px;align-items:center">
-          <button id="dlBtn" type="button">Download this draft</button>
-          <button id="toCallsBtn" type="button" class="abtn">Next: see who to call &darr;</button>
-        </div>
+    <p class="sub">Pick who you need to reach. The draft assembles in code, right here, from your facts only — no AI, and nothing you type leaves this page. Drafts only, not legal advice; these templates have not been reviewed by Texas housing counsel.</p>
+    <p id="deskNote" class="quiet-alts" hidden style="margin:0 0 8px"></p>
+    <div id="serviceBtns" class="btnrow" style="margin:14px 0 4px"></div>
+    <details class="sample-text" id="deskFacts">
+      <summary>Facts used in these drafts — edit any of them</summary>
+      <label for="gServicer">Servicer / sender on your notice</label>
+      <input type="text" id="gServicer" class="text-input" value="" placeholder="The sender named on your notice" />
+      <label for="gGoal">What are you trying to do?</label>
+      <select id="gGoal">
+        <option value="keep">Keep the home (catch up or modify)</option>
+        <option value="time">Buy time to sell it myself</option>
+        <option value="understand">Understand what I received</option>
+      </select>
+      <label for="gChange">One fact in your own words (what happened / what changed)</label>
+      <input type="text" id="gChange" class="text-input" value="" placeholder="One sentence, your words — or leave blank" />
+    </details>
+    <div id="draftArea" hidden style="margin-top:16px">
+      <pre id="docOut"></pre>
+      <div class="btnrow" style="margin-top:14px;align-items:center">
+        <button id="dlBtn" type="button">Download this draft</button>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="actH">
-    <h2 id="actH">Options homeowners commonly explore</h2>
-    <p class="sub">The kits behind the panel above — "where you stand" orders them by your clock. Each one opens into verified numbers, what to say, and letter templates. Everything free. General information, not legal advice — a lawyer confirms what fits your situation.</p>
-    <div id="actionCards" style="display:flex;flex-direction:column;gap:12px"></div>
-  </section>
 
-
-
-  <section aria-labelledby="aiH">
+  <section aria-labelledby="howH" data-tour="5">
+    <h2 id="howH">How this works</h2>
+    <p class="sub">Every date on this page is computed in code from Tex. Prop. Code &sect;51.002 — never estimated, never generated by AI. AI runs only at the labeled edges, gated by checks. The full evidence — the 29-document benchmark, the exhibits, the caught error — lives on <a href="/methodology.html">the methodology page</a>.</p>
     <details class="action newsroom" id="aiDetails">
       <summary>
         <span class="tag" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ai)">For the newsroom</span>
-        <h2 id="aiH" style="font-size:20px;margin:0">Where AI runs — and where it never does</h2>
+        <h3 id="aiH" style="font-size:20px;margin:0">Where AI runs — and where it never does</h3>
         <span class="arrow">&#9656;</span>
         <p>The seam map: the six jobs AI earns, the four things it never touches, and the contracts enforced in code. A reader doesn't need this — an editor does.</p>
       </summary>
@@ -175,13 +150,10 @@
     </div>
       </div>
     </details>
-  </section>
-
-  <section aria-labelledby="trustH">
     <details class="action newsroom" id="trustDetails">
       <summary>
         <span class="tag" style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">For the newsroom</span>
-        <h2 id="trustH" style="font-size:20px;margin:0">Trust receipt</h2>
+        <h3 id="trustH" style="font-size:20px;margin:0">Trust receipt</h3>
         <span class="arrow">&#9656;</span>
         <p>What the software does, what AI does and does not, sources, editorial ownership and privacy — the disclosure box a production version would publish.</p>
       </summary>
@@ -189,7 +161,7 @@
     <div class="receipt">
       <ul>
         <li><strong>What the software does:</strong> computes statutory deadlines from recorded notice dates, in code. Dates are never produced by a language model.</li>
-        <li><strong>What AI does (production design):</strong> translates legal boilerplate into plain language, from a fixed glossary, with the statute cited beside every sentence. In this demo, its three live jobs are the upload-door read (gated by the three-field match against the Clerk's index), the sample-document extraction and the sentence polish — all optional, all gated by code.</li>
+        <li><strong>What AI does (production design):</strong> translates legal boilerplate into plain language, from a fixed glossary, with the statute cited beside every sentence. In this demo, its two live jobs are the upload-door read (gated by the three-field match against the Clerk's index) and the sample-document extraction with its nineteen checks — both optional, both gated by code.</li>
         <li><strong>What AI does not do:</strong> give legal advice, predict outcomes, or select remedies. Straight talk on data: extraction means your uploaded notice IS transmitted to the model provider — production redacts names and addresses before transmission, discloses the provider, and sets a retention policy, the same way TX Tax discloses its OpenAI use.</li>
         <li><strong>Sources:</strong> Harris County Clerk foreclosure postings, Texas Property Code §51.002, county auction records. In production, every row links to the underlying filing.</li>
         <li><strong>Human owner (production requirement):</strong> a named editor owns the guidance copy and a corrections log; templates ship only after documented review by Texas housing counsel. Neither exists for this concept demo — and saying so is the point of a trust receipt.</li>
@@ -204,7 +176,7 @@
   </div>
 
   <footer>
-    Everything on this page was written by a person or computed in code, except the clearly labeled AI outputs: the extraction replay or live result, the polish comparison, and any polished wording you choose to apply (marked where it appears). General information about Texas law, not legal advice for any individual situation — only a lawyer can give that.<br>
+    Everything on this page was written by a person or computed in code, except the clearly labeled AI outputs: the extraction replay or live result from the demo and upload steps. General information about Texas law, not legal advice for any individual situation — only a lawyer can give that.<br>
     <a href="/methodology.html" style="color:var(--ink-3)">How this works and where AI runs &rarr;</a><br>
     Property-tax and HOA foreclosures run on completely different clocks — <a href="/methodology.html#tracks" style="color:var(--ink-3)">see the tax and HOA clocks</a>.<br>
     Concept demo built Aug 10, 2026 · Statutory minimums shown; a notice allowing less time than these minimums may itself indicate a problem worth prompt review · A production version verifies every date against the recorded instrument · Free legal help: Lone Star Legal Aid, Houston Volunteer Lawyers

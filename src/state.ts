@@ -59,11 +59,3 @@ export function onStageInfoChange(fn: () => void): void {
   stageListeners.add(fn);
 }
 
-/** Whether the current "one fact" text contains AI-polished wording the
- * reader chose to apply. The document desk appends a provenance note to
- * every draft while this is true; editing the text by hand clears it. */
-let polishApplied = false;
-export const getPolishApplied = (): boolean => polishApplied;
-export const setPolishApplied = (v: boolean): void => {
-  polishApplied = v;
-};

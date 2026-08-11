@@ -1,13 +1,14 @@
-/** The TX-Tax-style step tracker: a read-only progress readout of the
- * guided tour. It listens; it never drives.
- *
- * Progress comes from two signals, and the rail shows the furthest of
- * them: what the reader has DONE (events — a chain computed, a draft
- * opened) and where they have SCROLLED (each step's section reaching the
- * upper part of the viewport). Scrolling back up never rewinds progress;
- * clearing the inputs resets it. */
+/** The TX-Tax-style step tracker: five steps mirroring the five labeled
+ * sections. Progress is the furthest of two signals — what the reader has
+ * DONE (events) and where they have SCROLLED (a section reaching the upper
+ * 40% of the viewport). Scrolling back up never rewinds; clearing the
+ * inputs resets the action signal. Each step is clickable and jumps to
+ * its section. */
 
 const STEP_EVENTS = ["fn:scenario", "fn:stage", "fn:paperwork"] as const;
+
+const sectionFor = (step: number): HTMLElement | null =>
+  document.querySelector<HTMLElement>(`section[data-tour="${step}"]`);
 
 export function initTourSteps(): void {
   const items = [...document.querySelectorAll<HTMLLIElement>(".steps .step-item")];
@@ -25,17 +26,11 @@ export function initTourSteps(): void {
     });
   };
 
-  /** The furthest step whose section has reached the upper 40% of the
-   * viewport. Hidden sections (no stage yet) don't count. */
   const stepByScroll = (): number => {
     const threshold = window.scrollY + window.innerHeight * 0.4;
-    const anchors: Array<[number, HTMLElement | null]> = [
-      [2, document.querySelectorAll("#chain li").length > 0 ? document.getElementById("urgency") : null],
-      [3, (document.getElementById("stagePanel")?.hidden ?? true) ? null : document.getElementById("stagePanel")],
-      [4, document.getElementById("docH")?.closest("section") ?? null],
-    ];
     let step = 1;
-    for (const [n, el] of anchors) {
+    for (let n = 2; n <= items.length; n++) {
+      const el = sectionFor(n);
       if (el && el.getBoundingClientRect().top + window.scrollY <= threshold) step = n;
     }
     return step;
@@ -43,12 +38,8 @@ export function initTourSteps(): void {
 
   const onEvent = (event: string): void => {
     if (event === "fn:scenario" || event === "fn:stage") {
-      // Both fire during a chain rebuild, in either order — derive from
-      // what's actually on screen, not event order: stage panel visible
-      // → 3, bare chain → 2, cleared inputs → full reset to 1.
       const hasChain = document.querySelectorAll("#chain li").length > 0;
-      const hasStage = !(document.getElementById("stagePanel")?.hidden ?? true);
-      eventStep = hasChain ? (hasStage ? 3 : 2) : 1;
+      eventStep = hasChain ? 3 : 1;
       if (!hasChain) scrollStep = 1;
     } else {
       eventStep = 4;
@@ -72,6 +63,17 @@ export function initTourSteps(): void {
     },
     { passive: true },
   );
+
+  // Clicking a step jumps to its section; the scroll handler follows.
+  items.forEach((li) => {
+    li.style.cursor = "pointer";
+    li.addEventListener("click", () => {
+      const n = Number(li.dataset.step);
+      sectionFor(n)?.scrollIntoView({ block: "start" });
+      scrollStep = Math.max(scrollStep, n);
+      render();
+    });
+  });
 
   render();
 }

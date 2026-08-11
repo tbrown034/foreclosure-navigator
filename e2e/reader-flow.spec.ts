@@ -83,19 +83,25 @@ test.describe("reader flow", () => {
 
     await expect(page.locator("#chain > li")).toHaveCount(4);
 
-    // The deterministic stage panel renders with the chain and drives step 3.
+    // The deterministic what-you-can-do panel renders with the chain.
     const stage = page.locator("#stagePanel");
-    await expect(stage).toBeVisible();
     await expect(stage.locator(".stage-headline")).toContainText("printed sale date");
     await expect(stage.locator(".stage-row")).toHaveCount(6);
-    await expect(stage).toContainText(/Marker passed|Window open/);
+    await expect(stage).toContainText(/Marker passed|Apply by/);
     await expect(page.locator(".step-item.is-current")).toContainText("3");
 
-    // A stage-panel draft button pre-selects the desk draft.
-    await stage.getByRole("button", { name: "Draft the call" }).first().click();
-    await expect(page.locator("#docOut")).toContainText("CALL SCRIPT");
+    // A panel call button loads the legal-aid script in draft-and-call.
+    await stage.getByRole("button", { name: "Call — get the script" }).first().click();
+    await expect(page.locator("#docOut")).toContainText("CALL SCRIPT — free legal aid intake");
+    await expect(page.locator("#docOut")).toContainText("713-652-0077");
     await expect(page.locator("#deskNote")).toBeVisible();
     await expect(page.locator(".step-item.is-current")).toContainText("4");
+
+    // "Tell me more" opens the matching kit with the verified numbers.
+    await stage.getByRole("button", { name: "Tell me more" }).first().click();
+    const legalKit = page.locator('details.action[data-kit="legal-help"]');
+    await expect(legalKit).toHaveJSProperty("open", true);
+    await expect(legalKit.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();
 
     await expect(page.locator("#aiOffer")).toBeVisible();
     await page.getByRole("button", { name: /Next: replay the AI read/ }).click();
@@ -104,11 +110,10 @@ test.describe("reader flow", () => {
     await expect(page.locator("#extractResult .extract-checks .chip.window")).toHaveCount(19);
     await expect(page.locator("#extractResult .extract-checks .chip.deadline")).toHaveCount(0);
 
-    await page.getByRole("button", { name: "Next: see who to call" }).click();
-    const firstKit = page.locator("#actionCards details.action").first();
-    await expect(firstKit).toHaveJSProperty("open", true);
-    const legalAidPhone = firstKit.locator('a[href^="tel:"]', { hasText: "713-652-0077" });
-    await expect(legalAidPhone).toBeVisible();
+    // The desk's service buttons work standalone: pick one, draft below.
+    await page.getByRole("button", { name: "Email: loss-mitigation request" }).click();
+    await expect(page.locator("#docOut")).toContainText("Loss Mitigation Department");
+    await expect(page.locator("#docOut")).toContainText("ATTACHMENT DRAFT: hardship narrative");
 
     await page.getByRole("button", { name: "Enter dates manually" }).click();
     await expect(page.locator("#manualEntry")).toHaveJSProperty("open", true);

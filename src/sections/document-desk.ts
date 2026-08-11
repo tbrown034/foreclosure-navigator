@@ -1,12 +1,13 @@
-/** Document desk: deterministic template assembly, no AI. The reader's
- * facts are slotted into template language written for attorney review (not yet reviewed) in
- * lib/templates.ts, right in the browser. Rebuilds on every input change
- * and whenever the sale clock changes. */
+/** Draft and call: pick who you need to reach, and the draft assembles in
+ * code — no AI, no model call, nothing leaves the page. Empty by default;
+ * a service button (or a "Draft the…" button in the what-you-can-do panel,
+ * which dispatches fn:draft) loads the matching script or letter directly
+ * below the buttons. */
 
-import type { DocumentType, ReaderGoal } from "../../lib/templates";
-import { buildDocument } from "../../lib/templates";
+import type { ServiceId } from "../../lib/templates";
+import { SERVICES, buildServiceDraft, type ReaderGoal } from "../../lib/templates";
 import { byId } from "../format";
-import { currentSaleLine, getPolishApplied, onSaleInfoChange } from "../state";
+import { currentSaleLine, onSaleInfoChange } from "../state";
 
 function blobDownload(data: string): void {
   const a = document.createElement("a");
@@ -17,29 +18,55 @@ function blobDownload(data: string): void {
 }
 
 export function initDocumentDesk(): void {
-  const typeEl = byId<HTMLSelectElement>("docType");
+  const btnRow = byId<HTMLDivElement>("serviceBtns");
+  const area = byId<HTMLDivElement>("draftArea");
+  const outEl = byId<HTMLPreElement>("docOut");
   const servicerEl = byId<HTMLInputElement>("gServicer");
   const goalEl = byId<HTMLSelectElement>("gGoal");
   const changeEl = byId<HTMLInputElement>("gChange");
-  const outEl = byId<HTMLPreElement>("docOut");
 
-  const buildDoc = (): void => {
-    let out = buildDocument(typeEl.value as DocumentType, {
+  let current: ServiceId | null = null;
+  const buttons = new Map<ServiceId, HTMLButtonElement>();
+
+  const rebuild = (): void => {
+    if (!current) return;
+    outEl.textContent = buildServiceDraft(current, {
       servicer: servicerEl.value,
       goal: goalEl.value as ReaderGoal,
       change: changeEl.value,
       saleLine: currentSaleLine(),
     });
-    // AI provenance travels with the draft — on screen and in the download.
-    if (getPolishApplied()) {
-      out += "\n\n[Contains wording polished by AI at the writer's request — facts supplied by the writer. Review before use.]";
-    }
-    outEl.textContent = out;
   };
 
-  [typeEl, servicerEl, goalEl, changeEl].forEach((el) => el.addEventListener("input", buildDoc));
-  onSaleInfoChange(buildDoc);
-  buildDoc();
+  const select = (id: ServiceId): void => {
+    current = id;
+    buttons.forEach((b, bid) => b.setAttribute("aria-pressed", String(bid === id)));
+    rebuild();
+    area.hidden = false;
+  };
+
+  SERVICES.forEach((s) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "abtn service-btn " + s.kind;
+    b.textContent = s.label;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      select(s.id);
+      document.dispatchEvent(new CustomEvent("fn:paperwork"));
+    });
+    buttons.set(s.id, b);
+    btnRow.appendChild(b);
+  });
+
+  [servicerEl, goalEl, changeEl].forEach((el) => el.addEventListener("input", rebuild));
+  onSaleInfoChange(rebuild);
+
+  // The what-you-can-do panel (and the demo beats) load a service remotely.
+  document.addEventListener("fn:draft", (e) => {
+    const id = (e as CustomEvent<{ service: ServiceId }>).detail.service;
+    if (SERVICES.some((s) => s.id === id)) select(id);
+  });
 
   byId<HTMLButtonElement>("dlBtn").addEventListener("click", () => {
     blobDownload(outEl.textContent ?? "");

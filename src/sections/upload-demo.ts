@@ -15,6 +15,7 @@ import { validateExtraction, validateFidelity } from "../../lib/extraction-check
 import { getRecordedExtraction } from "../../lib/recorded-extractions";
 import { SAMPLE_NOTICES, getSampleNotice } from "../../lib/sample-notices";
 import { byId } from "../format";
+import { SAMPLE_WORDS } from "./sample-scenarios";
 
 interface ExtractResult {
   basedOn: string;
@@ -255,20 +256,18 @@ export function initUploadDemo(): void {
     const nextRow = el("div", "btnrow");
     const next = el("button", "abtn");
     next.type = "button";
-    next.textContent = "Next: build a sample hardship draft ↓";
+    next.textContent = "Next: draft the loss-mitigation email ↓";
     next.addEventListener("click", () => {
+      const changeEl = byId<HTMLInputElement>("gChange");
+      changeEl.value = SAMPLE_WORDS;
+      changeEl.dispatchEvent(new Event("input"));
+      document.dispatchEvent(new CustomEvent("fn:draft", { detail: { service: "lossmit" } }));
       document.dispatchEvent(new CustomEvent("fn:paperwork"));
-      const docType = byId<HTMLSelectElement>("docType");
-      docType.value = "hardship";
-      docType.dispatchEvent(new Event("input"));
-      byId<HTMLButtonElement>("sampleWordsBtn").click();
       const note = byId<HTMLParagraphElement>("deskNote");
       note.textContent =
-        "Demo sample facts loaded — the servicer from the selected notice and a test hardship sentence. Edit any of them.";
+        "Demo sample facts loaded — a test hardship sentence in the reader's words. Edit any of them.";
       note.hidden = false;
-      byId<HTMLElement>("docH").scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      });
+      byId<HTMLElement>("docH").scrollIntoView({ block: "start" });
     });
     nextRow.append(next);
     nodes.push(nextRow);

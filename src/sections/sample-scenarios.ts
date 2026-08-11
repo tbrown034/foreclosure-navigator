@@ -40,7 +40,7 @@ const SCENARIOS: Record<string, Scenario> = {
 };
 
 /** The reader's-words test sentence from the hardship-polish exhibit. */
-const SAMPLE_WORDS =
+export const SAMPLE_WORDS =
   "i got behind becuase my hours got cut at the plant in june, my wife had surgery in july so we had them bills to, im back to full time since august 3 and can pay the regular payment again but not the whole missed amount at once";
 
 function applyScenario(s: Scenario): void {
@@ -110,13 +110,4 @@ export function initSampleScenarios(): void {
     }),
   );
 
-  byId<HTMLButtonElement>("sampleWordsBtn").addEventListener("click", () => {
-    const docType = byId<HTMLSelectElement>("docType");
-    const changeEl = byId<HTMLInputElement>("gChange");
-    docType.value = "hardship";
-    docType.dispatchEvent(new Event("input"));
-    changeEl.value = SAMPLE_WORDS;
-    changeEl.dispatchEvent(new Event("input"));
-    changeEl.focus();
-  });
 }
