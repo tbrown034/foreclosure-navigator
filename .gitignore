@@ -5,3 +5,4 @@ docs/
 *.pdf
 .vercel/
 .vercel
+data-local/

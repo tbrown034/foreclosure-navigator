@@ -36,7 +36,16 @@
   <section aria-labelledby="calcH">
     <h2 id="calcH" class="visually-hidden">Your deadline chain</h2>
     <div class="scenario-strip">
-      <p class="scenario-label">Start with a notice — one click, no typing</p>
+      <p class="scenario-label">Have a September 2026 notice? Find your case</p>
+      <div class="btnrow entry-actions" style="align-items:stretch">
+        <input type="text" id="caseNumber" class="text-input" style="max-width:240px" placeholder="File number: FRCL-2026-1234" aria-label="File number from your notice" />
+        <button type="button" class="abtn primary big" id="findCaseBtn">Find my case</button>
+      </div>
+      <p class="quiet-alts">Looks up the file number against the Clerk's public index of Sept 1, 2026 filings — file numbers and dates only, nothing personal. General legal information, not legal advice.</p>
+      <div id="lookupResult" hidden style="margin:10px 0 0"></div>
+      <div id="savedCase" hidden style="margin:12px 0 0;border-left:3px solid var(--ok);padding:2px 0 2px 14px"></div>
+
+      <p class="scenario-label" style="margin-top:22px">No notice? See the process — one click, no typing</p>
       <div class="notice-file">
         <span class="notice-file-icon" aria-hidden="true"></span>
         <span class="notice-file-name">Notice of Substitute Trustee's Sale · FRCL-2026-2290</span>
@@ -47,7 +56,7 @@
         <div data-sample-text="frcl-2026-2290"></div>
       </details>
       <div class="btnrow entry-actions">
-        <button type="button" class="abtn primary big scenario-btn" data-scenario="frcl-2290" aria-pressed="false">Upload a notice &mdash; sample used for demo &darr;</button>
+        <button type="button" class="abtn outline big scenario-btn" data-scenario="frcl-2290" aria-pressed="false">Upload a notice &mdash; sample used for demo &darr;</button>
         <button type="button" class="abtn outline big" id="openManual">Enter dates manually</button>
       </div>
       <p class="quiet-alts">The sample is the real recorded instrument above, homeowner details excluded — or try <button type="button" class="linklike scenario-btn" data-scenario="hypothetical" aria-pressed="false">a hypothetical default notice</button>.</p>

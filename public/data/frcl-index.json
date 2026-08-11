@@ -1,0 +1,4126 @@
+{
+ "source": "Harris County Clerk foreclosure search (cclerk.hctx.net), public index",
+ "query": "Sale Date = September 2026",
+ "asOf": "2026-08-10T22:45:00-05:00",
+ "county": "Harris",
+ "note": "Metadata only: instrument number, file date, sale date, page count. No personal information is collected or stored.",
+ "count": 686,
+ "filings": [
+  {
+   "docId": "FRCL-2026-2290",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-04-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-3493",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-05-14",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-3735",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-05-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-3736",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-05-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-3900",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-04",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-3926",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-04",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-3927",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-04",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-3995",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-3996",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4014",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4054",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4055",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4056",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4066",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4067",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4070",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4097",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4098",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4099",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4100",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4101",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-11",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4128",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-12",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4168",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4205",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4223",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4224",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4225",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4226",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4227",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4228",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4229",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4230",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4337",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4356",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4362",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4378",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4379",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4380",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4392",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4393",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4394",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4438",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4448",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4452",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4454",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4455",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4468",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4469",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4470",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4471",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4472",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4473",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4480",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4487",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-18",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4493",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4494",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4495",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4499",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4500",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4502",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-24",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4516",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4517",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4518",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4519",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4520",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4521",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4543",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4544",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4545",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4546",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4547",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4548",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4549",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4550",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4551",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4552",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4553",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4554",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4559",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4560",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4561",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4562",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4563",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4564",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4565",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4566",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4567",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4568",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4569",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4570",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4571",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4572",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4577",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4582",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4589",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4590",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4592",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4593",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4596",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4597",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4598",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4614",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4615",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4616",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4619",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4622",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4623",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4624",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4627",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4629",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4630",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4646",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4647",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4648",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-25",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4650",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-26",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4654",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-26",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4660",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-29",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4661",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4662",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4666",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4670",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4671",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-06-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4673",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4674",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4675",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-4679",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4680",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4681",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4690",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4691",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4692",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4693",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4702",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4703",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4704",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4705",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4711",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4712",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4713",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4714",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4724",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4725",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4726",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4727",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4728",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4729",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4730",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4731",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4732",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4733",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4734",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4735",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4736",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4737",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4738",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4739",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4740",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4749",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4750",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4754",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4761",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4763",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4764",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4765",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4766",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4767",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-02",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4768",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4770",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4782",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4783",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4784",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4785",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4805",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4806",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4807",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4808",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4810",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4811",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4812",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4816",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4817",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4818",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4819",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4820",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4821",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4825",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4826",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4827",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4828",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4829",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4843",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4844",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4845",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4846",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4847",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4848",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4849",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4850",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4851",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4852",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4853",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4854",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4855",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4856",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4857",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4858",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4859",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4876",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-4877",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4885",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4889",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4890",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4901",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4902",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4903",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4904",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4905",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4906",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-09",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4947",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4948",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-4958",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-4959",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4960",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4961",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4962",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-4963",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5001",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5017",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5018",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5040",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5053",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5054",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-13",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5067",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5072",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5073",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5074",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5085",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5093",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5094",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5123",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5124",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5125",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5160",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5161",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5162",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-14",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5195",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5196",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5199",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-15",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5200",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5201",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-15",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5205",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5206",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5207",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5208",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5209",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5210",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5211",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5212",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5213",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5214",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5215",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5216",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5223",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5224",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5225",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5226",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5227",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5229",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5230",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5231",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5232",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5233",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5235",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5236",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5237",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5240",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5241",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5242",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5243",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5244",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5245",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5246",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5247",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5248",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-16",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5251",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-17",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5260",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-17",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5262",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-20",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5267",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5268",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5269",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5270",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5272",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5273",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5274",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-21",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5275",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5276",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5277",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5278",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5282",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5284",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5285",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5286",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-22",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5288",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 6
+  },
+  {
+   "docId": "FRCL-2026-5289",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5290",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5291",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5292",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5293",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5294",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5295",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5296",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5297",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5298",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5299",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5300",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5301",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5302",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5303",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5304",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5305",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5309",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5311",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5312",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5313",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5314",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5315",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5316",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5317",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5330",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5331",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5332",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5333",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5335",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5336",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5337",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5338",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5339",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5340",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5342",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5343",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5344",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5345",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5347",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5348",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5350",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5351",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5352",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5353",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5354",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5355",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5356",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5357",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5358",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5375",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5376",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5377",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5378",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5379",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5380",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5381",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5382",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5383",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5384",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5385",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5386",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5387",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5388",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5389",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5390",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5391",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5392",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5403",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5405",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5406",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5407",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5408",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5409",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5410",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5411",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5412",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5413",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5414",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5415",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5416",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-23",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5423",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-24",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5424",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-24",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5425",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-24",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5427",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-24",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5430",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-27",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5431",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-27",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5433",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-27",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5434",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-27",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5435",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5436",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5437",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5439",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5441",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5443",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5444",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5445",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5446",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5447",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5448",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-28",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5449",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-29",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5450",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5451",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5452",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5453",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5456",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5457",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5461",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5462",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5463",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5464",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5465",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5466",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5467",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5468",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5469",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5470",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5471",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5472",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5473",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5476",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5479",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5480",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5481",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5482",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5483",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5484",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5485",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5486",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5487",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5488",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5489",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5490",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5508",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5509",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5510",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5511",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5512",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5513",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5514",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5515",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5516",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5517",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5518",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5519",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5520",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5521",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5522",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5523",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5524",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5525",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5526",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5527",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5528",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5529",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5530",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5537",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5538",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5540",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5541",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5543",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5544",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5545",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5546",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5547",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5548",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5549",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5550",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5551",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5552",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5553",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5554",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5563",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5565",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5566",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5567",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5568",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5569",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5570",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5571",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5572",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5573",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5574",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5575",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5576",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5577",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5578",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5579",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5580",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-30",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5586",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-31",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5587",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-31",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5588",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-07-31",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5591",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-03",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5592",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-03",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5594",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-04",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5595",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5596",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5597",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5598",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5599",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5600",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5601",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5602",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5603",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5604",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5605",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5606",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5607",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5608",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5609",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5610",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-05",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5612",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5613",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5614",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5615",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5616",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5633",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5634",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5636",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5637",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5644",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5645",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5646",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5647",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5648",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 12
+  },
+  {
+   "docId": "FRCL-2026-5649",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5650",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5651",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5655",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5656",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5657",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5658",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5659",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5680",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5681",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5682",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5683",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5689",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5690",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5691",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5694",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5695",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5696",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5697",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 7
+  },
+  {
+   "docId": "FRCL-2026-5698",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 7
+  },
+  {
+   "docId": "FRCL-2026-5699",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5700",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5702",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5703",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5704",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5705",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5706",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5707",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5708",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5709",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5710",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5719",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5720",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5721",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5722",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5723",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5724",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-06",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5725",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5726",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5727",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5728",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5729",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5730",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5731",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5732",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5733",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5734",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5735",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5736",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5737",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5738",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5739",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5740",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5741",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5742",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5744",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 7
+  },
+  {
+   "docId": "FRCL-2026-5745",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 6
+  },
+  {
+   "docId": "FRCL-2026-5746",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5747",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5748",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5749",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5750",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5751",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5752",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5753",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5754",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-07",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5755",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5756",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5757",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5760",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5761",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5762",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5763",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5764",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5765",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5766",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5767",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5768",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5769",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5770",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5771",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5772",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5773",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5775",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5776",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5777",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5778",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5779",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5780",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5796",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5797",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5798",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5804",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5805",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5806",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5807",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5808",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5809",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5810",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5811",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5812",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5813",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5814",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5815",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5816",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5817",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5818",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5819",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5820",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5821",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5822",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5823",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5824",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5825",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5826",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5827",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5828",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5829",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5830",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5831",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5832",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5833",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5834",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5835",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5836",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5837",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5838",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5839",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5840",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5841",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5842",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5843",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5844",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5845",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5846",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5847",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5848",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5849",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5850",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5851",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5852",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5853",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5854",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5855",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 2
+  },
+  {
+   "docId": "FRCL-2026-5856",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5857",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5858",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5859",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5860",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 4
+  },
+  {
+   "docId": "FRCL-2026-5861",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 5
+  },
+  {
+   "docId": "FRCL-2026-5868",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 6
+  },
+  {
+   "docId": "FRCL-2026-5869",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 7
+  },
+  {
+   "docId": "FRCL-2026-5870",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 6
+  },
+  {
+   "docId": "FRCL-2026-5871",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 3
+  },
+  {
+   "docId": "FRCL-2026-5872",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 9
+  },
+  {
+   "docId": "FRCL-2026-5873",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5874",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  },
+  {
+   "docId": "FRCL-2026-5875",
+   "saleDate": "2026-09-01",
+   "fileDate": "2026-08-10",
+   "pages": 1
+  }
+ ]
+}

@@ -11,6 +11,7 @@ import { initDeadlineChain } from "./sections/deadline-chain";
 import { initDocumentDesk } from "./sections/document-desk";
 import { initPolishDemo } from "./sections/polish-demo";
 import { initSampleScenarios } from "./sections/sample-scenarios";
+import { initCaseLookup } from "./sections/case-lookup";
 import { initTourSteps } from "./sections/tour-steps";
 import { initUploadDemo } from "./sections/upload-demo";
 
@@ -21,6 +22,7 @@ initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
 initTourSteps();
+initCaseLookup();
 
 // Beat four is never gated on the AI: the calls are always one click away.
 document.getElementById("toCallsBtn")?.addEventListener("click", () => {
