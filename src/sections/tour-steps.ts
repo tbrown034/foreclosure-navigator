@@ -58,17 +58,17 @@ export function initTourSteps(): void {
 
   STEP_EVENTS.forEach((event) => document.addEventListener(event, () => onEvent(event)));
 
-  let ticking = false;
+  // Plain time-throttle, not requestAnimationFrame: rAF stops firing in
+  // background tabs, which would jam a ticking latch permanently.
+  let lastRun = 0;
   window.addEventListener(
     "scroll",
     () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        ticking = false;
-        scrollStep = Math.max(scrollStep, stepByScroll());
-        render();
-      });
+      const now = Date.now();
+      if (now - lastRun < 120) return;
+      lastRun = now;
+      scrollStep = Math.max(scrollStep, stepByScroll());
+      render();
     },
     { passive: true },
   );
