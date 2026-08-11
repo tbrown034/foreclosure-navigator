@@ -846,3 +846,51 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 
 /* The manual form is driven by the Enter-dates-manually button. */
 #manualEntry > summary { display: none; }
+
+/* "Where you stand": the personalized stage readout below the chain.
+ * Same ink-and-rule editorial language as the rest of the page; tier
+ * colors reuse the chain's past/window/deadline semantics. */
+.stage-panel {
+  margin: 30px 0 6px;
+  border-top: 2px solid var(--ink);
+  padding-top: 16px;
+}
+.stage-headline {
+  font-family: var(--display);
+  font-weight: 750;
+  font-size: 21px;
+  margin: 0 0 8px;
+}
+.stage-panel .stage-line {
+  color: var(--ink-2);
+  font-size: 14.5px;
+  max-width: 74ch;
+  margin: 0 0 8px;
+}
+.stage-list-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 18px 0 10px;
+}
+.stage-list { display: flex; flex-direction: column; gap: 10px; }
+.stage-row {
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  padding: 10px 14px 12px;
+}
+.stage-row.deadline { border-left-color: var(--alarm); }
+.stage-row.window { border-left-color: var(--ok); }
+.stage-row.past { border-left-color: var(--ink-3); opacity: .82; }
+.stage-row-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.stage-row-head strong { font-size: 15px; }
+.stage-row p { margin: 6px 0 10px; font-size: 14px; color: var(--ink-2); max-width: 74ch; }
+.stage-row .btnrow { margin: 0; }

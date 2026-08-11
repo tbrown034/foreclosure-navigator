@@ -3,8 +3,8 @@
 
 const STEP_EVENTS: Record<string, number> = {
   "fn:scenario": 2, // a notice is loaded and the chain computed
-  "fn:extracted": 3, // the AI read rendered
-  "fn:paperwork": 4, // the letter beat
+  "fn:stage": 3, // the deterministic where-you-stand panel rendered
+  "fn:paperwork": 4, // the draft-and-call beat
 };
 
 export function initTourSteps(): void {

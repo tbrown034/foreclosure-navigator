@@ -16,6 +16,13 @@ export function todayAtNoon(): Date {
   return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12);
 }
 
+/** Today as a local YYYY-MM-DD string, for the stage engine. */
+export function todayIso(): string {
+  const now = new Date();
+  const p = (n: number): string => String(n).padStart(2, "0");
+  return `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`;
+}
+
 /** Whole calendar days from today until d (0 = today). */
 export const daysFromNow = (d: Date): number => daysBetween(todayAtNoon(), d);
 

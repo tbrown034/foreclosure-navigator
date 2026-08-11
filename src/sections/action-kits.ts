@@ -42,6 +42,8 @@ function el<K extends keyof HTMLElementTagNameMap>(
 }
 
 interface Kit {
+  /** Stable id the stage panel's "Open the kit" buttons target. */
+  id: string;
   cls: "free" | "deadline";
   title: string;
   lede: string;
@@ -53,6 +55,7 @@ const saleDateText = (): string => currentSaleLine();
 const KITS: Kit[] = [
   {
     cls: "free",
+    id: "legal-help",
     title: "Free legal help",
     lede: "Lone Star Legal Aid and Houston Volunteer Lawyers take foreclosure cases at no cost for qualifying households. The earlier they're in, the more they can do.",
     build(kit) {
@@ -86,6 +89,7 @@ const KITS: Kit[] = [
   },
   {
     cls: "free",
+    id: "loss-mitigation",
     title: "Loss mitigation — apply in writing",
     lede: "Ask your servicer in writing for loss-mitigation options: modification, forbearance, repayment plan. Received complete more than 37 days before the sale, an application may restrict the servicer from moving forward with the sale while it is under review — exceptions apply.",
     build(kit) {
@@ -112,6 +116,7 @@ const KITS: Kit[] = [
   },
   {
     cls: "free",
+    id: "check-filing",
     title: "Check the filing yourself",
     lede: "Every notice of trustee sale must be on file with the Harris County Clerk. Look up the recorded instrument and verify every date against what you were mailed.",
     build(kit) {
@@ -135,6 +140,7 @@ const KITS: Kit[] = [
   },
   {
     cls: "deadline",
+    id: "reinstate",
     title: "Reinstate or pay off",
     lede: "Depending on your loan and where the clock stands, paying the missed amount (reinstatement) or the full payoff may stop the process. The exact figures and cutoffs come from the servicer — written confirmation is worth requesting, since phone information may not be binding.",
     build(kit) {
@@ -156,6 +162,7 @@ const KITS: Kit[] = [
   },
   {
     cls: "deadline",
+    id: "sell",
     title: "Sell before the sale",
     lede: "With equity in the home, selling before the auction can preserve value that a foreclosure sale may not — whether it fits depends on the equity, the loan and the goals. The clock above shows time until the printed date; it does not determine whether a private sale can close in time.",
     build(kit) {
@@ -175,6 +182,7 @@ const KITS: Kit[] = [
   },
   {
     cls: "deadline",
+    id: "court",
     title: "Court and bankruptcy options",
     lede: "A court order (such as a temporary restraining order) or a bankruptcy filing may pause a sale in some circumstances — eligibility, timing, exceptions and consequences vary — and none of it is fast. This is why the deadline chain matters.",
     build(kit) {
@@ -204,6 +212,7 @@ export function initActionKits(): void {
     cardsEl.innerHTML = "";
     KITS.forEach((k) => {
       const d = el("details", "action");
+      d.dataset.kit = k.id;
       const s = el(
         "summary",
         null,

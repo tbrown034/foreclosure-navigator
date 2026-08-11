@@ -35,6 +35,30 @@ export function currentSaleLine(): string {
     : "[SEE YOUR NOTICE]";
 }
 
+/** The raw notice facts behind the current chain — what the stage engine
+ * needs. Written by the deadline chain alongside SaleInfo; null when the
+ * inputs are incomplete. */
+export interface StageInfo {
+  kind: "default" | "sale";
+  noticeIso: string;
+  printedSaleIso: string | null;
+}
+
+let stageInfo: StageInfo | null = null;
+const stageListeners = new Set<() => void>();
+
+export const getStageInfo = (): StageInfo | null => stageInfo;
+
+export function setStageInfo(next: StageInfo | null): void {
+  stageInfo = next;
+  stageListeners.forEach((fn) => fn());
+}
+
+/** Subscribe to stage-fact changes. Does not fire immediately. */
+export function onStageInfoChange(fn: () => void): void {
+  stageListeners.add(fn);
+}
+
 /** Whether the current "one fact" text contains AI-polished wording the
  * reader chose to apply. The document desk appends a provenance note to
  * every draft while this is true; editing the text by hand clears it. */

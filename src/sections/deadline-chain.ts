@@ -7,7 +7,7 @@
 
 import { defaultNoticeChain, isAllowedSaleDay, saleNoticeChain } from "../../lib/deadlines";
 import { byId, fmt, todayAtNoon } from "../format";
-import { setSaleInfo } from "../state";
+import { setSaleInfo, setStageInfo } from "../state";
 import type { EditorState } from "./editor-box";
 import { initEditorBox } from "./editor-box";
 import { renderUrgency, renderUrgencyEmpty } from "./urgency-card";
@@ -162,6 +162,7 @@ export function initDeadlineChain(): void {
       chainEl.innerHTML = "";
       renderUrgencyEmpty(urgencyEl);
       setSaleInfo({ text: null, verified: false });
+      setStageInfo(null);
       return;
     }
     const today = todayAtNoon();
@@ -173,6 +174,11 @@ export function initDeadlineChain(): void {
     renderUrgency(urgencyEl, sale, verified);
     renderRail(chainEl, rows);
     setSaleInfo({ text: fmt(sale), verified });
+    setStageInfo({
+      kind: state.type === "sale" ? "sale" : "default",
+      noticeIso: state.noticeIso,
+      printedSaleIso: state.type === "sale" ? state.printedSaleIso : null,
+    });
   };
 
   initEditorBox(build);

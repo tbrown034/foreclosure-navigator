@@ -12,6 +12,7 @@ import { initDocumentDesk } from "./sections/document-desk";
 import { initPolishDemo } from "./sections/polish-demo";
 import { initSampleScenarios } from "./sections/sample-scenarios";
 import { initCaseLookup } from "./sections/case-lookup";
+import { initStageSummary } from "./sections/stage-summary";
 import { initTourSteps } from "./sections/tour-steps";
 import { initUploadDemo } from "./sections/upload-demo";
 
@@ -21,6 +22,7 @@ initDocumentDesk();
 initPolishDemo();
 initSampleScenarios();
 initUploadDemo();
+initStageSummary();
 initTourSteps();
 initCaseLookup();
 
@@ -32,15 +34,6 @@ document.getElementById("toCallsBtn")?.addEventListener("click", () => {
     behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
   });
   document.dispatchEvent(new CustomEvent("fn:paperwork"));
-});
-
-// "Read the notice" opens the example document.
-document.getElementById("viewExample")?.addEventListener("click", () => {
-  const doc = document.getElementById("exampleDoc") as HTMLDetailsElement | null;
-  if (doc) {
-    doc.open = !doc.open;
-    if (doc.open) doc.scrollIntoView({ block: "nearest" });
-  }
 });
 
 // "enter your own dates" opens the collapsed manual form.

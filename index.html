@@ -25,10 +25,10 @@
   <div class="tour-grid">
     <aside class="tour-rail">
     <ol class="steps" aria-label="Demo walkthrough">
-      <li class="step-item is-current" data-step="1"><span>1 · Start with a notice</span><i></i></li>
-      <li class="step-item" data-step="2"><span>2 · The deadline chain</span><i></i></li>
-      <li class="step-item" data-step="3"><span>3 · AI reads it, checked</span><i></i></li>
-      <li class="step-item" data-step="4"><span>4 · Paperwork &amp; calls</span><i></i></li>
+      <li class="step-item is-current" data-step="1"><span>1 &middot; Start with a notice</span><i></i></li>
+      <li class="step-item" data-step="2"><span>2 &middot; See the deadline chain</span><i></i></li>
+      <li class="step-item" data-step="3"><span>3 &middot; See where you stand</span><i></i></li>
+      <li class="step-item" data-step="4"><span>4 &middot; Draft and call</span><i></i></li>
     </ol>
     </aside>
     <div class="tour-main">
@@ -40,9 +40,16 @@
       <div class="btnrow entry-actions" style="align-items:stretch">
         <input type="text" id="caseNumber" class="text-input" style="max-width:240px" placeholder="File number: FRCL-2026-1234" aria-label="File number from your notice" />
         <button type="button" class="abtn primary big" id="findCaseBtn">Find my case</button>
+        <button type="button" class="abtn outline big" id="uploadDoor">Upload the notice</button>
         <button type="button" class="abtn outline big" id="demoCase">See a demo case &darr;</button>
       </div>
       <p class="quiet-alts">The file number (FRCL-2026-####) is the county's filing ID, stamped on the recorded copy of the notice of sale. If your copy doesn't show one, <a href="https://cclerk.hctx.net/applications/websearch/FRCL_R.aspx" target="_blank" rel="noopener">find it on the Harris County Clerk's foreclosure search</a> — or <button type="button" class="linklike" id="openManual">enter dates manually</button>. This lookup uses the Clerk's public index of Sept 1, 2026 filings (snapshot as of Aug 10; newer filings may not appear) — file numbers and dates only, nothing personal. General legal information, not legal advice.</p>
+      <div id="uploadPanel" hidden style="margin:12px 0 0;border-left:3px solid var(--ai);padding:2px 0 2px 14px">
+        <p style="margin:0 0 6px"><strong>Upload the recorded notice (PDF, up to 4&nbsp;MB).</strong> The AI reads the county file number and dates off the document; code then looks that number up in the Clerk's official index, and deadlines are computed only when the number, the filing date and the sale date all match the official record. The model's reading is never trusted on its own.</p>
+        <p class="quiet-alts" style="margin:0 0 8px">Straight talk before you click: the file you choose is transmitted to Anthropic's Claude model through this site's server to be read (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this site stores nothing). Don't want to upload a real document? Use a fictional sample: <a href="/samples/sample-notice-a.pdf" download>sample A — sale weeks out</a> &middot; <a href="/samples/sample-notice-b.pdf" download>sample B — sale close</a>, then upload it here, or <button type="button" class="linklike" id="trySampleA">run sample A directly</button> &middot; <button type="button" class="linklike" id="trySampleB">run sample B directly</button>.</p>
+        <div class="btnrow"><input type="file" id="noticeFile" accept="application/pdf" aria-label="Notice PDF to read" /></div>
+        <div id="uploadStatus" hidden style="margin:8px 0 0"></div>
+      </div>
       <div id="lookupResult" hidden style="margin:10px 0 0"></div>
       <div id="savedCase" hidden style="margin:12px 0 0;border-left:3px solid var(--ok);padding:2px 0 2px 14px"></div>
       <details class="sample-text" style="margin-top:10px">
@@ -74,10 +81,11 @@
     <ol class="rail" id="chain"></ol>
     <div id="aiOffer" hidden></div>
     <div id="extractResult" hidden></div>
+    <div id="stagePanel" hidden class="stage-panel" aria-live="polite"></div>
   </section>
 
   <section aria-labelledby="docH">
-    <h2 id="docH">The document desk</h2>
+    <h2 id="docH">Draft and call</h2>
     <p class="ai-badge" style="margin:2px 0 10px">Code-built drafts &middot; optional live AI polish</p>
     <p class="sub">The clock, turned into paperwork — drafted from your facts only. Drafts only, not legal advice; nothing is sent automatically, and these templates have not been reviewed by Texas housing counsel.</p>
     <div class="calc" style="margin-top:22px">
@@ -93,7 +101,7 @@
             <option value="hardship">Hardship narrative</option>
           </select>
           <label for="gServicer">Servicer / sender on your notice</label>
-          <input type="text" id="gServicer" class="text-input" value="Meridian Loan Servicing" />
+          <input type="text" id="gServicer" class="text-input" value="" placeholder="The sender named on your notice" />
           <label for="gGoal">What are you trying to do?</label>
           <select id="gGoal">
             <option value="keep">Keep the home (catch up or modify)</option>
@@ -101,7 +109,7 @@
             <option value="understand">Understand what I received</option>
           </select>
           <label for="gChange">One fact in your own words (what happened / what changed)</label>
-          <input type="text" id="gChange" class="text-input" value="Lost overtime hours in June; back on full schedule since August 3" />
+          <input type="text" id="gChange" class="text-input" value="" placeholder="One sentence, your words — or leave blank" />
         </details>
         <details class="sample-text" style="margin-top:12px">
           <summary>How this works — your words, assembled in code</summary>
@@ -112,7 +120,7 @@
         <div class="polish-box">
           <div class="btnrow" style="align-items:center">
             <button id="sampleWordsBtn" type="button" class="abtn ghost" hidden>Load sample words</button>
-            <button id="polishBtn" type="button" class="abtn ai">Polish these words with AI &rarr;</button>
+            <button id="polishBtn" type="button" class="abtn ghost">Optional: polish my sentence with AI</button>
             <span class="ai-badge">Live model call — optional</span>
           </div>
           <details class="sample-text" style="margin-top:8px">
