@@ -1,4 +1,4 @@
-/** Tax panel (lives on the /more page): the deterministic §34.21
+/** Tax panel (lives on the /methodology page): the deterministic §34.21
  * redemption calculator. The HOA panel beside it is informational only.
  * On the main page, the track choices are plain links here — only the
  * mortgage / trustee-sale track has a live calculator. */

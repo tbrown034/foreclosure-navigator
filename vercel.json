@@ -3,6 +3,9 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/more", "destination": "/methodology", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

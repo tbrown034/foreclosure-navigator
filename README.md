@@ -22,8 +22,8 @@ Vite + TypeScript, static build output, two small serverless functions, no frame
 index.html               The tool — built to be grasped in under 90 seconds;
                          newsroom-facing layers (seam map, trust receipt)
                          collapse behind "For the newsroom" dropdowns
-more.html                The full story: the pitch, the three tested exhibits,
-                         the tax/HOA tracks and the county accountability layer
+methodology.html         Methodology: benchmark, tested exhibits, tax/HOA tracks
+                         and the county accountability layer
 lib/deadlines.ts         The statutory date engine: pure typed functions, no DOM
 lib/deadlines.test.ts    Tests pinning the statutory boundary cases
 lib/templates.ts         Letter and call-script templates: facts in, string out
@@ -32,7 +32,8 @@ lib/sample-notices.ts    The two sanitized sample documents for the live
                          page shows AND what the server sends to the model
 lib/extraction-checks.ts Deterministic validation of extraction output
 src/main.ts              Entry point for the tool page
-src/more.ts              Entry point for /more (tax calculator, auction calendar)
+src/methodology.ts       Entry point for /methodology (benchmark renderer,
+                         tax calculator, auction calendar)
 src/sections/            Stepper, editor box, deadline chain (timeline rail),
                          urgency card, sample scenarios, upload demo,
                          track selector + tax calculator, action kits,
@@ -43,7 +44,7 @@ api/extract.ts           Live extraction on the sanitized samples (see below)
 api/polish.ts            Narrative polish for the reader's sentence (see below)
 ```
 
-The exhibits, AI seam map and trust receipt are static HTML on purpose — they are content, not behavior. The page split serves the same goal as everything else: the tool page carries only what a reader needs in the first 90 seconds; evidence and background live one click away at `/more`.
+The exhibits, AI seam map and trust receipt are static HTML on purpose — they are content, not behavior. The page split serves the same goal as everything else: the tool page carries only what a reader needs in the first 90 seconds; evidence and background live one click away at `/methodology`.
 
 ### The two live AI features
 
@@ -54,12 +55,12 @@ Both are optional, clearly marked, disclose exactly what is transmitted (and tha
 
 ## What was actually tested (Aug 10, 2026)
 
-- **Extraction, on real documents:** two Notices of Substitute Trustee's Sale for the Sept 1, 2026 auction, pulled from the Harris County Clerk's public foreclosure search (instruments FRCL-2026-2290 and FRCL-2026-3493), extracted by Claude Haiku 4.5 into a fixed schema. 12/12 deterministic validation checks passed — sale dates matched the Clerk's own metadata, the §51.002 21-day check passed in code, and the schema excluded homeowner names and addresses by design. Script: [`extract-test.mjs`](extract-test.mjs).
+- **Extraction benchmark, on real documents:** 29 real scanned notices sampled across the Clerk's 686-filing September index were extracted by `claude-haiku-4-5` at temperature 0. The extracted sale date exactly matched Clerk metadata for 27/29; the other two failed checks and were flagged for human review, so nothing was computed from them. County and privacy checks passed 29/29. Mean latency was 4.0 seconds and estimated total model cost was $0.15. The documents are not stored in this repository; the non-personal results are in [`public/data/benchmark-results.json`](public/data/benchmark-results.json), produced by [`scripts/benchmark.mjs`](scripts/benchmark.mjs).
 - **Translation, with a catch:** the plain-language pass on a real notice required every sentence to carry its basis from the document or statute. One of four sentences contradicted its own citation (10:00 AM vs the document's 11:00 a.m.) — which is precisely the class of error the citation-required design routes to a human instead of a reader. The error is displayed on the page, not hidden, because it is the argument for the architecture.
 - **Polish, verified:** a hardship narrative rewrite with an automated check confirming zero facts, dates or numbers appeared in the output that were absent from the input. The same check now runs server-side in `api/polish.ts`, with unit tests.
 - **The date engine:** the statutory arithmetic is unit-tested in [`lib/deadlines.test.ts`](lib/deadlines.test.ts) — month-boundary cases, the first-Wednesday exception, the exactly-21-days floor, short-notice flagging, the noon-normalization edge where a threshold lands exactly on a first Tuesday. CI runs the suite and the build on every push.
 
-Two documents is a pilot, not a benchmark. Production needs a golden set, calibrated accuracy and human confirmation flows.
+This is a measured benchmark, not a production accuracy study. Production still needs a maintained golden set, calibrated field-level accuracy and human confirmation flows.
 
 ## Running it
 

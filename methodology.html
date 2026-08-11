@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Foreclosure Navigator — The Full Story (Concept Demo)</title>
+<title>Foreclosure Navigator — Methodology (Concept Demo)</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' rx='3' fill='%231C5D99'/%3E%3Crect x='10' y='9' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='14' width='12' height='2.5' rx='1' fill='white'/%3E%3Crect x='10' y='19' width='8' height='2.5' rx='1' fill='white'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -15,8 +15,8 @@
 
   <header class="masthead">
     <p class="eyebrow">Reader tool concept · Harris County</p>
-    <h1 style="font-size:clamp(26px,4vw,36px)">The full story</h1>
-    <p class="dek">Everything that supports the tool without needing to sit on top of it: the pitch, the tested evidence, and the county accountability layer. The tool itself is one click back.</p>
+    <h1 style="font-size:clamp(26px,4vw,36px)">Methodology</h1>
+    <p class="dek">How the tool works, where AI runs, what code checks, and the evidence behind the design. The reader tool itself is one click back.</p>
   </header>
 
   <section id="pitch" aria-labelledby="pitchH">
@@ -25,11 +25,44 @@
     <p class="eyebrow" style="margin:0 0 6px">What you're looking at — 30 seconds</p>
     <ul style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.6;color:var(--ink-2)">
       <li><strong style="color:var(--ink)">The idea:</strong> TX Tax, pointed at a scarier clock. Texas forecloses in as few as 41 days; Houston had 13,009 foreclosure starts last year. This walks a homeowner from "what is this letter" to "here's your deadline, here's who to call, here's the paperwork" — free where it matters, with a paid layer that doesn't touch survival.</li>
-      <li><strong style="color:var(--ink)">What's real:</strong> everything you can click. The deadline math runs live, the letters generate, the phone numbers are verified — and the AI extraction was tested today on two actual notices recorded at the Harris County Clerk (results below, including one AI error caught in human citation review).</li>
+      <li><strong style="color:var(--ink)">What's real:</strong> everything you can click. The deadline math runs live, the letters generate, the phone numbers are verified — and the AI extractor read 29 real scanned notices, with 27 exact sale-date matches and two results refused for human review.</li>
       <li><strong style="color:var(--ink)">Why it's built this way:</strong> code computes every date, attorneys own every legal sentence (the production contract — this demo's templates await that review), AI works only at the edges — the same posture as Meeting Monitor's discrepancy checker and the quiz's human review. Built in one afternoon.</li>
       <li><strong style="color:var(--ink)">What the newsroom would measure:</strong> completed answers, source-document clicks, legal-aid referrals, saved-notice reminder opt-ins, returning users, subscriber conversions and a public corrections count — all real events this page already structures, none fabricated here.</li>
     </ul>
   </div>
+  </section>
+
+  <section id="benchmark" aria-labelledby="benchmarkH">
+    <h2 id="benchmarkH">The benchmark — AI read 29 real notices; code checked every one</h2>
+    <p class="sub">The two-document pilot is now a measured benchmark. On Aug 10, 2026, the same extractor the demo uses — claude-haiku-4-5, fixed schema, temperature 0 — read 29 real scanned notices sampled across the Clerk's 686-filing September index, and code verified every extraction against the county's own record. The documents never enter this repository; only non-personal fields (dates, county, professional parties) are stored. Two documents failed a check and were flagged for human review — nothing is computed from them, which is the architecture's point.</p>
+
+    <div id="benchmarkStats" class="cards" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" aria-live="polite">
+      <p class="sub">Loading benchmark summary…</p>
+    </div>
+
+    <div class="panel" style="margin-top:18px;border-left:4px solid var(--accent)">
+      <p class="eyebrow" style="margin:0 0 8px">Results by document</p>
+      <div style="overflow-x:auto">
+        <table class="ledger">
+          <thead><tr><th>Doc ID</th><th>Official sale date</th><th>Extracted sale date</th><th>Match</th><th>Latency</th></tr></thead>
+          <tbody id="benchmarkBody"><tr><td colspan="5">Loading benchmark rows…</td></tr></tbody>
+        </table>
+      </div>
+      <p id="benchmarkSummary" class="sub" style="margin:14px 0 0;max-width:none">Loading benchmark summary…</p>
+    </div>
+
+    <div class="panel" style="margin-top:14px;border-left:4px solid var(--alarm)">
+      <p class="eyebrow" style="margin:0 0 6px;color:var(--alarm)">Flagged for human review</p>
+      <p style="margin:0 0 8px;font-size:14px;color:var(--ink-2)">Flagged rows compute nothing and route to a human — that refusal is the design.</p>
+      <ul id="benchmarkFlaggedList" style="margin:0;padding-left:20px;font-size:14px;color:var(--ink-2)">
+        <li>Loading flagged documents…</li>
+      </ul>
+    </div>
+
+    <div class="panel" style="margin-top:14px">
+      <p class="eyebrow" style="margin:0 0 6px">Data</p>
+      <p style="margin:0;font-size:14px;color:var(--ink-2)">The county index — 686 filings, metadata only, as of Aug 10 — also powers the tool page's case lookup. Inspect the <a href="/data/frcl-index.json">raw county-index JSON</a> and <a href="/data/benchmark-results.json">raw benchmark JSON</a>.</p>
+    </div>
   </section>
 
   <section id="exhibits" aria-labelledby="exH">
@@ -160,6 +193,6 @@
   </footer>
 </main>
 
-<script type="module" src="/src/more.ts"></script>
+<script type="module" src="/src/methodology.ts"></script>
 </body>
 </html>

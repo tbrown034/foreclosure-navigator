@@ -555,7 +555,7 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
 
 /* ---- Minimal editorial skin (tool page only, <main class="minimal">) ----
  * The structure comes from whitespace, hairlines and left rules — not from
- * boxes. /more keeps the boxed reference layout. */
+ * boxes. /methodology keeps the boxed reference layout. */
 .minimal section { margin-top: 60px; }
 .minimal .demo-banner {
   background: transparent;

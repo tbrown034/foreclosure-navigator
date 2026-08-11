@@ -11,7 +11,7 @@
 <div class="appbar">
   <span class="appbar-name">Foreclosure Navigator</span>
   <span class="appbar-sub">Internal concept demo &middot; Harris County</span>
-  <a class="appbar-link" href="/more.html">Pitch &amp; evidence &rarr;</a>
+  <a class="appbar-link" href="/methodology.html">How this works and where AI runs &rarr;</a>
 </div>
 <main class="wrap minimal">
   <div class="demo-banner">Demo data only · not legal advice · all deadlines must be verified against the recorded notice</div>
@@ -167,7 +167,7 @@
       <div class="newsroom-body">
     <p class="sub">The seam map. Everything on this page runs with zero model calls until you explicitly click one of the two live demos — that's deliberate. AI earns exactly six jobs, each at the edges, each under a contract.</p>
     <div class="ai-map" id="aiMap">
-      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates and parties into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN; in production the reader confirms every field before anything computes. In this fixed-sample demo the chain is computed independently from Clerk metadata, before any AI runs. <strong>Proven on two real recorded instruments (the evidence page) — and runnable live in the chain section above, on sanitized samples.</strong></p></div>
+      <div class="ai-row"><span class="status tested" id="extractStatus">Tested Aug 10</span><p><strong>1 · Reading the notice.</strong> Upload the recorded instrument; the model extracts notice type, dates and parties into a fixed schema — confidence-scored, schema-validated, unknowns stay UNKNOWN; in production the reader confirms every field before anything computes. In this fixed-sample demo the chain is computed independently from Clerk metadata, before any AI runs. <strong>Measured on 29 real scanned notices: 27 exact sale-date matches and two results flagged for human review. The live demo above runs on sanitized samples.</strong></p></div>
       <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>2 · Plain-language translation.</strong> The boilerplate in YOUR notice, explained — every sentence must carry its basis from the document or the statute. No citation, no sentence. <strong>Tested on a real recorded notice — and human citation review caught the AI in an error. Read that row on the evidence page.</strong></p></div>
       <div class="ai-row"><span class="status tested">Tested Aug 10</span><p><strong>3 · Polishing your words.</strong> The hardship narrative: your facts in, cleaner sentences out. The model may not add a single fact, and you approve every line. <strong>Tested (evidence page) — an automated token check (dates, numbers) plus line-by-line review confirmed zero added facts. Runnable live in the document desk.</strong></p></div>
       <div class="ai-row"><span class="status designed">Designed</span><p><strong>4 · Spanish.</strong> Fixed legal language stays human-translated; AI translates only your personal narrative, shown beside the English for verification.</p></div>
@@ -178,7 +178,7 @@
 
     <div class="panel" style="margin-top:18px;border-left:4px solid var(--stamp)">
       <p style="margin:0;font-size:14px;color:var(--ink-2)"><strong style="color:var(--ink)">The evidence lives on its own page</strong> — the two-document pilot on real recorded instruments, the plain-language translation where human citation review caught the AI saying 10:00 AM while its own citation read 11:00 a.m., and the hardship polish where a token check plus human review found zero added facts.</p>
-      <p style="margin:10px 0 0"><a class="abtn" href="/more.html#exhibits">See the three exhibits &rarr;</a></p>
+      <p style="margin:10px 0 0"><a class="abtn" href="/methodology.html#exhibits">See the three exhibits &rarr;</a></p>
     </div>
       </div>
     </details>
@@ -212,7 +212,8 @@
 
   <footer>
     Everything on this page was written by a person or computed in code, except the clearly labeled AI outputs: the extraction replay or live result, the polish comparison, and any polished wording you choose to apply (marked where it appears). General information about Texas law, not legal advice for any individual situation — only a lawyer can give that.<br>
-    Property-tax and HOA foreclosures run on completely different clocks — <a href="/more.html#tracks" style="color:var(--ink-3)">covered on the full-story page</a>.<br>
+    <a href="/methodology.html" style="color:var(--ink-3)">How this works and where AI runs &rarr;</a><br>
+    Property-tax and HOA foreclosures run on completely different clocks — <a href="/methodology.html#tracks" style="color:var(--ink-3)">see the tax and HOA clocks</a>.<br>
     Concept demo built Aug 10, 2026 · Statutory minimums shown; a notice allowing less time than these minimums may itself indicate a problem worth prompt review · A production version verifies every date against the recorded instrument · Free legal help: Lone Star Legal Aid, Houston Volunteer Lawyers
   </footer>
 </main>
