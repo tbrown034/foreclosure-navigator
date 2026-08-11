@@ -88,7 +88,8 @@ test.describe("reader flow", () => {
     await expect(stage.locator(".stage-headline")).toContainText("printed sale date");
     await expect(stage.locator(".stage-row")).toHaveCount(6);
     await expect(stage).toContainText(/Marker passed|Apply by/);
-    await expect(page.locator(".step-item.is-current")).toContainText("3");
+    // The rail is a scrollspy: the demo click lands at the chain section.
+    await expect(page.locator(".step-item.is-current")).toContainText("2");
 
     // A panel call button loads the legal-aid script in draft-and-call.
     await stage.getByRole("button", { name: "Call — get the script" }).first().click();
