@@ -417,6 +417,21 @@ details.newsroom .newsroom-body { border-top: 1px solid var(--line); padding: 16
   color: var(--ink-3);
 }
 .scenario-note { margin: 8px 0 0; font-size: 12.5px; color: var(--ink-3); max-width: 78ch; }
+.strip-how { margin: 0 0 8px; font-size: 13.5px; font-weight: 650; color: var(--ink-2); }
+.scenario-btn[aria-pressed="true"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.sample-text-body { padding: 10px 0 0; font-size: 13.5px; color: var(--ink-2); max-width: 78ch; }
+.sample-text-body p { margin: 0 0 10px; }
+.sample-text-body h4 {
+  margin: 14px 0 6px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
 #urgency:focus { outline: none; }
 #urgency:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 .urgency-flash { animation: urgency-flash 1.6s ease-out 1; border-radius: 8px; }

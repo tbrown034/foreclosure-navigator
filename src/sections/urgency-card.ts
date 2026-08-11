@@ -29,5 +29,8 @@ export function renderUrgency(el: HTMLElement, saleDate: Date, verified: boolean
 
 export function renderUrgencyEmpty(el: HTMLElement): void {
   el.innerHTML =
-    '<p style="margin:0;font-size:14px;color:var(--ink-2)">Enter the date(s) from your notice to compute the chain.</p>';
+    '<div style="border:1px dashed var(--line);border-radius:8px;padding:22px 18px;text-align:center">' +
+    '<p style="margin:0;font-size:15px;color:var(--ink)">Nothing to compute yet.</p>' +
+    '<p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-2)">Click a one-click button above, or enter the date from your notice on the left — the deadline chain appears here.</p>' +
+    "</div>";
 }

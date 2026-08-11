@@ -51,34 +51,36 @@
 
   <section aria-labelledby="calcH">
     <h2 id="calcH">Your deadline chain</h2>
-    <p class="sub">Tell it which notice you received and its dates — or click a sample scenario and watch the whole page recompute. The chain below is computed from the Texas Property Code's minimum timelines — the same statutory clock the trustee runs, read back in plain language.</p>
+    <p class="sub">Tell it which notice you received and its dates — or try it with one click below. Every date is computed from the Texas Property Code's minimum timelines: the same statutory clock the trustee runs, read back in plain language.</p>
     <div class="scenario-strip">
-      <p class="scenario-label">Try a sample scenario — one click, no typing</p>
+      <p class="scenario-label">Try it — one click, no typing</p>
+      <p class="strip-how">Fill the form instantly — dates computed in code, no AI:</p>
       <div class="btnrow">
-        <button type="button" class="abtn scenario-btn" data-scenario="frcl-2290">Real notice: instrument FRCL-2026-2290</button>
-        <button type="button" class="abtn scenario-btn" data-scenario="frcl-3493">Real notice: instrument FRCL-2026-3493</button>
-        <button type="button" class="abtn ghost scenario-btn" data-scenario="hypothetical">Hypothetical: notice of default received last week</button>
+        <button type="button" class="abtn ghost scenario-btn" data-scenario="frcl-2290" aria-pressed="false">Real notice: instrument FRCL-2026-2290</button>
+        <button type="button" class="abtn ghost scenario-btn" data-scenario="frcl-3493" aria-pressed="false">Real notice: instrument FRCL-2026-3493</button>
+        <button type="button" class="abtn ghost scenario-btn" data-scenario="hypothetical" aria-pressed="false">Hypothetical: notice of default received last week</button>
       </div>
-      <p class="scenario-note">The first two are real recorded instruments from the Harris County Clerk's public foreclosure search — only their public file dates and printed sale date are used; homeowner details excluded by design. The third is HYPOTHETICAL: a made-up notice of default dated one week ago, so you can see the projected chain move.</p>
-    </div>
-    <div class="panel upload-demo">
-      <p style="margin:0 0 6px"><span class="ai-badge">Live model call — optional</span></p>
-      <h3 style="margin:0 0 4px;font-size:16px">Or watch the extraction run, live — the heart of the upload path</h3>
-      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:78ch">In production you'd upload the notice you received and AI would read it into the form. This demo runs the model-and-checks core of that flow (not the file handling): a sample document stands in for the upload — a sanitized reconstruction built from the public facts of a real recorded instrument (the same two as the exhibits on the evidence page), with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this demo itself stores nothing). The model fills a fixed schema, nineteen deterministic checks then run in code — including field-by-field fidelity checks against the sample's known contents — and nothing enters the calculator until you confirm the dates.</p>
+      <p class="strip-how" style="margin-top:14px">Or have AI read a sample notice into the form first <span class="ai-badge">live model call — optional</span></p>
       <div class="btnrow">
-        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI (based on FRCL-2026-2290)</button>
-        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI (based on FRCL-2026-3493)</button>
+        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-2290">Read sample A with AI</button>
+        <button type="button" class="abtn extract-btn" data-sample="frcl-2026-3493">Read sample B with AI</button>
       </div>
-      <div class="btnrow" style="margin-top:8px">
-        <details class="sample-text" data-sample-text="frcl-2026-2290"><summary>Read exactly what sample A sends</summary></details>
-        <details class="sample-text" data-sample-text="frcl-2026-3493"><summary>Read exactly what sample B sends</summary></details>
-      </div>
+      <details class="sample-text" style="margin-top:10px">
+        <summary>About these samples, how the AI read works, and exactly what gets sent</summary>
+        <div class="sample-text-body">
+          <p>The two real notices are recorded instruments from the Harris County Clerk's public foreclosure search — only their public file dates and printed sale date are used; homeowner details excluded by design. The hypothetical is a made-up notice of default dated one week ago, so you can see the projected chain move.</p>
+          <p>The AI buttons run the model-and-checks core of the production upload flow (not the file handling). A sample document stands in for the upload: a sanitized reconstruction built from the public facts of the same two instruments — samples A and B below — with the homeowner's name, address and legal description removed. Clicking sends the sample's text — nothing of yours — to Anthropic's Claude Haiku through this site's server (Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions; this demo itself stores nothing). The model fills a fixed schema, nineteen deterministic checks then run in code — including field-by-field fidelity checks against the sample's known contents — and nothing enters the calculator until you confirm the dates.</p>
+          <h4>Sample A — based on FRCL-2026-2290 (the exact text sent)</h4>
+          <div data-sample-text="frcl-2026-2290"></div>
+          <h4>Sample B — based on FRCL-2026-3493 (the exact text sent)</h4>
+          <div data-sample-text="frcl-2026-3493"></div>
+        </div>
+      </details>
       <div id="extractResult" hidden></div>
     </div>
     <div class="calc">
       <div class="panel">
-        <p style="margin:0 0 4px"><span class="ai-badge">AI runs here in production</span></p>
-        <p style="margin:0 0 10px;font-size:12.5px;color:var(--ink-3)">You'd upload the notice itself; extraction reads the type, dates and parties — confidence-scored, and you confirm every field. Enter manually here, or run the upload demo above on a sample document.</p>
+        <p style="margin:0 0 10px;font-size:12.5px;color:var(--ink-3)">Enter the dates from your notice — or use the one-click buttons above.</p>
         <label for="noticeType">Which notice did you receive?</label>
         <select id="noticeType">
           <option value="default">Notice of default (right to cure)</option>
@@ -90,9 +92,12 @@
           <label for="printedSaleDate">Sale date printed on the notice</label>
           <input type="date" id="printedSaleDate" />
         </div>
-        <div class="code-note">
-          <strong>How this works:</strong> every date on the right is computed in code from Tex. Prop. Code §51.002 — never estimated, never generated by AI. A notice of sale states its own sale date; this tool never invents one. Projected dates are labeled projected.
-        </div>
+        <details class="sample-text" style="margin-top:12px">
+          <summary>How this works — computed, never generated</summary>
+          <div class="code-note" style="border-top:none;padding-top:6px">
+            Every date on the right is computed in code from Tex. Prop. Code §51.002 — never estimated, never generated by AI. A notice of sale states its own sale date; this tool never invents one. Projected dates are labeled projected. In production you'd upload the notice itself; extraction reads the type, dates and parties — confidence-scored, and you confirm every field.
+          </div>
+        </details>
       </div>
       <div class="panel">
         <div id="urgency" role="status" style="margin-bottom:14px"></div>
@@ -110,15 +115,6 @@
   <section aria-labelledby="docH">
     <h2 id="docH">The document desk <span class="ai-badge" style="vertical-align:4px">AI-assisted in production</span></h2>
     <p class="sub">The Script Builder analogue: AI drafts the paperwork of survival — from your facts only, with every sentence traceable to your notice or your answers. It organizes and expresses; it never selects remedies, declares anything legally complete, or promises an outcome. Attorney-reviewed templates in production; drafts only, nothing auto-sent.</p>
-    <div class="cards">
-      <div class="card"><span class="tag free">Always free</span><h3>Notice-to-Action Brief</h3><p>One page: what your notice says, its printed dates and amounts, the questions to resolve and the documents to gather. Unknown fields stay marked UNKNOWN.</p></div>
-      <div class="card"><span class="tag free">Always free</span><h3>Servicer call script</h3><p>A three-minute script of questions: is a sale scheduled, what does loss mitigation require, where does it go, how do I get written confirmation. Questions only — no promised outcomes.</p></div>
-      <div class="card"><span class="tag free">Always free</span><h3>Loss-mitigation transmittal packet</h3><p>Cover letter, enclosure index and receipt log built from the servicer's own checklist. Says "I am submitting the following" — never "my application is complete."</p></div>
-      <div class="card"><span class="tag free">Always free</span><h3>Hardship narrative builder</h3><p>A guided, plain-facts narrative: what happened, what changed, what you're asking for. No embellishment, no invented numbers; you approve every sentence.</p></div>
-      <div class="card"><span class="tag free">Always free</span><h3>Legal-aid intake brief</h3><p>Two pages a lawyer can act on in minutes: chronology, stage, document index, urgent dates, your questions. The handoff, made effortless.</p></div>
-      <div class="card"><span class="tag deadline">Paid layer</span><h3>Private evidence binder</h3><p>Indexed PDF binder, communication log, proof-of-submission vault with delivery tracking, and a redacted sharing copy. The "prove what I sent" problem, solved — this is the product's honest upsell.</p></div>
-    </div>
-
     <div class="calc" style="margin-top:22px">
       <div class="panel">
         <p class="eyebrow" style="margin:0 0 8px">Working demo — try one</p>
@@ -138,14 +134,22 @@
         </select>
         <label for="gChange">One fact in your own words (what happened / what changed)</label>
         <input type="text" id="gChange" class="text-input" value="Lost overtime hours in June; back on full schedule since August 3" />
-        <div class="code-note"><strong>How this works:</strong> template language written for attorney review (not yet reviewed — the trust receipt says so) with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page unless you click the optional AI polish below. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.</div>
+        <details class="sample-text" style="margin-top:12px">
+          <summary>How this works — your words, assembled in code</summary>
+          <div class="code-note" style="border-top:none;padding-top:6px">
+            Template language written for attorney review (not yet reviewed — the trust receipt says so) with your facts slotted in — assembled in code, right here in your browser. Nothing you type leaves this page unless you click the optional AI polish below. In production, AI's only job is polishing YOUR sentences and translating boilerplate — it never adds facts, picks remedies, or writes the legal language.
+          </div>
+        </details>
         <div class="polish-box">
           <div class="btnrow" style="align-items:center">
             <button id="sampleWordsBtn" type="button" class="abtn ghost">Load sample words</button>
             <button id="polishBtn" type="button" class="abtn">Polish with AI (demo)</button>
             <span class="ai-badge">Live model call — optional</span>
           </div>
-          <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server — Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions, and this demo itself stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects output containing guarded tokens you didn't type — digits, written numbers (zero through ninety, dozen, hundred through trillion), month names, percent and money words. It is a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
+          <details class="sample-text" style="margin-top:8px">
+            <summary>What gets sent, and what the guard checks</summary>
+            <p class="polish-disclosure">The one exception to "nothing leaves this page," and it only runs if you click: your sentence above (nothing else) is sent to Anthropic's Claude Haiku model through this site's server — Anthropic's standard API policy deletes inputs and outputs within about 30 days, with stated policy and legal exceptions, and this demo itself stores nothing. The model may fix grammar, spelling and structure only. A deterministic server-side check rejects output containing guarded tokens you didn't type — digits, written numbers (zero through ninety, dozen, hundred through trillion), month names, percent and money words. It is a narrow token guard, not a full fact-checker, which is why you review and approve every word before it's used. The drafts above work with no AI at all.</p>
+          </details>
           <div id="polishResult" hidden></div>
         </div>
       </div>

@@ -186,12 +186,9 @@ export function initUploadDemo(): void {
     show(...nodes);
   }
 
-  // "Read the exact text that gets sent" — the same module the server reads.
+  // "The exact text that gets sent" — the same module the server reads.
   SAMPLE_NOTICES.forEach((s) => {
-    const details = document.querySelector<HTMLDetailsElement>(`details[data-sample-text="${s.id}"]`);
-    if (details) {
-      const pre = el("pre", "tpl", s.text);
-      details.appendChild(pre);
-    }
+    const slot = document.querySelector<HTMLElement>(`[data-sample-text="${s.id}"]`);
+    if (slot) slot.appendChild(el("pre", "tpl", s.text));
   });
 }

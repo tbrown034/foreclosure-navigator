@@ -57,10 +57,31 @@ function applyScenario(s: Scenario): void {
 }
 
 export function initSampleScenarios(): void {
-  document.querySelectorAll<HTMLButtonElement>(".scenario-btn").forEach((btn) =>
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>(".scenario-btn")];
+  // Guards the manual-edit listeners below: applying a scenario dispatches
+  // the same change events a manual edit does.
+  let applying = false;
+
+  const setActive = (target: HTMLButtonElement | null): void => {
+    buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === target)));
+  };
+
+  buttons.forEach((btn) =>
     btn.addEventListener("click", () => {
       const s = SCENARIOS[btn.dataset.scenario ?? ""];
-      if (s) applyScenario(s);
+      if (!s) return;
+      applying = true;
+      applyScenario(s);
+      applying = false;
+      setActive(btn);
+    }),
+  );
+
+  // Editing the form by hand means the chain no longer shows a sample —
+  // clear the selected state so the buttons never lie.
+  ["noticeType", "noticeDate", "printedSaleDate"].forEach((id) =>
+    byId<HTMLElement>(id).addEventListener("change", () => {
+      if (!applying) setActive(null);
     }),
   );
 
