@@ -283,8 +283,10 @@ export function initUploadDemo(): void {
     scenarioSeq++;
     currentSample = sampleId;
     currentViaUpload = viaUpload;
+    // The replay offer was cut in the final design — the AI story lives in
+    // the upload door and the AI summary. Scenario changes just clear any
+    // stale result still on screen.
     clearAll();
-    if (sampleId) renderOffer(sampleId, viaUpload);
   });
 
   // "The exact text that gets sent" — the same module the server reads.

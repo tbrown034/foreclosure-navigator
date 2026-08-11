@@ -11,7 +11,7 @@
  * documents, the servicer and a lawyer, and the wording says so.
  */
 
-import { atNoon, daysBetween, defaultNoticeChain, saleNoticeChain } from "./deadlines";
+import { atNoon, daysBetween, defaultNoticeChain, saleNoticeChain } from "./deadlines.js";
 
 export type NoticeKind = "default" | "sale";
 

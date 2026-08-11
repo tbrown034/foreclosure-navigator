@@ -98,18 +98,19 @@ test.describe("reader flow", () => {
     await expect(page.locator("#deskNote")).toBeVisible();
     await expect(page.locator(".step-item.is-current")).toContainText("4");
 
-    // "Tell me more" opens the matching kit with the verified numbers.
+    // "Tell me more" expands the kit INSIDE the row — verified numbers in
+    // place, no second list (the standalone cards are hidden).
     await stage.getByRole("button", { name: "Tell me more about Free legal help" }).click();
-    const legalKit = page.locator('details.action[data-kit="legal-help"]');
-    await expect(legalKit).toHaveJSProperty("open", true);
-    await expect(legalKit.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();
+    const row = stage.locator(".stage-row").first();
+    await expect(row.locator('a[href^="tel:"]', { hasText: "713-652-0077" })).toBeVisible();
+    await expect(page.locator("#actionCards")).toBeHidden();
 
-    await expect(page.locator("#aiOffer")).toBeVisible();
-    await page.getByRole("button", { name: /Next: replay the AI read/ }).click();
+    // The AI summary is offered, labeled, and optional (not called here).
+    await expect(stage.locator(".ai-summary")).toContainText("AI summary — optional live model call");
+    await expect(stage.locator(".ai-summary")).toContainText("never come from AI");
 
-    await expect(page.locator("#extractResult .extract-meta")).toContainText("Recorded claude-haiku-4-5 run");
-    await expect(page.locator("#extractResult .extract-checks .chip.window")).toHaveCount(19);
-    await expect(page.locator("#extractResult .extract-checks .chip.deadline")).toHaveCount(0);
+    // The desk offers a way back up to the chain.
+    await expect(page.getByRole("button", { name: /Back to your deadline chain/ })).toBeVisible();
 
     // The desk's service buttons work standalone: pick one, draft below.
     await page.getByRole("button", { name: "Email: loss-mitigation request" }).click();

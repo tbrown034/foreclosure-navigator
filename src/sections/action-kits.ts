@@ -204,6 +204,20 @@ const KITS: Kit[] = [
   },
 ];
 
+/** Build one kit's content for inline use inside a what-you-can-do row.
+ * External links get target/rel here since the row bypasses renderKits. */
+export function buildKitContent(id: string): HTMLDivElement | null {
+  const k = KITS.find((kit) => kit.id === id);
+  if (!k) return null;
+  const kit = el("div", "kit");
+  k.build(kit);
+  kit.querySelectorAll<HTMLAnchorElement>('a[href^="http"]').forEach((a) => {
+    a.target = "_blank";
+    a.rel = "noopener";
+  });
+  return kit;
+}
+
 export function initActionKits(): void {
   const cardsEl = byId<HTMLDivElement>("actionCards");
 

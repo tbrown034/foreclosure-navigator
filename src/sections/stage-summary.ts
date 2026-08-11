@@ -10,8 +10,9 @@
  */
 
 import { stageAssessment, type RecourseStatus } from "../../lib/stage";
+import { buildKitContent } from "./action-kits";
 import { byId, todayIso } from "../format";
-import { getStageInfo, onStageInfoChange } from "../state";
+import { getStageInfo, onStageInfoChange, type StageInfo } from "../state";
 
 const TIER_CLASS: Record<RecourseStatus["tier"], string> = {
   "act-now": "deadline",
@@ -52,20 +53,99 @@ function draftButton(r: RecourseStatus): HTMLButtonElement | null {
   return b;
 }
 
-function kitButton(r: RecourseStatus): HTMLButtonElement {
+/** "Tell me more" expands the kit's full content INSIDE the row — no
+ * jumping away to a second list. Built lazily on first open. */
+function kitToggle(r: RecourseStatus, row: HTMLDivElement): HTMLButtonElement {
   const b = document.createElement("button");
   b.type = "button";
   b.className = "abtn ghost";
   b.textContent = "Tell me more";
   b.setAttribute("aria-label", `Tell me more about ${r.title}`);
+  b.setAttribute("aria-expanded", "false");
+  let body: HTMLDivElement | null = null;
   b.addEventListener("click", () => {
-    const kit = document.querySelector<HTMLDetailsElement>(`details.action[data-kit="${r.id}"]`);
-    if (kit) {
-      kit.open = true;
-      jumpTo(kit);
+    if (!body) {
+      body = buildKitContent(r.id);
+      if (!body) return;
+      body.classList.add("row-kit");
+      row.appendChild(body);
+    } else {
+      body.hidden = !body.hidden;
     }
+    const open = !body.hidden;
+    b.setAttribute("aria-expanded", String(open));
+    b.textContent = open ? "Show less" : "Tell me more";
   });
   return b;
+}
+
+/** The one generative moment on the reader's path — clearly labeled,
+ * optional, and double-checked: the server recomputes the same stage
+ * facts in code, the model restates them in plain words, and a token
+ * guard rejects any output containing a date or number not in the facts. */
+function aiSummaryBox(info: StageInfo): HTMLDivElement {
+  const box = document.createElement("div");
+  box.className = "ai-summary";
+  const tag = document.createElement("p");
+  tag.className = "ai-badge";
+  tag.textContent = "AI summary — optional live model call";
+  const row = document.createElement("div");
+  row.className = "btnrow";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "abtn ai";
+  btn.textContent = "Put this in plain words →";
+  row.appendChild(btn);
+  const fine = document.createElement("p");
+  fine.className = "ai-offer-fine";
+  fine.textContent =
+    "Sends only the computed facts above (no personal data) to Anthropic's Claude Haiku through this site's server. A code check rejects any output containing a date or number that isn't in those facts — the deadlines themselves are computed in code and never come from AI.";
+  const out = document.createElement("div");
+  out.hidden = true;
+  box.append(tag, row, fine, out);
+
+  btn.addEventListener("click", () => {
+    btn.disabled = true;
+    btn.textContent = "The model is reading the computed facts…";
+    void (async () => {
+      try {
+        const resp = await fetch("/api/summary", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            kind: info.kind,
+            noticeIso: info.noticeIso,
+            printedSaleIso: info.printedSaleIso,
+            todayIso: todayIso(),
+          }),
+        });
+        const data = (await resp.json()) as { summary?: string; flagged?: boolean; flag_reason?: string; error?: string };
+        out.replaceChildren();
+        const label = document.createElement("p");
+        label.className = "ai-badge";
+        const body = document.createElement("p");
+        body.className = "ai-summary-text";
+        if (resp.ok && data.summary) {
+          label.textContent = "AI-generated — from the computed facts only, checked in code:";
+          body.textContent = data.summary;
+        } else if (data.flagged) {
+          label.textContent = "The code check rejected the model's output:";
+          body.textContent = (data.flag_reason ?? "guard rejection") + ". The computed panel above stands — that's the contract.";
+        } else {
+          label.textContent = "No AI summary right now:";
+          body.textContent = (data.error ?? "the endpoint is unavailable") + " — the computed panel above stands.";
+        }
+        out.append(label, body);
+        out.hidden = false;
+        row.hidden = true;
+        fine.hidden = true;
+      } catch {
+        btn.disabled = false;
+        btn.textContent = "Put this in plain words →";
+      }
+    })();
+  });
+  return box;
 }
 
 export function initStageSummary(): void {
@@ -84,6 +164,8 @@ export function initStageSummary(): void {
     const s = info ? stageAssessment(info.kind, info.noticeIso, info.printedSaleIso, todayIso()) : null;
     if (!s) {
       panel.replaceChildren(emptyHint());
+      const cards = document.getElementById("actionCards");
+      if (cards) cards.hidden = false;
       return;
     }
 
@@ -124,7 +206,7 @@ export function initStageSummary(): void {
       btns.className = "btnrow";
       const d = draftButton(r);
       if (d) btns.appendChild(d);
-      btns.appendChild(kitButton(r));
+      btns.appendChild(kitToggle(r, row));
       row.append(head, note, btns);
       list.appendChild(row);
     });
@@ -133,8 +215,14 @@ export function initStageSummary(): void {
     const foot = document.createElement("p");
     foot.className = "quiet-alts";
     foot.textContent =
-      "Computed in code from the dates above — no AI. General legal information, not legal advice; windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
+      "Everything above is computed in code from the dates on the notice — no AI. General legal information, not legal advice; windows the statute doesn't fix (like reinstatement cutoffs) belong to your loan documents, the servicer and a lawyer.";
     panel.appendChild(foot);
+
+    if (info) panel.insertBefore(aiSummaryBox(info), listLabel);
+
+    // The panel replaces the standalone kit list — same six, personalized.
+    const cards = document.getElementById("actionCards");
+    if (cards) cards.hidden = true;
 
     document.dispatchEvent(new CustomEvent("fn:stage"));
   }
