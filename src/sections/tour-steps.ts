@@ -21,10 +21,13 @@ export function initTourSteps(): void {
 
   Object.entries(STEP_EVENTS).forEach(([event, step]) =>
     document.addEventListener(event, () => {
-      if (event === "fn:scenario") {
-        // Fires on every input change: step 2 while a chain is on screen,
-        // back to step 1 when the inputs are cleared.
-        setStep(document.querySelectorAll("#chain li").length > 0 ? 2 : 1);
+      if (event === "fn:scenario" || event === "fn:stage") {
+        // Both fire during a chain rebuild, in either order — so the step
+        // is derived from what's actually on screen, not event order:
+        // stage panel visible → 3, bare chain → 2, cleared inputs → 1.
+        const hasChain = document.querySelectorAll("#chain li").length > 0;
+        const hasStage = !(document.getElementById("stagePanel")?.hidden ?? true);
+        setStep(hasChain ? (hasStage ? 3 : 2) : 1);
         return;
       }
       setStep(step);

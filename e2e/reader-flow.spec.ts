@@ -47,6 +47,23 @@ test.describe("reader flow", () => {
     expect(errors).toEqual([]);
   });
 
+  test("opens the upload door with the disclosure beside the action", async ({ page }) => {
+    const errors = trackRuntimeErrors(page);
+
+    await page.goto("/");
+    await page.getByRole("button", { name: "Upload the notice" }).click();
+
+    const panel = page.locator("#uploadPanel");
+    await expect(panel).toBeVisible();
+    await expect(panel).toContainText("transmitted to Anthropic");
+    await expect(panel).toContainText("never trusted on its own");
+    await expect(panel.locator("#noticeFile")).toBeVisible();
+    // Both fictional samples are downloadable from the panel.
+    await expect(panel.locator('a[href="/samples/sample-notice-a.pdf"]')).toBeVisible();
+    await expect(panel.locator('a[href="/samples/sample-notice-b.pdf"]')).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+
   test("reports a county-index miss honestly", async ({ page }) => {
     const errors = trackRuntimeErrors(page);
 
@@ -65,6 +82,21 @@ test.describe("reader flow", () => {
     await page.getByRole("button", { name: /See a demo case/ }).click();
 
     await expect(page.locator("#chain > li")).toHaveCount(4);
+
+    // The deterministic stage panel renders with the chain and drives step 3.
+    const stage = page.locator("#stagePanel");
+    await expect(stage).toBeVisible();
+    await expect(stage.locator(".stage-headline")).toContainText("printed sale date");
+    await expect(stage.locator(".stage-row")).toHaveCount(6);
+    await expect(stage).toContainText(/Marker passed|Window open/);
+    await expect(page.locator(".step-item.is-current")).toContainText("3");
+
+    // A stage-panel draft button pre-selects the desk draft.
+    await stage.getByRole("button", { name: "Draft the call" }).first().click();
+    await expect(page.locator("#docOut")).toContainText("CALL SCRIPT");
+    await expect(page.locator("#deskNote")).toBeVisible();
+    await expect(page.locator(".step-item.is-current")).toContainText("4");
+
     await expect(page.locator("#aiOffer")).toBeVisible();
     await page.getByRole("button", { name: /Next: replay the AI read/ }).click();
 
