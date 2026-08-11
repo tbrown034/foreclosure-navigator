@@ -127,7 +127,7 @@ function saleStage(noticeIso: string, printedSaleIso: string, today: Date): Stag
         ? "After a sale date passes, whether review options remain is a servicer-and-lawyer question — worth asking in writing."
         : regXOpen
           ? "A complete application received more than 37 days before the sale may restrict the servicer from moving forward while it is reviewed — exceptions apply. The request letter below starts it."
-          : "The 38-day marker has passed — that does not by itself mean materials cannot still be submitted or considered; protections differ, and the servicer and a lawyer can say what applies now.",
+          : "Still worth asking — the marker passing does not decide it. The request email starts the ask; the servicer and a lawyer can say what applies now.",
       draft: "lossmit",
     },
     {

@@ -80,8 +80,7 @@ export function renderUrgency(
 
   const fine = document.createElement("p");
   fine.className = "fine";
-  fine.textContent =
-    "Computed in code from the dates on the notice. General legal information, not legal advice; verify every date against the recorded notice.";
+  fine.textContent = "Computed in code from the dates on the notice — verify every date against the recorded copy.";
   wrap.appendChild(fine);
 
   el.replaceChildren(wrap);
